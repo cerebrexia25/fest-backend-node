@@ -234,7 +234,7 @@
     .submit-button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; box-shadow: none; }
     .submit-button .fas { margin-right: 8px; }
 
-    #authPrompt, #submissionMessage {
+    #authPrompt, #submissionMessage, #profileCompletionPrompt {
         font-size: 1.1rem; text-align: center; margin-top: 20px; padding: 15px;
         border-radius: 8px; font-weight: 500;
     }
@@ -303,7 +303,7 @@
     .svg-circle-bg { fill: #080c14e0; }
     .svg-circle-border { stroke: var(--primary-glow-color); stroke-width: 2; fill: none; }
     .svg-icon { fill: var(--medical-icon-color); filter: drop_shadow(0 0 3px var(--secondary-glow-color)); }
-    .svg-text-main { font-family: 'Roboto', sans-serif; fill: var(--text-color); font-weight: 700; text-anchor: middle; dominant-baseline: middle; filter: drop-shadow(0 0 5px var(--primary-glow-color)); }
+    .svg-text-main { font-family: 'Roboto', sans-serif; fill: var(--text-color); font-weight: 700; text-anchor: middle; dominant-baseline: middle; filter: drop_shadow(0 0 5px var(--primary-glow-color)); }
     .svg-text-arrows { fill: var(--secondary-glow-color); font-size: 1.5em; text-anchor: middle; dominant-baseline: middle; }
     .footer-container-new { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; }
     .footer-section-new { padding: 10px; }
@@ -419,10 +419,10 @@
     <h1 class="page-title">Fest Registration</h1>
 
     <div id="authPrompt" class="message-info" style="display: none;">
-        <p>Please <button id="signInPromptButton" class="text-cyan-300 underline hover:text-cyan-100">sign in</button> to register for the fest.</p>
+        <p>Please <a href="profile.html" class="text-cyan-300 underline hover:text-cyan-100 font-bold">Sign In or Create a Profile</a> to register for the fest.</p>
     </div>
     <div id="profileCompletionPrompt" class="message-info" style="display: none;">
-        <p>Please complete your profile first. <a href="profile.html" class="text-cyan-300 underline hover:text-cyan-100">Go to Profile</a>.</p>
+        <p>Your profile is incomplete. Please fill in all your details before registering. <a href="profile.html" class="text-cyan-300 underline hover:text-cyan-100 font-bold">Go to Profile</a>.</p>
     </div>
 
 
@@ -497,131 +497,131 @@
                     <defs>
                         <symbol id="icon-stethoscope" viewBox="0 0 24 24"><path d="M18 3H6c-1.1 0-2 .9-2 2v1H2.5C2.22 6 2 6.22 2 6.5S2.22 7 2.5 7H4v1c0 2.56 1.67 4.72 4 5.66V17H6.5c-.28 0-.5.22-.5.5s.22.5.5.5H8v1.5c0 .28.22.5.5.5s.5-.22.5-.5V18h1v-1.5c0-.98.46-1.85 1.2-2.42.4-.31.87-.58 1.4-.76.4-.14.78-.31 1.13-.51.4-.22.75-.48 1.06-.78.47-.47.81-1.04.99-1.65.04-.15.06-.3.06-.45V6c0-1.1-.9-2-2-2zm-2 3v.09c0 .43-.17.84-.47 1.15-.3.3-.7.46-1.12.46H9.59c-.42 0-.82-.16-1.12-.46-.3-.3-.47-.72-.47-1.15V6h8zm-3.5 10.5c-.28 0-.5.22-.5.5s.22.5.5.5h1.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5h-1.5zM6 9.22C5.07 8.7 4.42 7.77 4.16 6.69 4.06 6.28 4 5.87 4 5.46V5h12v.46c0 .41-.06.82-.16 1.23-.26 1.08-.91 2.01-1.84 2.53-.47.26-.88.6-1.21.99L12 11l-.79-.78c-.33-.39-.74-.73-1.21-.99z"/></symbol>
                         <symbol id="icon-heart-pulse" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35zM7.5 5C5.52 5 4 6.52 4 8.5c0 2.72 2.65 5.2 6.55 8.58L12 18.17l1.45-1.09C17.35 13.7 20 11.22 20 8.5c0-1.98-1.52-3.5-3.5-3.5-1.74 0-3.41.81-4.5 2.09C10.91 5.81 9.24 5 7.5 5zm13.21-1.21L19.5 5l-1.71 1.71-1.21-1.21-1.21 1.21L14.17 5l-1.21 1.21-1.21-1.21-1.21 1.21-1.21-1.21L6.5 5 4.79 3.79 3.58 5l1.21 1.21 1.21-1.21L7.17 5l1.21 1.21 1.21-1.21 1.21 1.21 1.21-1.21L13.5 5l1.71 1.71 1.21-1.21 1.21 1.21 1.71-1.71z"/></symbol>
-                        <symbol id="icon-dna-helix" viewBox="0 0 24 24"><path d="M14.5 4c1.08 0 1.96.92 1.96 2.05 0 .2-.04.39-.09.58l-1.4 5.37h.01c.7-.62 1.12-1.51 1.12-2.5 0-1.77-1.31-3.22-3-3.46V4m-5 0v2.04c-1.69.24-3 1.69-3 3.46 0 .99.42 1.88 1.12 2.5h.01L6.63 6.63c-.05-.19-.09-.38-.09-.58C6.54 4.92 7.42 4 8.5 4M12 9c.83 0 1.5.67 1.5 1.5S12.83 12 12 12s-1.5-.67-1.5-1.5S11.17 9 12 9m2.5 6c-1.08 0-1.96-.92-1.96-2.05 0-.2.04-.39.09-.58l1.4-5.37h-.01c-.7.62-1.12 1.51-1.12 2.5 0 1.77 1.31 3.22 3 3.46V15m-5 0v-2.04c1.69-.24 3-1.69 3-3.46 0-.99-.42-1.88-1.12-2.5h-.01l1.41 5.37c.05.19.09.38.09.58 0 1.13-.88 2.05-1.96 2.05M12 17c-.83 0-1.5-.67-1.5-1.5S11.17 14 12 14s1.5.67 1.5 1.5S12.83 17 12 17m0-10c.28 0 .5.22.5.5V9h-.02c-.93-.24-1.9-.24-2.96 0H9V7.5c0-.28.22-.5.5-.5h.58c.95 0 1.85-.14 2.67-.37l.08-.02c.05-.01.1-.01.16-.01zm0 8c-.28 0-.5-.22-.5-.5V15h.02c.93.24 1.9.24 2.96 0H15v1.5c0 .28-.22.5-.5.5h-.58c-.95 0-1.85.14-2.67.37l-.08.02c-.05.01-.1.01-.16-.01z"/></symbol>
-                        <symbol id="icon-microscope" viewBox="0 0 24 24"><path d="M16.5 6c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05H10V3H8v3H6.5c-1.13 0-2.05.92-2.05 2.05V10H3v2h1.45V10c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6H8v2h1V8.05c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6h1.05v1.95H13v-2h1.5c.64 0 1.22.21 1.69.6.47.39.76.96.76 1.6V12h1.45v-2H16.5V8.05C16.5 6.92 15.58 6 14.5 6h-2c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05S6.5 6.92 6.5 8.05V10H3v2h1.45V10A2.5 2.5 0 016.5 7.5H8v2h1V7.5A2.5 2.5 0 0111.5 5h1A2.5 2.5 0 0115 7.5V10h1.45v-2H16.5V8.05A2.5 2.5 0 0014.5 6M12 13c-1.93 0-3.5 1.57-3.5 3.5V21h7v-4.5c0-1.93-1.57-3.5-3.5-3.5zm0 1c1.38 0 2.5 1.12 2.5 2.5V20h-5v-3.5c0-1.38 1.12-2.5 2.5-2.5z"/></symbol>
-                        <symbol id="icon-rod-of-asclepius" viewBox="0 0 24 24"><path d="M13.82 5.32c-.93-.89-2.18-1.32-3.48-1.32s-2.55.43-3.48 1.32C6 6.21 5.61 7.42 5.61 8.77c0 1.35.39 2.56 1.28 3.45.93.89 2.18 1.32 3.48 1.32s2.55-.43 3.48-1.32c.89-.89 1.28-2.1 1.28-3.45 0-1.35-.39-2.56-1.28-3.45M10.34 12c-1.31 0-2.4-.48-3.17-1.29-.77-.81-1.17-1.85-1.17-3.04 0-1.19.4-2.23 1.17-3.04.77-.81 1.86-1.29 3.17-1.29 1.31 0 2.4.48 3.17 1.29.77.81 1.17 1.85 1.17 3.04 0 1.19-.4 2.23-1.17 3.04-.77.81-1.86 1.29-3.17 1.29m.16 1.5c.34 0 .67.03.99.08v.02c.69.1 1.35.31 1.95.61l.01.01c.29.15.57.32.83.51l.01.01c.22.16.43.34.62.53l.01.01c.14.14.27.29.39.45l.01.01c.09.12.17.24.24.37.2.35.35.73.43 1.13l.01.06v.01c.04.22.06.44.06.67v2.09c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-1.88c0-.47-.15-.92-.43-1.28-.1-.13-.21-.25-.33-.36-.18-.17-.38-.32-.6-.45-.29-.18-.6-.33-.93-.45-.48-.18-1-.29-1.53-.33h-.01c-.18-.01-.36-.02-.54-.02s-.36.01-.54.02h-.01c-.53.04-1.05.15-1.53.33-.33.12-.64.27-.93.45-.22.13-.42.28-.6.45-.12.11-.23.23-.33.36-.28.36-.43.81-.43 1.28v1.88c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-2.09c0-.23.02-.45.06-.67v-.01l.01-.06c.08-.4.23-.78.43-1.13.07-.13.15-.25.24-.37l.01-.01c.12-.16.25-.31.39-.45l.01-.01c.19-.19.4-.37.62-.53l.01-.01c.26-.19.54-.36.83-.51l.01-.01c.6-.3 1.26-.51 1.95-.61v-.02c.32-.05.65-.08.99-.08z"/></symbol>
-                        <symbol id="icon-brain" viewBox="0 0 24 24"><path d="M12 2C9.46 2 7.24 3.22 6 5.06c-1.01 1.52-1.59 3.29-1.59 5.11S4.99 13.67 6 15.2c.47.6 1.02 1.12 1.63 1.56.04.03.09.06.13.09C8.32 17.27 9 17.58 9 18.22V19c0 .94.44 1.79 1.15 2.36.05.04.1.08.15.12.72.54 1.79.62 2.7.62.91 0 1.98-.08 2.7-.62.05-.04.1-.08.15-.12.71-.57 1.15-1.42 1.15-2.36v-.78c0-.64.68-.95 1.24-1.37.04-.03.09-.06.13-.09.61-.44 1.16-.96 1.63-1.56 1.01-1.52 1.59-3.29 1.59-5.11S19.01 6.58 18 5.06C16.76 3.22 14.54 2 12 2m4.1 13.6c-.3.35-.65.66-1.02.93-.05.04-.1.07-.15.1-.73.53-1.13 1.28-1.13 2.15v.72c0 .41-.17.78-.45 1.04-.03.02-.06.04-.09.06-.37.28-.9.4-1.36.4s-.99-.12-1.36-.4c-.03-.02-.06-.04-.09-.06-.28-.26-.45-.63-.45-1.04v-.72c0-.87-.4-1.62-1.13-2.15-.05-.03-.1-.06-.15-.1-.37-.26-.72-.58-1.02-.93C7.21 14.07 7 12.87 7 11.63c0-1.29.28-2.55.82-3.66.44-.92 1.07-1.72 1.86-2.37.6-.48 1.29-.8 2.03-.95.73-.15 1.48-.15 2.21 0 .75.15 1.43.47 2.03.95.79.65 1.42 1.45 1.86 2.37.54 1.11.82 2.37.82 3.66 0 1.24-.21 2.44-.6 3.47m-2.1-5.1c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16m-4 0c0-.83-.67-1.5-1.5-1.5S9 9.67 9 10.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16z"/></symbol>
-                        <symbol id="icon-medical-plus" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></symbol>
-                        <symbol id="icon-atom" viewBox="0 0 24 24"><path d="M12 2c-2.36 0-4.48.77-6.23 2.11l1.01 1.74C8.04 4.79 9.92 4 12 4s3.96.79 5.22 1.85l1.01-1.74C16.48 2.77 14.36 2 12 2m0 16c-2.08 0-3.96-.79-5.22-1.85l-1.01 1.74c1.75 1.34 3.87 2.11 6.23 2.11s4.48-.77 6.23-2.11l-1.01-1.74c-1.26 1.06-3.14 1.85-5.22 1.85M5.92 7.32C4.79 8.58 4 10.27 4 12s.79 3.42 1.92 4.68l1.74-1.01C6.79 14.4 6 13.29 6 12s.79-2.4 1.66-3.67l-1.74-1.01M18.08 7.32l-1.74 1.01C17.21 9.6 18 10.71 18 12s-.79 2.4-1.66 3.67l1.74 1.01C19.21 15.42 20 13.73 20 12s-.79-3.42-1.92-4.68M12 7a5 5 0 100 10 5 5 0 000-10m0 2a3 3 0 110 6 3 3 0 010-6z"/></symbol>
-                        <symbol id="icon-test-tube" viewBox="0 0 24 24"><path d="M7 2v11.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V6h2v9.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V2H7zm10 0v2h-2V2h2zm-2 4h2v2h-2V6zm2 4h-2v2h2v-2zM6 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm8-13.22L12.78 7H14v1h-2.22L10.56 9H12v1h-2.44L8.34 11H10v1H8v1h1.78l1.22 1H18V2h-4v3.78zM16 11h-1.11l-.89-1H16v1zm0-2h-2.22l-.89-1H16v1zm0-2h-3.33l-.89-1H16v1z"/></symbol>
-                        <symbol id="icon-sparkle" viewBox="0 0 24 24"><path d="M12 2l1.5 4.5h4.5l-3.5 3 1.5 5-4.5-3.5-4.5 3.5 1.5-5-3.5-3h4.5L12 2z"/></symbol>
-                        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                            <feMerge> <feMergeNode in="coloredBlur"/> <feMergeNode in="SourceGraphic"/> </feMerge>
-                        </filter>
-                    </defs>
-                    <line class="svg-line" x1="300" y1="200" x2="150" y2="80" /><line class="svg-line" x1="300" y1="200" x2="80" y2="200" /><line class="svg-line" x1="300" y1="200" x2="150" y2="320" /><line class="svg-line" x1="300" y1="200" x2="450" y2="80" /><line class="svg-line" x1="300" y1="200" x2="520" y2="200" /><line class="svg-line" x1="300" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="80" y2="200" /><line class="svg-line" x1="80" y1="200" x2="150" y2="320" /><line class="svg-line" x1="450" y1="80" x2="520" y2="200" /><line class="svg-line" x1="520" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="300" y2="50" /><line class="svg-line" x1="450" y1="80" x2="300" y2="50" /><line class="svg-line" x1="150" y1="320" x2="230" y2="360" /><line class="svg-line" x1="450" y1="320" x2="370" y2="360" />
-                    <circle class="svg-circle-bg" cx="300" cy="200" r="70"/><circle class="svg-circle-border" cx="300" cy="200" r="70" filter="url(#glow)"/><text class="svg-text-main" x="300" y="190" font-size="14px">CONNECTING</text><text class="svg-text-main" x="300" y="210" font-size="14px">MEDICS</text><text class="svg-text-arrows" x="300" y="155">⬆</text> <text class="svg-text-arrows" x="300" y="245">⬇</text><text class="svg-text-arrows" x="255" y="200">⬅</text> <text class="svg-text-arrows" x="345" y="200">➡</text><text class="svg-text-arrows" transform="translate(268 168) rotate(-45)" >↖</text><text class="svg-text-arrows" transform="translate(332 168) rotate(45)">↗</text><text class="svg-text-arrows" transform="translate(268 232) rotate(45)">↙</text><text class="svg-text-arrows" transform="translate(332 232) rotate(-45)">↘</text>
-                    <g transform="translate(150, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-stethoscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
-                    <g transform="translate(80, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-heart-pulse" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
-                    <g transform="translate(150, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-dna-helix" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
-                    <g transform="translate(450, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-microscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
-                    <g transform="translate(520, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-rod-of-asclepius" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
-                    <g transform="translate(450, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-brain" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
-                    <g transform="translate(300, 50)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-medical-plus" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
-                    <g transform="translate(230, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-atom" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
-                    <g transform="translate(370, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-test-tube" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
-                    <g transform="translate(80, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
-                    <g transform="translate(520, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
-                    <circle class="svg-node-dot" cx="300" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="300" cy="50" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="230" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="370" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="120" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="120" r="3" filter="url(#glow)"/>
-                </svg>
-        </div>
-        <p class="footer-diagram-tagline">
-            Back again to make you guys vibe, Get stress free and enjoy the fest to its fullest
-        </p>
-        <a href="mailto:thecerebrexia17@gmail.com" class="footer-diagram-contact-button">CONTACT ORGANIZERS</a>
-    </div>
+                        <symbol id="icon-dna-helix" viewBox="0 0 24 24"><path d="M14.5 4c1.08 0 1.96.92 1.96 2.05 0 .2-.04.39-.09.58l-1.4 5.37h.01c.7-.62 1.12-1.51 1.12-2.5 0-1.77-1.31-3.22-3-3.46V4m-5 0v2.04c-1.69.24-3 1.69-3 3.46 0 .99.42 1.88 1.12 2.5h.01L6.63 6.63c-.05-.19-.09-.38-.09-.58C6.54 4.92 7.42 4 8.5 4M12 9c.83 0 1.5.67 1.5 1.5S12.83 12 12 12s-1.5-.67-1.5-1.5S11.17 9 12 9m2.5 6c-1.08 0-1.96-.92-1.96-2.05 0-.2.04-.39.09-.58l1.4-5.37h-.01c-.7.62-1.12 1.51-1.12 2.5 0 1.77 1.31 3.22 3 3.46V15m-5 0v-2.04c1.69-.24 3-1.69 3-3.46 0-.99-.42-1.88-1.12-2.5h-.01l1.41 5.37c.05.19.09.38.09.58 0 1.13-.88 2.05-1.96 2.05M12 17c-.83 0-1.5-.67-1.5-1.5S11.17 14 12 14s1.5.67 1.5 1.5S12.83 17 12 17m0-10c.28 0 .5.22.5.5V9h-.02c-.93-.24-1.9-.24-2.96 0H9V7.5c0-.28.22-.5.5-.5h.58c.95 0 1.85-.14 2.67-.37l.08-.02c.05-.01.1-.01.16-.01zm0 8c-.28 0-.5-.22-.5-.5V15h.02c.93.24 1.9.24 2.96 0H15v1.5c0 .28-.22.5-.5.5h-.58c-.95 0-1.85.14-2.67.37l-.08.02c-.05.01-.1.01-.16-.01z"/></symbol>
+                        <symbol id="icon-microscope" viewBox="0 0 24 24"><path d="M16.5 6c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05H10V3H8v3H6.5c-1.13 0-2.05.92-2.05 2.05V10H3v2h1.45V10c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6H8v2h1V8.05c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6h1.05v1.95H13v-2h1.5c.64 0 1.22.21 1.69.6.47.39.76.96.76 1.6V12h1.45v-2H16.5V8.05C16.5 6.92 15.58 6 14.5 6h-2c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05S6.5 6.92 6.5 8.05V10H3v2h1.45V10A2.5 2.5 0 016.5 7.5H8v2h1V7.5A2.5 2.5 0 0111.5 5h1A2.5 2.5 0 0115 7.5V10h1.45v-2H16.5V8.05A2.5 2.5 0 0014.5 6M12 13c-1.93 0-3.5 1.57-3.5 3.5V21h7v-4.5c0-1.93-1.57-3.5-3.5-3.5zm0 1c1.38 0 2.5 1.12 2.5 2.5V20h-5v-3.5c0-1.38 1.12-2.5 2.5-2.5z"/></symbol>
+                        <symbol id="icon-rod-of-asclepius" viewBox="0 0 24 24"><path d="M13.82 5.32c-.93-.89-2.18-1.32-3.48-1.32s-2.55.43-3.48 1.32C6 6.21 5.61 7.42 5.61 8.77c0 1.35.39 2.56 1.28 3.45.93.89 2.18 1.32 3.48 1.32s2.55-.43 3.48-1.32c.89-.89 1.28-2.1 1.28-3.45 0-1.35-.39-2.56-1.28-3.45M10.34 12c-1.31 0-2.4-.48-3.17-1.29-.77-.81-1.17-1.85-1.17-3.04 0-1.19.4-2.23 1.17-3.04.77-.81 1.86-1.29 3.17-1.29 1.31 0 2.4.48 3.17 1.29.77.81 1.17 1.85 1.17 3.04 0 1.19-.4 2.23-1.17 3.04-.77.81-1.86 1.29-3.17 1.29m.16 1.5c.34 0 .67.03.99.08v.02c.69.1 1.35.31 1.95.61l.01.01c.29.15.57.32.83.51l.01.01c.22.16.43.34.62.53l.01.01c.14.14.27.29.39.45l.01.01c.09.12.17.24.24.37.2.35.35.73.43 1.13l.01.06v.01c.04.22.06.44.06.67v2.09c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-1.88c0-.47-.15-.92-.43-1.28-.1-.13-.21-.25-.33-.36-.18-.17-.38-.32-.6-.45-.29-.18-.6-.33-.93-.45-.48-.18-1-.29-1.53-.33h-.01c-.18-.01-.36-.02-.54-.02s-.36.01-.54.02h-.01c-.53.04-1.05.15-1.53.33-.33.12-.64.27-.93.45-.22.13-.42.28-.6.45-.12.11-.23.23-.33.36-.28.36-.43.81-.43 1.28v1.88c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-2.09c0-.23.02-.45.06-.67v-.01l.01-.06c.08-.4.23-.78.43-1.13.07-.13.15-.25.24-.37l.01-.01c.12-.16.25-.31.39-.45l.01-.01c.19-.19.4-.37.62-.53l.01-.01c.26-.19.54-.36.83-.51l.01-.01c.6-.3 1.26-.51 1.95-.61v-.02c.32-.05.65-.08.99-.08z"/></symbol>
+                        <symbol id="icon-brain" viewBox="0 0 24 24"><path d="M12 2C9.46 2 7.24 3.22 6 5.06c-1.01 1.52-1.59 3.29-1.59 5.11S4.99 13.67 6 15.2c.47.6 1.02 1.12 1.63 1.56.04.03.09.06.13.09C8.32 17.27 9 17.58 9 18.22V19c0 .94.44 1.79 1.15 2.36.05.04.1.08.15.12.72.54 1.79.62 2.7.62.91 0 1.98-.08 2.7-.62.05-.04.1-.08.15-.12.71-.57 1.15-1.42 1.15-2.36v-.78c0-.64.68-.95 1.24-1.37.04-.03.09-.06.13-.09.61-.44 1.16-.96 1.63-1.56 1.01-1.52 1.59-3.29 1.59-5.11S19.01 6.58 18 5.06C16.76 3.22 14.54 2 12 2m4.1 13.6c-.3.35-.65.66-1.02.93-.05.04-.1.07-.15.1-.73.53-1.13 1.28-1.13 2.15v.72c0 .41-.17.78-.45 1.04-.03.02-.06.04-.09.06-.37.28-.9.4-1.36.4s-.99-.12-1.36-.4c-.03-.02-.06-.04-.09-.06-.28-.26-.45-.63-.45-1.04v-.72c0-.87-.4-1.62-1.13-2.15-.05-.03-.1-.06-.15-.1-.37-.26-.72-.58-1.02-.93C7.21 14.07 7 12.87 7 11.63c0-1.29.28-2.55.82-3.66.44-.92 1.07-1.72 1.86-2.37.6-.48 1.29-.8 2.03-.95.73-.15 1.48-.15 2.21 0 .75.15 1.43.47 2.03.95.79.65 1.42 1.45 1.86 2.37.54 1.11.82 2.37.82 3.66 0 1.24-.21 2.44-.6 3.47m-2.1-5.1c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16m-4 0c0-.83-.67-1.5-1.5-1.5S9 9.67 9 10.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16z"/></symbol>
+                        <symbol id="icon-medical-plus" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></symbol>
+                        <symbol id="icon-atom" viewBox="0 0 24 24"><path d="M12 2c-2.36 0-4.48.77-6.23 2.11l1.01 1.74C8.04 4.79 9.92 4 12 4s3.96.79 5.22 1.85l1.01-1.74C16.48 2.77 14.36 2 12 2m0 16c-2.08 0-3.96-.79-5.22-1.85l-1.01 1.74c1.75 1.34 3.87 2.11 6.23 2.11s4.48-.77 6.23-2.11l-1.01-1.74c-1.26 1.06-3.14 1.85-5.22 1.85M5.92 7.32C4.79 8.58 4 10.27 4 12s.79 3.42 1.92 4.68l1.74-1.01C6.79 14.4 6 13.29 6 12s.79-2.4 1.66-3.67l-1.74-1.01M18.08 7.32l-1.74 1.01C17.21 9.6 18 10.71 18 12s-.79 2.4-1.66 3.67l1.74 1.01C19.21 15.42 20 13.73 20 12s-.79-3.42-1.92-4.68M12 7a5 5 0 100 10 5 5 0 000-10m0 2a3 3 0 110 6 3 3 0 010-6z"/></symbol>
+                        <symbol id="icon-test-tube" viewBox="0 0 24 24"><path d="M7 2v11.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V6h2v9.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V2H7zm10 0v2h-2V2h2zm-2 4h2v2h-2V6zm2 4h-2v2h2v-2zM6 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm8-13.22L12.78 7H14v1h-2.22L10.56 9H12v1h-2.44L8.34 11H10v1H8v1h1.78l1.22 1H18V2h-4v3.78zM16 11h-1.11l-.89-1H16v1zm0-2h-2.22l-.89-1H16v1zm0-2h-3.33l-.89-1H16v1z"/></symbol>
+                        <symbol id="icon-sparkle" viewBox="0 0 24 24"><path d="M12 2l1.5 4.5h4.5l-3.5 3 1.5 5-4.5-3.5-4.5 3.5 1.5-5-3.5-3h4.5L12 2z"/></symbol>
+                        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feMerge> <feMergeNode in="coloredBlur"/> <feMergeNode in="SourceGraphic"/> </feMerge>
+                        </filter>
+                    </defs>
+                    <line class="svg-line" x1="300" y1="200" x2="150" y2="80" /><line class="svg-line" x1="300" y1="200" x2="80" y2="200" /><line class="svg-line" x1="300" y1="200" x2="150" y2="320" /><line class="svg-line" x1="300" y1="200" x2="450" y2="80" /><line class="svg-line" x1="300" y1="200" x2="520" y2="200" /><line class="svg-line" x1="300" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="80" y2="200" /><line class="svg-line" x1="80" y1="200" x2="150" y2="320" /><line class="svg-line" x1="450" y1="80" x2="520" y2="200" /><line class="svg-line" x1="520" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="300" y2="50" /><line class="svg-line" x1="450" y1="80" x2="300" y2="50" /><line class="svg-line" x1="150" y1="320" x2="230" y2="360" /><line class="svg-line" x1="450" y1="320" x2="370" y2="360" />
+                    <circle class="svg-circle-bg" cx="300" cy="200" r="70"/><circle class="svg-circle-border" cx="300" cy="200" r="70" filter="url(#glow)"/><text class="svg-text-main" x="300" y="190" font-size="14px">CONNECTING</text><text class="svg-text-main" x="300" y="210" font-size="14px">MEDICS</text><text class="svg-text-arrows" x="300" y="155">⬆</text> <text class="svg-text-arrows" x="300" y="245">⬇</text><text class="svg-text-arrows" x="255" y="200">⬅</text> <text class="svg-text-arrows" x="345" y="200">➡</text><text class="svg-text-arrows" transform="translate(268 168) rotate(-45)" >↖</text><text class="svg-text-arrows" transform="translate(332 168) rotate(45)">↗</text><text class="svg-text-arrows" transform="translate(268 232) rotate(45)">↙</text><text class="svg-text-arrows" transform="translate(332 232) rotate(-45)">↘</text>
+                    <g transform="translate(150, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-stethoscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(80, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-heart-pulse" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(150, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-dna-helix" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
+                    <g transform="translate(450, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-microscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(520, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-rod-of-asclepius" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
+                    <g transform="translate(450, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-brain" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(300, 50)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-medical-plus" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(230, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-atom" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(370, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-test-tube" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(80, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
+                    <g transform="translate(520, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
+                    <circle class="svg-node-dot" cx="300" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="300" cy="50" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="230" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="370" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="120" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="120" r="3" filter="url(#glow)"/>
+                </svg>
+        </div>
+        <p class="footer-diagram-tagline">
+            Back again to make you guys vibe, Get stress free and enjoy the fest to its fullest
+        </p>
+        <a href="mailto:thecerebrexia17@gmail.com" class="footer-diagram-contact-button">CONTACT ORGANIZERS</a>
+    </div>
 
-    <div class="footer-container-new">
-      <div class="footer-section-new">
-        <h3 class="footer-heading-new">Connect</h3>
-        <div class="footer-social-icons-new">
-          <a href="https://facebook.com/cerebrexia" target="_blank" aria-label="Facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/igimsfest/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://twitter.com/cerebrexia" target="_blank" aria-label="Twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="https://linkedin.com/company/cerebrexia" target="_blank" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          <a href="https://www.youtube.com/@cerebrexia" target="_blank" aria-label="YouTube" title="YouTube"><i class="fab fa-youtube"></i></a>
-          <a href="https://whatsapp.com/channel/0029VbA0P20HbFV2ke5rlR2G" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Channel" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
-        </div>
-          <p style="margin-top: 15px; font-size: 1em; color: #b0b0c0;">Stay connected for live updates!</p>
-      </div>
+    <div class="footer-container-new">
+      <div class="footer-section-new">
+        <h3 class="footer-heading-new">Connect</h3>
+        <div class="footer-social-icons-new">
+          <a href="https://facebook.com/cerebrexia" target="_blank" aria-label="Facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/igimsfest/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://twitter.com/cerebrexia" target="_blank" aria-label="Twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://linkedin.com/company/cerebrexia" target="_blank" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://youtube.com/" target="_blank" aria-label="YouTube" title="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://whatsapp.com/channel/0029VbA0P20HbFV2ke5rlR2G" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Channel" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
+        </div>
+          <p style="margin-top: 15px; font-size: 1em; color: #b0b0c0;">Stay connected for live updates!</p>
+      </div>
 
-      <div class="footer-section-new">
-        <h3 class="footer-heading-new">Quick Links</h3>
-        <ul class="footer-quick-links-list">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="events.html">EVENTS</a></li>
-          <li><a href="schedule.html">SCHEDULE</a></li>
-          <li><a href="pronite.html">PRONITES</a></li>
-          <li><a href="#team">Team</a></li>
-          <li><a href="accommodation.html">ACCOMMODATION</a></li>
-          <li><a href="register.html">DELEGATE REGISTRATION</a></li>
-          <li><a href="privacypolicy.html">PRIVACY POLICY</a></li>
-          <li><a href="terms.html">TERMS OF SERVICE</a></li>
-          <li><a href="codeofconduct.html">CODE OF CONDUCT</a></li>
-        </ul>
-      </div>
+      <div class="footer-section-new">
+        <h3 class="footer-heading-new">Quick Links</h3>
+        <ul class="footer-quick-links-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="events.html">EVENTS</a></li>
+          <li><a href="schedule.html">SCHEDULE</a></li>
+          <li><a href="pronite.html">PRONITES</a></li>
+          <li><a href="index.html#team">Team</a></li>
+          <li><a href="accommodation.html">ACCOMMODATION</a></li>
+          <li><a href="register.html">DELEGATE REGISTRATION</a></li>
+          <li><a href="privacypolicy.html">PRIVACY POLICY</a></li>
+          <li><a href="terms.html">TERMS OF SERVICE</a></li>
+          <li><a href="codeofconduct.html">CODE OF CONDUCT</a></li>
+        </ul>
+      </div>
 
-      <div class="footer-section-new">
-        <h3 class="footer-heading-new">Contact</h3>
-        <div class="footer-contact-info">
-          <p>Email: <a href="mailto:info@cerebrexia25.com">info@cerebrexia25.com</a></p>
-          <p>Pankaj Kumar: <a href="tel:+919079956283">+91 90799 56283</a></p>
-          <p>Dhananjay Kumar: <a href="tel:+917425992291">+91 74259 92291</a></p>
-          <p style="margin-top:15px;">IGIMS Patna Campus,<br/>Sheikhpura, Patna, Bihar - 800014</p>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom-new">
-      <p>© <span id="currentYear"></span> CEREBREXIA'25 - IGIMS Patna. All Rights Reserved. Designed with <i class="fas fa-heart" style="color: #ff00ff;"></i>.</p>
-    </div>
+      <div class="footer-section-new">
+        <h3 class="footer-heading-new">Contact</h3>
+        <div class="footer-contact-info">
+          <p>Email: <a href="mailto:info@cerebrexia25.com">info@cerebrexia25.com</a></p>
+          <p>Pankaj Kumar: <a href="tel:+919079956283">+91 90799 56283</a></p>
+          <p>Dhananjay Kumar: <a href="tel:+917425992291">+91 74259 92291</a></p>
+          <p style="margin-top:15px;">IGIMS Patna Campus,<br/>Sheikhpura, Patna, Bihar - 800014</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom-new">
+      <p>© <span id="currentYear"></span> CEREBREXIA'25 - IGIMS Patna. All Rights Reserved. Designed with <i class="fas fa-heart" style="color: #ff00ff;"></i>.</p>
+    </div>
 </footer>
 <button class="scroll-top-btn" aria-label="Scroll to top">▲</button>
 
 <div class="modal-overlay" id="termsModal">
-    <div class="modal-content">
-        <h2>Terms & Conditions for Fest Registration</h2>
-        <p>Welcome to CEREBREXIA'25 Fest Registration! Please read the following terms and conditions carefully before proceeding. By clicking 'Accept & Proceed', you agree to be bound by these terms.</p>
-        <h3>What Your Fest Pass Includes:</h3>
-        <ul>
-            <li>Access to all Pro-Nite events (typically 2-3 nights, specific dates on schedule).</li>
-            <li>Entry to specified day events (cultural, academic, sports - check event details for any separate participation fees for competitive events).</li>
-            <li>Access to guest lectures and workshops (some workshops may have limited seats/additional fees).</li>
-            <li>Food court access (food & beverages are chargeable unless specified otherwise).</li>
-            <li>A CEREBREXIA'25 welcome kit (subject to availability, for early bird/full pass holders).</li>
-        </ul>
-        <h3>Registration & Payment:</h3>
-        <ul>
-            <li>The standard fest registration fee is ₹1600 per person (unless altered by valid coupons/offers).</li>
-            <li>Group enrollment: For every 8 members in a group who purchase the fest pass, one member gets free entry (i.e., you pay for 7 passes, the 8th is free). This applies to the base fest pass price.</li>
-            <li>Coupon Codes:
-                <ul>
-                    <li>`IGIMSMBBS`: 40% off the fest pass for current IGIMS, Patna students (College ID verification may be required at entry).</li>
-                    <li>Other coupons apply as per their specific terms. Coupons are single-use and non-transferable. Only one coupon per transaction.</li>
-                </ul>
-            </li>
-            <li>All payments are to be made online through our secure payment gateway.</li>
-            <li>Registration is confirmed only upon successful payment and receipt of a confirmation email/QR code.</li>
-        </ul>
-        <h3>Event Access & Rules:</h3>
-        <ul>
-            <li>IGIMS, Patna students who have successfully registered for the Fest Pass (paid or via `IGIMSMBBS` coupon) will get free entry to participate in most day events. Some specialized workshops or premium events might have separate charges.</li>
-            <li>Students from other colleges will need to pay applicable participation fees for individual day events if they have not purchased the full Fest Pass, or if the event has a separate fee even for Fest Pass holders.</li>
-            <li>Attendees must adhere to all rules and regulations of IGIMS Patna and CEREBREXIA'25.</li>
-            <li>Entry is based on valid registration (QR code) and identity verification (College ID + Govt. ID).</li>
-            <li>The organizing committee reserves the right to deny entry or remove individuals for misconduct without refund.</li>
-            <li>Prohibited items, alcohol, and illegal substances are not allowed.</li>
-        </ul>
-        <h3>Refund & Cancellation Policy:</h3>
-        <ul>
-            <li>All Fest Registrations are strictly **non-refundable** and **non-transferable**.</li>
-        </ul>
-        <p>By proceeding, you acknowledge that you have read, understood, and agreed to these terms and conditions.</p>
-        <div class="modal-buttons">
-            <button id="acceptTerms">Accept & Proceed</button>
-            <button id="declineTerms">Decline</button>
-        </div>
-    </div>
+    <div class="modal-content">
+        <h2>Terms & Conditions for Fest Registration</h2>
+        <p>Welcome to CEREBREXIA'25 Fest Registration! Please read the following terms and conditions carefully before proceeding. By clicking 'Accept & Proceed', you agree to be bound by these terms.</p>
+        <h3>What Your Fest Pass Includes:</h3>
+        <ul>
+            <li>Access to all Pro-Nite events (typically 2-3 nights, specific dates on schedule).</li>
+            <li>Entry to specified day events (cultural, academic, sports - check event details for any separate participation fees for competitive events).</li>
+            <li>Access to guest lectures and workshops (some workshops may have limited seats/additional fees).</li>
+            <li>Food court access (food & beverages are chargeable unless specified otherwise).</li>
+            <li>A CEREBREXIA'25 welcome kit (subject to availability, for early bird/full pass holders).</li>
+        </ul>
+        <h3>Registration & Payment:</h3>
+        <ul>
+            <li>The standard fest registration fee is ₹1600 per person (unless altered by valid coupons/offers).</li>
+            <li>Group enrollment: For every 8 members in a group who purchase the fest pass, one member gets free entry (i.e., you pay for 7 passes, the 8th is free). This applies to the base fest pass price.</li>
+            <li>Coupon Codes:
+                <ul>
+                    <li>`IGIMSMBBS`: 40% off the fest pass for current IGIMS, Patna students (College ID verification may be required at entry).</li>
+                    <li>Other coupons apply as per their specific terms. Coupons are single-use and non-transferable. Only one coupon per transaction.</li>
+                </ul>
+            </li>
+            <li>All payments are to be made online through our secure payment gateway.</li>
+            <li>Registration is confirmed only upon successful payment and receipt of a confirmation email/QR code.</li>
+        </ul>
+        <h3>Event Access & Rules:</h3>
+        <ul>
+            <li>IGIMS, Patna students who have successfully registered for the Fest Pass (paid or via `IGIMSMBBS` coupon) will get free entry to participate in most day events. Some specialized workshops or premium events might have separate charges.</li>
+            <li>Students from other colleges will need to pay applicable participation fees for individual day events if they have not purchased the full Fest Pass, or if the event has a separate fee even for Fest Pass holders.</li>
+            <li>Attendees must adhere to all rules and regulations of IGIMS Patna and CEREBREXIA'25.</li>
+            <li>Entry is based on valid registration (QR code) and identity verification (College ID + Govt. ID).</li>
+            <li>The organizing committee reserves the right to deny entry or remove individuals for misconduct without refund.</li>
+            <li>Prohibited items, alcohol, and illegal substances are not allowed.</li>
+        </ul>
+        <h3>Refund & Cancellation Policy:</h3>
+        <ul>
+            <li>All Fest Registrations are strictly **non-refundable** and **non-transferable**.</li>
+        </ul>
+        <p>By proceeding, you acknowledge that you have read, understood, and agreed to these terms and conditions.</p>
+        <div class="modal-buttons">
+            <button id="acceptTerms">Accept & Proceed</button>
+            <button id="declineTerms">Decline</button>
+        </div>
+    </div>
 </div>
 
 
@@ -629,16 +629,18 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script>
+    // --- Start of Corrected and Improved Script ---
+
     AOS.init({ duration: 1000, once: false, mirror: true });
 
     const firebaseConfig = {
-      apiKey: "AIzaSyBOWumY95hdMt2uOvmJEk5WG0GhdqUHUNc",
-      authDomain: "cerebrexia-ee068.firebaseapp.com",
-      projectId: "cerebrexia-ee068",
-      storageBucket: "cerebrexia-ee068.appspot.com",
-      messagingSenderId: "328864114758",
-      appId: "1:328864114758:web:108968f6576b6967f14247",
-      measurementId: "G-6Z6EP1ZTEJ"
+     apiKey: "AIzaSyBOWumY95hdMt2uOvmJEk5WG0GhdqUHUNc",
+     authDomain: "cerebrexia-ee068.firebaseapp.com",
+     projectId: "cerebrexia-ee068",
+     storageBucket: "cerebrexia-ee068.appspot.com",
+     messagingSenderId: "328864114758",
+     appId: "1:328864114758:web:108968f6576b6967f14247",
+     measurementId: "G-6Z6EP1ZTEJ"
     };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
@@ -660,8 +662,7 @@
     const registrationFormEl = document.getElementById('festRegistrationForm');
     const authPromptDiv = document.getElementById('authPrompt');
     const profileCompletionPromptDiv = document.getElementById('profileCompletionPrompt');
-    const signInPromptButton = document.getElementById('signInPromptButton');
-
+    
     const fullNameInput = document.getElementById('fullName');
     const emailInput = document.getElementById('email');
     const phoneInput = document.getElementById('phone');
@@ -729,52 +730,62 @@
         currentAmount = calculatedAmount;
         displayAmountSpan.textContent = `₹${currentAmount.toLocaleString('en-IN')}`;
     }
+    
+    /**
+     * [FIXED] Renders input fields for additional group members.
+     * This function is now simplified and robust.
+     * @param {number} totalMembers - The total number of members in the group, including the leader.
+     */
+    function renderGroupMemberInputs(totalMembers) {
+        groupMembersContainer.innerHTML = ''; // Always clear previous inputs first
+        
+        if (isNaN(totalMembers) || totalMembers <= 1) {
+            return; // Exit if not a valid group size for additional members
+        }
 
+        const membersToAdd = totalMembers - 1;
+
+        if (membersToAdd > 0) {
+            const headerLabel = document.createElement('label');
+            headerLabel.textContent = 'Additional Group Members Details (Name & Email):';
+            headerLabel.style.cssText = "display: block; margin-bottom: 10px; font-weight: 600; color: #ff99ff;";
+            groupMembersContainer.appendChild(headerLabel);
+        }
+
+        for (let i = 1; i <= membersToAdd; i++) {
+            const memberIndex = i + 1; // Members are numbered 2, 3, 4...
+            const div = document.createElement('div');
+            div.className = 'form-group group-member-input';
+            div.innerHTML = `
+                <label for="memberName_${memberIndex}" class="sr-only">Member ${memberIndex} Name</label>
+                <input type="text" id="memberName_${memberIndex}" name="memberName_${memberIndex}" placeholder="Member ${memberIndex} Name" required>
+                <label for="memberEmail_${memberIndex}" class="sr-only">Member ${memberIndex} Email</label>
+                <input type="email" id="memberEmail_${memberIndex}" name="memberEmail_${memberIndex}" placeholder="Member ${memberIndex} Email" required>
+            `;
+            groupMembersContainer.appendChild(div);
+        }
+    }
+    
+    /**
+     * [FIXED] Toggles the visibility of group enrollment options.
+     * Logic is simplified to correctly show/hide elements and trigger renders.
+     */
     function toggleGroupEnrollment() {
         const isGroup = document.getElementById('enrollGroup').checked;
         numMembersGroupDiv.style.display = isGroup ? 'block' : 'none';
         groupMembersContainer.style.display = isGroup ? 'block' : 'none';
+
         if (isGroup) {
-            if (!numMembersSelect.value) numMembersSelect.value = "2";
-            renderGroupMemberInputs(parseInt(numMembersSelect.value) || 2);
+            // If switching to group, ensure a value is selected and render inputs. Default to 2.
+            if (!numMembersSelect.value) {
+                numMembersSelect.value = "2";
+            }
+            renderGroupMemberInputs(parseInt(numMembersSelect.value));
         } else {
+            // If switching to individual, clear the dynamic inputs.
             groupMembersContainer.innerHTML = '';
-            if (numMembersSelect) numMembersSelect.value = "";
         }
-        calculateAmount();
-    }
-
-    function renderGroupMemberInputs(count) {
-        groupMembersContainer.innerHTML = '';
-        if (count <= 1 && document.getElementById('enrollGroup').checked) {
-            return;
-        }
-        if (count > 1 || (count === 1 && !document.getElementById('enrollGroup').checked) ) {
-            const startMember = document.getElementById('enrollGroup').checked ? 2 : 1;
-            const actualRenderCount = document.getElementById('enrollGroup').checked ? count -1 : 0;
-
-            if (actualRenderCount > 0) {
-                const headerLabel = document.createElement('label');
-                headerLabel.textContent = 'Additional Group Members Details (Name & Email):';
-                headerLabel.style.display = 'block'; headerLabel.style.marginBottom = '10px';
-                headerLabel.style.fontWeight = '600'; headerLabel.style.color = '#ff99ff';
-                groupMembersContainer.appendChild(headerLabel);
-            }
-
-            for (let i = 1; i <= actualRenderCount; i++) {
-                const memberIndex = i + 1;
-                const div = document.createElement('div');
-                div.className = 'form-group group-member-input';
-                const requiredAttr = 'required';
-                div.innerHTML = `
-                    <label for="memberName_${memberIndex}" class="sr-only">Member ${memberIndex} Name</label>
-                    <input type="text" id="memberName_${memberIndex}" name="memberName_${memberIndex}" placeholder="Member ${memberIndex} Name" ${requiredAttr}>
-                    <label for="memberEmail_${memberIndex}" class="sr-only">Member ${memberIndex} Email</label>
-                    <input type="email" id="memberEmail_${memberIndex}" name="memberEmail_${memberIndex}" placeholder="Member ${memberIndex} Email" ${requiredAttr}>
-                `;
-                groupMembersContainer.appendChild(div);
-            }
-        }
+        calculateAmount(); // Recalculate amount in either case.
     }
 
     function applyCouponLogic() {
@@ -795,7 +806,7 @@
                     couponMessageDiv.textContent = coupon.message;
                     couponMessageDiv.classList.add('coupon-success');
                 } else {
-                    couponMessageDiv.textContent = `Coupon '${code}' is only valid for ${coupon.collegeSpecific} students. Your college is ${currentUserProfile ? currentUserProfile.college : 'not set'}.`;
+                    couponMessageDiv.textContent = `Coupon '${code}' is only for ${coupon.collegeSpecific} students.`;
                     couponMessageDiv.classList.add('coupon-error');
                 }
             } else {
@@ -817,7 +828,13 @@
 
             if (doc.exists) {
                 currentUserProfile = doc.data();
-                fullNameInput.value = currentUserProfile.name || user.displayName || '';
+                // Check if profile is complete
+                if (!currentUserProfile.name || !currentUserProfile.phone || !currentUserProfile.college) {
+                    showProfileCompletionPrompt();
+                    return;
+                }
+
+                fullNameInput.value = currentUserProfile.name || '';
                 emailInput.value = user.email || currentUserProfile.email || '';
                 phoneInput.value = currentUserProfile.phone || '';
                 collegeInput.value = currentUserProfile.college || '';
@@ -826,7 +843,7 @@
 
                 showMainContent(true);
                 calculateAmount();
-                toggleGroupEnrollment();
+                toggleGroupEnrollment(); // Run once to set initial state correctly
             } else {
                 showProfileCompletionPrompt();
             }
@@ -834,25 +851,34 @@
             console.error("Error fetching user profile for prefill:", error);
             submissionMessageDiv.textContent = 'Error loading your details. Please try refreshing.';
             submissionMessageDiv.className = 'message-error';
-            showMainContent(false);
-            authPromptDiv.style.display = 'block';
+            showAuthPrompt();
         }
     }
 
+    // --- Event Listeners Setup ---
+
     enrollmentTypeRadios.forEach(radio => radio.addEventListener('change', toggleGroupEnrollment));
-    if (numMembersSelect) numMembersSelect.addEventListener('change', () => {
-        renderGroupMemberInputs(parseInt(numMembersSelect.value) || 1);
-        calculateAmount();
-    });
-    if (applyCouponBtn) applyCouponBtn.addEventListener('click', applyCouponLogic);
-    if (couponCodeInput) couponCodeInput.addEventListener('input', () => {
-        if (activeCouponDetails) {
-            activeCouponDetails = null;
-            couponMessageDiv.textContent = '';
-            couponMessageDiv.className = '';
+
+    if (numMembersSelect) {
+        numMembersSelect.addEventListener('change', (event) => {
+            const newCount = parseInt(event.target.value, 10);
+            renderGroupMemberInputs(newCount);
             calculateAmount();
-        }
-    });
+        });
+    }
+
+    if (applyCouponBtn) applyCouponBtn.addEventListener('click', applyCouponLogic);
+    
+    if (couponCodeInput) {
+        couponCodeInput.addEventListener('input', () => {
+            if (activeCouponDetails) {
+                activeCouponDetails = null;
+                couponMessageDiv.textContent = '';
+                couponMessageDiv.className = '';
+                calculateAmount();
+            }
+        });
+    }
 
     registrationFormEl.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -901,13 +927,11 @@
             eventName: "CEREBREXIA'25 Fest Pass"
         };
 
-        console.log('Data being sent to /api/register:', JSON.stringify(registrationData, null, 2));
-
         try {
             submissionMessageDiv.textContent = 'Initiating registration... Please wait.';
             submissionMessageDiv.className = 'message-info';
 
-          const response = await fetch('https://fest-backend-node.onrender.com/api/register', { // Change back to /api/register, { 
+            const response = await fetch('https://fest-backend-node.onrender.com/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${await user.getIdToken()}` },
                 body: JSON.stringify(registrationData)
@@ -915,7 +939,7 @@
             const result = await response.json();
 
             if (response.ok && result.orderId && result.dbRegistrationId) {
-                submissionMessageDiv.textContent = 'Registration initiated. Redirecting to payment...';
+                submissionMessageDiv.textContent = 'Redirecting to payment...';
                 const dbRegId = result.dbRegistrationId;
 
                 const options = {
@@ -943,19 +967,19 @@
                             });
                             const callbackResult = await callbackResponse.json();
                             if (callbackResponse.ok && callbackResult.status === "success") {
-                                submissionMessageDiv.textContent = 'Payment confirmed! Your Fest Pass is active. QR code sent to email.';
+                                submissionMessageDiv.textContent = 'Payment confirmed! Your Fest Pass is active. A QR code has been sent to your email.';
                                 submissionMessageDiv.className = 'message-success';
                                 registrationFormEl.reset();
                                 toggleGroupEnrollment();
                                 calculateAmount();
                                 activeCouponDetails = null; couponCodeInput.value = ''; couponMessageDiv.textContent = ''; couponMessageDiv.className = '';
                             } else {
-                                submissionMessageDiv.textContent = `Verification Error: ${callbackResult.message || 'Unknown error'}. Contact support.`;
+                                submissionMessageDiv.textContent = `Verification Error: ${callbackResult.message || 'Unknown error'}. Please contact support with your payment ID.`;
                                 submissionMessageDiv.className = 'message-error';
                             }
                         } catch (callbackError) {
                             console.error('Error during payment verification callback:', callbackError);
-                            submissionMessageDiv.textContent = 'Error verifying payment. Contact support.';
+                            submissionMessageDiv.textContent = 'Critical error verifying payment. Please contact support immediately.';
                             submissionMessageDiv.className = 'message-error';
                         }
                         formSubmitButton.disabled = false; formSubmitButton.innerHTML = '<i class="fas fa-credit-card"></i> Proceed to Payment';
@@ -980,12 +1004,14 @@
                 formSubmitButton.disabled = false; formSubmitButton.innerHTML = '<i class="fas fa-credit-card"></i> Proceed to Payment';
             }
         } catch (error) {
-            console.error('Network or server error during /api/register:', error);
-            submissionMessageDiv.textContent = 'An unexpected error occurred. Check connection & try again.';
+            console.error('Network or server error during registration initiation:', error);
+            submissionMessageDiv.textContent = 'An unexpected network error occurred. Please check your connection and try again.';
             submissionMessageDiv.className = 'message-error';
             formSubmitButton.disabled = false; formSubmitButton.innerHTML = '<i class="fas fa-credit-card"></i> Proceed to Payment';
         }
     });
+
+    // --- Modal and Auth Flow ---
 
     function showTermsModal() {
         if(termsModal) termsModal.classList.add('active');
@@ -998,28 +1024,28 @@
 
     if(acceptTermsBtn) acceptTermsBtn.addEventListener('click', () => {
         hideTermsModal();
-        const user = auth.currentUser;
-        if (user) {
-            prefillAndSetupForm(user);
-        } else {
-            showAuthPrompt();
-        }
+        // Now check authentication status
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                prefillAndSetupForm(user);
+            } else {
+                showAuthPrompt();
+            }
+        });
     });
+
     if(declineTermsBtn) declineTermsBtn.addEventListener('click', () => {
-        submissionMessageDiv.innerHTML = "You must accept Terms & Conditions to register. Redirecting to homepage...";
-        submissionMessageDiv.className = 'message-error';
-        submissionMessageDiv.style.display = 'block';
-        registrationFormEl.style.display = 'none';
+        hideTermsModal();
         authPromptDiv.style.display = 'none';
         profileCompletionPromptDiv.style.display = 'none';
-
-        hideTermsModal();
+        registrationFormEl.style.display = 'none';
+        submissionMessageDiv.innerHTML = "You must accept the Terms & Conditions to register. Redirecting to the homepage...";
+        submissionMessageDiv.className = 'message-error';
+        submissionMessageDiv.style.display = 'block';
         setTimeout(() => { window.location.href = "index.html"; }, 3000);
     });
-    if(signInPromptButton) signInPromptButton.addEventListener('click', () => {
-        window.location.href = 'profile.html';
-    });
 
+    // --- General Page Scripts (Header, Scroll Top, etc.) ---
     document.getElementById('currentYear').textContent = new Date().getFullYear();
     const newMenuToggleButton = document.getElementById('newMenuToggleButton');
     const fullScreenNav = document.getElementById('fullScreenNav');
@@ -1051,21 +1077,9 @@
         };
         newMenuToggleButton.addEventListener('click', () => toggleMenu());
         navCloseButton.addEventListener('click', () => toggleMenu(false));
-        fullScreenNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const currentPath = window.location.pathname.split('/').pop();
-                const linkPath = link.getAttribute('href').split('/').pop();
-                if (currentPath === linkPath && link.classList.contains('active-nav-link')) {
-                    if(fullScreenNav.classList.contains('active')) {
-                        toggleMenu(false);
-                    }
-                } else {
-                    toggleMenu(false);
-                }
-            });
-        });
         document.addEventListener('keydown', e => e.key === 'Escape' && fullScreenNav.classList.contains('active') && toggleMenu(false));
     }
+
     const scrollTopBtn = document.querySelector('.scroll-top-btn');
     if (scrollTopBtn) {
         window.addEventListener('scroll', () => {
@@ -1076,9 +1090,11 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        showTermsModal();
+        showTermsModal(); // Start by showing the terms and conditions
         if (siteHeader) siteHeader.classList.add('visible');
     });
+
+    // --- End of Corrected and Improved Script ---
 </script>
 </body>
 </html>
