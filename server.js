@@ -1240,4 +1240,3 @@ function generateUserEntryConfirmationEmail(details) {
     return generateBaseEmailHTML(`CEREBREXIA'25 Entry Confirmed!`, "Your Entry is Confirmed!", contentHTML);
 }
 
-});
