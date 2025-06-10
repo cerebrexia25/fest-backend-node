@@ -4,7 +4,7 @@ const path = require('path');
 const Razorpay = require('razorpay');
 const qrcode = require('qrcode');
 const nodemailer = require('nodemailer');
-const crypto =require('crypto');
+const crypto = require('crypto');
 const fs = require('fs');
 const cors = require('cors');
 const admin = require('firebase-admin');
@@ -186,7 +186,7 @@ function getEmailStyles() {
             font-weight: 700;
             text-shadow: 0 0 8px rgba(255,153,255,0.5);
         }
-       
+        
         /* New styling for detail rows (replaces old table structure) */
         .detail-row {
             margin-bottom: 15px;
@@ -641,19 +641,31 @@ app.post('/api/register', async (req, res) => {
         }
 
         console.log('Checkpoint 3: No existing registration. Processing group members.');
-
+        
+        // ==================== MODIFICATION START ====================
+        // Yahan par `groupMembers` ko process karne ka logic theek kiya gaya hai.
         const processedGroupMembers = [];
-        if (enrollmentType === 'group' && groupMembers && groupMembers.length > 0) {
+        // Check karein ki enrollment group hai aur groupMembers ek valid array hai
+        if (enrollmentType === 'group' && Array.isArray(groupMembers) && groupMembers.length > 0) {
             groupMembers.forEach(member => {
-                processedGroupMembers.push({
-                    name: member.name,
-                    email: member.email,
-                    memberId: generateUniqueMemberId(),
-                    college: college, // Group members share the leader's college
-                    phone_number: member.phone_number
-                });
+                // Har member ke liye ek object banayein aur 'phone_number' ko aasaani se handle karein
+                // Isse 'undefined' ki error nahi aayegi
+                if (member && member.name && member.email) { // Extra check taaki galat data se crash na ho
+                    processedGroupMembers.push({
+                        name: member.name,
+                        email: member.email,
+                        memberId: generateUniqueMemberId(),
+                        college: college, // Group members leader ka college share karte hain
+                        // YAHAN FIX HAI:
+                        // Agar member ke saath phone_number aa raha hai toh woh use karo,
+                        // nahi toh leader ka phone_number (jo main request body mein hai) use karo.
+                        // Ek fallback '' (empty string) bhi hai safety ke liye.
+                        phone_number: member.phone_number || phone_number || ''
+                    });
+                }
             });
         }
+        // ==================== MODIFICATION END ====================
 
         console.log('Checkpoint 4: Group members processed. Preparing registration data.');
 
@@ -665,7 +677,7 @@ app.post('/api/register', async (req, res) => {
             college,
             enrollmentType,
             numMembers,
-            groupMembers: processedGroupMembers,
+            groupMembers: processedGroupMembers, // Yahan par updated, aasaani se process kiya hua array use ho raha hai
             couponCode,
             amount: numericAmount,
             eventName, // Note: For fest pass, eventName might be generic like 'Fest Pass'
@@ -675,6 +687,7 @@ app.post('/api/register', async (req, res) => {
         };
 
         console.log('Checkpoint 5: Registration data prepared. Adding to Firestore.');
+        console.log('Data to be added to Firestore:', JSON.stringify(registrationData, null, 2)); // Detailed log before saving
 
         const regDocRef = await db.collection('festRegistrations').add(registrationData);
         const dbRegistrationId = regDocRef.id;
@@ -804,8 +817,8 @@ app.post('/api/register-event', async (req, res) => {
 
     // Corrected: Using eventFeeValue from frontend.
     // Frontend is now sending: userId, eventId, eventName, fullName, email, phone,
-    //                          isTeamEvent, teamName, teamMembersCount, teamDetails,
-    //                          submissionLink, purpose, eventFeeValue, coordinatorEmail
+    //                         isTeamEvent, teamName, teamMembersCount, teamDetails,
+    //                         submissionLink, purpose, eventFeeValue, coordinatorEmail
     const { userId, eventId, eventName, fullName, email, phone, isTeamEvent, teamName, teamMembersCount, teamDetails, submissionLink, purpose, eventFeeValue, coordinatorEmail } = req.body;
 
     // Basic validation for essential fields from the form directly
@@ -1126,7 +1139,7 @@ app.post('/api/scan-qr', async (req, res) => {
         console.log('Checkpoint C: Registration data fetched:', registrationData.name, registrationData.email);
 
         const scannedMemberIndex = registrationData.qrCodesForGroup ? 
-                                   registrationData.qrCodesForGroup.findIndex(m => m.memberId === memberId) : -1;
+                                    registrationData.qrCodesForGroup.findIndex(m => m.memberId === memberId) : -1;
         const scannedMember = scannedMemberIndex !== -1 ? registrationData.qrCodesForGroup[scannedMemberIndex] : null;
 
         if (!scannedMember) {
@@ -1239,4 +1252,3 @@ function generateUserEntryConfirmationEmail(details) {
     `;
     return generateBaseEmailHTML(`CEREBREXIA'25 Entry Confirmed!`, "Your Entry is Confirmed!", contentHTML);
 }
-
