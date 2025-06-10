@@ -1,0 +1,28 @@
+{
+  "name": "fest_backend_node",
+  "version": "1.0.0",
+  "description": "Backend for Cerebrexia Fest Pass and Event Registrations",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "Your Name/Org",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/secret-manager": "^5.x.x",  <-- ADD THIS LINE
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "firebase-admin": "^12.1.0",
+    "nodemailer": "^6.9.13",
+    "path": "^0.12.7",
+    "qrcode": "^1.5.3",
+    "razorpay": "^2.9.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

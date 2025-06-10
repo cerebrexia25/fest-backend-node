@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accommodation - CEREBREXIA'25</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Savate:wght@518&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* Base and Reset (Consistent with other pages) */
+        :root {
+            --primary-glow-color: #50c8ff;
+            --secondary-glow-color: #7efcff;
+            --text-color: #ffffff;
+            --dark-bg: #0a0e1a;
+            --medium-bg: #10182c;
+            --title-box-bg: #2a3045;
+            --title-box-border: #607080;
+            --button-blue: #007bff;
+            --icon-blue: #3cb5f5;
+            --medical-icon-color: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #0d001f;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex; /* For sticky footer */
+            flex-direction: column; /* For sticky footer */
+        }
+
+        .fest-bg-accommodation {
+            background-image: linear-gradient(rgba(13, 0, 31, 0.88), rgba(13, 0, 31, 0.97)), url('https://placehold.co/1920x1080/1a0530/FFFFFF?text=Patna+Guesthouse+Festive+Night+Concept');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        h1, h2, h3, .logo-font {
+            font-family: 'Exo', sans-serif; /* Consistent font with other pages */
+            font-weight: 900;
+            letter-spacing: 0.05em;
+        }
+        /* Adjusted neon text for better visibility and consistency */
+        .neon-text-pink {
+            color: #ff00ff; /* Bright magenta */
+            text-shadow: 0 0 5px #ff00ff, 0 0 15px #ff00ff88, 0 0 25px rgba(255, 0, 255, 0.4);
+        }
+        .neon-text-blue {
+            color: #00ffff; /* Bright cyan */
+            text-shadow: 0 0 5px #00ffff, 0 0 15px #00ffff88, 0 0 25px rgba(0, 255, 255, 0.4);
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.15), 0 0 10px rgba(255, 0, 255, 0.15); /* More prominent glow */
+        }
+        .form-input {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #e0e0e0;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Kanit', sans-serif; /* Consistent font */
+        }
+        .form-input:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #ff00ff;
+            box-shadow: 0 0 8px rgba(255, 0, 255, 0.4);
+            outline: none;
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #e600e6, #7c16cb);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 8px rgba(230, 0, 230, 0.3), 0 0 8px rgba(124, 22, 203, 0.3);
+            font-family: 'Exo', sans-serif; /* Consistent font */
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 0 12px rgba(230, 0, 230, 0.5), 0 0 12px rgba(124, 22, 203, 0.5);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a0530; }
+        ::-webkit-scrollbar-thumb { background: #ff00ff; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #bf00bf; }
+
+
+        /* Consistent Header Styles (from index.html/events.html/pronites.html) */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(13, 0, 31, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            padding: 15px 20px; /* Consistent padding */
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header.hidden { transform: translateY(-100%); }
+        header.visible { transform: translateY(0); }
+        .logo {
+            font-family: 'Savate', sans-serif; /* Consistent font with other pages */
+            font-size: 3rem; /* Consistent size */
+            font-weight: 518; /* Consistent weight */
+            color: yellow;
+            user-select: none;
+            text-decoration: none;
+            z-index: 1001;
+        }
+
+        /* Hamburger Menu Button (consistent) */
+        .new-menu-toggle-button {
+            background: transparent;
+            border: none; /* No border for the hamburger button in other pages */
+            color: #fff;
+            cursor: pointer;
+            padding: 10px; /* Consistent padding */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1101;
+            transition: transform 0.3s ease;
+            /* Removed specific text-based button styles, now icon-based */
+        }
+        .new-menu-toggle-button .icon-bar { /* Icon bars for hamburger */
+            display: block;
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            margin: 6px 0;
+            transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+            border-radius: 1px;
+        }
+        .new-menu-toggle-button:hover .icon-bar {
+            background-color: #ff00ff;
+        }
+        .new-menu-toggle-button.open .icon-bar:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        .new-menu-toggle-button.open .icon-bar:nth-child(2) {
+            opacity: 0;
+        }
+        .new-menu-toggle-button.open .icon-bar:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+
+        /* Fullscreen Nav styles (consistent) */
+        #fullScreenNav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 0, 31, 0.97);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+            overflow-y: auto;
+        }
+        #fullScreenNav.active {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease, visibility 0s linear 0s;
+        }
+        #fullScreenNav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+        #fullScreenNav li {
+            margin: 20px 0; /* Consistent margin */
+        }
+        #fullScreenNav a {
+            font-family: 'Exo', sans-serif;
+            font-weight: 400; /* Consistent weight */
+            font-size: clamp(2rem, 5vw, 3rem); /* Consistent size */
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 25px;
+            display: inline-block;
+            position: relative;
+            transition: color 0.4s ease, transform 0.4s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        #fullScreenNav a::before,
+        #fullScreenNav a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff00ff, #ffae00, #00ffff, #ff00ff);
+            background-size: 300% 100%;
+            left: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            animation: borderFlow 8s linear infinite;
+        }
+        #fullScreenNav a::before { top: 0; transform: scaleX(0); transform-origin: left; }
+        #fullScreenNav a::after { bottom: 0; transform: scaleX(0); transform-origin: right; }
+        #fullScreenNav a:hover,
+        #fullScreenNav a:focus {
+            color: #ffdd57;
+            transform: translateY(-5px) scale(1.05);
+        }
+        #fullScreenNav a:hover::before, #fullScreenNav a:focus::before { transform: scaleX(1); transform-origin: right; }
+        #fullScreenNav a:hover::after, #fullScreenNav a:focus::after { transform: scaleX(1); transform-origin: left; }
+        @keyframes borderFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+
+        /* Close Button for Full Screen Nav (consistent) */
+        #fullScreenNav .nav-close-btn { /* Updated selector to match other pages */
+            position: absolute;
+            top: 25px;
+            right: 25px; /* Consistent with other pages */
+            background: transparent;
+            color: #fff;
+            border: none;
+            font-size: 2.5rem;
+            font-weight: bold; /* Consistent weight */
+            cursor: pointer;
+            padding: 0; /* No padding from other pages */
+            line-height: 1;
+            z-index: 1201; /* Higher z-index */
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        #fullScreenNav .nav-close-btn:hover {
+            color: #ff00ff;
+            transform: rotate(90deg) scale(1.1); /* Consistent transform */
+        }
+        /* Active Link Specific Style (Accommodation page specific for current page) */
+        #fullScreenNav a.active-nav-link {
+            color: #ffd700; /* Gold for active link */
+            text-shadow: 0 0 8px #ffd700, 0 0 15px rgba(255, 215, 0, 0.7);
+        }
+        #fullScreenNav a.active-nav-link::before,
+        #fullScreenNav a.active-nav-link::after {
+            width: 100%; /* Ensure active link borders are always full width */
+            transform: scaleX(1);
+            animation: none; /* No flowing animation on active link */
+            background-position: 0% 50%; /* Static background for active link */
+        }
+
+
+        /* Main Content Wrapper (consistent naming as other pages) */
+        main.container { /* Use main.container as in other pages */
+            padding-top: 80px; /* Adjust for fixed header */
+            flex-grow: 1; /* Allows content to push footer down */
+            width: 90%; /* Standard width */
+            max-width: 1200px; /* Standard max-width */
+            margin: 0 auto; /* Center alignment */
+            padding-bottom: 40px; /* Space above footer */
+        }
+
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8); }
+        .modal-content {
+            background-color: #140328;
+            margin: 15% auto; padding: 25px; border: 1px solid #ff00ff;
+            width: 90%; max-width: 500px; border-radius: 12px; text-align: center;
+            box-shadow: 0 0 25px rgba(255, 0, 255, 0.6);
+        }
+        .modal-close-button { color: #aaa; float: right; font-size: 32px; font-weight: bold; cursor: pointer; line-height: 1; }
+        .modal-close-button:hover, .modal-close-button:focus { color: #ff00ff; text-decoration: none; }
+
+        .info-box {
+            border-left: 4px solid #ff00ff;
+            background-color: rgba(255, 0, 255, 0.05);
+        }
+        .contact-card {
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 0, 255, 0.2);
+        }
+        .contact-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        /* main.content-container { Removed, merged with main.container rules above } */
+
+
+        /* FAQ Section Styles (Consolidated & Consistent) */
+        .faq-item { margin-bottom: 15px; }
+        .faq-item details {
+            margin-bottom: 0; /* Remove default margin from details */
+            border: 1px solid rgba(255, 0, 255, 0.3); /* Consistent border */
+            border-radius: 10px;
+            background: rgba(13, 0, 31, 0.8); /* Darker background */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .faq-item details[open] {
+            background: rgba(20, 5, 45, 0.9); /* Slightly different when open */
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+        }
+        .faq-item summary {
+            padding: 15px 20px; /* Adjusted padding */
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            cursor: pointer;
+            list-style: none; /* Remove default marker */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s ease;
+            border-radius: 9px;
+            font-family: 'Kanit', sans-serif; /* Consistent font */
+        }
+        .faq-item summary:hover { color: #00ffff; }
+        /* Remove default marker via ::marker or -webkit-details-marker if needed for broader support */
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::marker { display: none; }
+
+        .faq-item .faq-summary-icon {
+            font-size: 1.2em;
+            color: #00ffff;
+            transition: transform 0.3s ease-in-out;
+            font-family: monospace; /* For simple + or - character */
+        }
+        .faq-item details[open] summary .faq-summary-icon { transform: rotate(45deg); /* Plus to X effect */ }
+        .faq-item details[open] summary { color: #ff00ff; /* Pink highlight when open */ }
+        .faq-content {
+            padding: 10px 20px 20px 20px; /* Adjusted padding */
+            color: #c0c0c0;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            border-top: 1px dashed rgba(0, 255, 255, 0.15); /* Dashed border for content separator */
+            margin: 0 20px 0px 20px; /* Remove margin-top, adjust side margins */
+            border-radius: 0 0 8px 8px; /* Rounded corners only at bottom */
+            overflow: hidden; /* For smooth transition */
+            max-height: 0;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+        }
+        .faq-item details[open] .faq-content {
+            max-height: 500px; /* Max height to allow transition */
+            padding: 10px 20px 20px 20px; /* Re-apply padding when open */
+        }
+        .faq-item details[open] .faq-content p {
+             animation: fadeInContent 0.5s ease-in-out forwards;
+             opacity: 0;
+        }
+        @keyframes fadeInContent { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+
+        /* Consistent Footer Styles (from index.html/events.html/pronites.html) */
+        .site-footer {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            padding: 30px 20px 30px;
+            font-family: 'Kanit', sans-serif;
+            margin-top: 60px;
+            border-top: 3px solid #3a3a5e;
+            box-shadow: 0 -5px 15px rgba(25, 25, 46, 0.5);
+            flex-shrink: 0; /* Prevents footer from shrinking if content is small */
+        }
+        .footer-container-new { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; }
+        .footer-section-new { padding: 10px; }
+        .footer-heading-new { font-size: 1.6em; font-weight: 600; color: #f9c74f; margin-bottom: 25px; position: relative; padding-left: 20px; font-family: 'Exo', sans-serif; }
+        .footer-heading-new::before { content: '●'; color: #f9c74f; position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 0.8em; }
+        .footer-quick-links-list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; }
+        .footer-quick-links-list li { margin-right: 12px; margin-bottom: 12px; }
+        .footer-quick-links-list li a { display: inline-block; background-color: #2a2a4e; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 25px; font-size: 1.1em; font-weight: 500; transition: background-color 0.3s ease, transform 0.2s ease; border: 1px solid #3a3a5e; }
+        .footer-quick-links-list li a:hover, .footer-quick-links-list li a:focus { background-color: #f9c74f; color: #1a1a2e; transform: translateY(-2px); }
+        .footer-contact-info p { font-size: 1.1em; margin-bottom: 12px; line-height: 1.7; color: #d0d0d0; }
+        .footer-contact-info p a { color: #a0cff0; text-decoration: none; transition: color 0.3s ease; }
+        .footer-contact-info p a:hover { color: #f9c74f; text-decoration: underline; }
+        .footer-social-icons-new { margin-top: 20px; display: flex; gap: 15px; }
+        .footer-social-icons-new a { display: inline-block; color: #e0e0e0; font-size: 1.8rem; transition: transform 0.3s ease, color 0.3s ease; }
+        .footer-social-icons-new a:hover { transform: scale(1.15) translateY(-2px); color: #f9c74f; }
+        .footer-social-icons-new .fa-instagram:hover { color: #E1306C; } .footer-social-icons-new .fa-youtube:hover { color: #FF0000; } .footer-social-icons-new .fa-facebook-f:hover { color: #1877F2; } .footer-social-icons-new .fa-twitter:hover { color: #1DA1F2; } .footer-social-icons-new .fa-linkedin-in:hover { color: #0A66C2; } .footer-social-icons-new .fa-whatsapp:hover { color: #25D366; }
+        .footer-bottom-new { text-align: center; margin-top: 40px; padding-top: 25px; border-top: 1px solid #3a3a5e; font-size: 0.95em; color: #a0a0a0; }
+
+
+        /* Styles for Diagram Section in Footer (from index.html) */
+        .footer-diagram-feature { padding: 40px 20px; margin-bottom: 30px; border-bottom: 1px solid #2a2a4e; text-align: center; }
+        .footer-diagram-title-wrapper { margin-bottom: 25px; display: inline-block; }
+        .footer-diagram-title { background-color: var(--title-box-bg); border: 2px solid var(--title-box-border); border-radius: 12px; padding: 8px 35px; box-shadow: 0 0 8px rgba(0,0,0,0.4), inset 0 0 4px rgba(255,255,255,0.1), 0 0 12px var(--primary-glow-color); display: inline-block; }
+        .footer-diagram-title h3 { font-family: 'Orbitron', sans-serif; font-size: 2em; color: var(--text-color); margin: 0; font-weight: 700; text-shadow: 0 0 4px var(--text-color), 0 0 8px var(--primary-glow-color); }
+        .footer-diagram-area { width: 100%; max-width: 600px; margin: 0 auto 25px auto; position: relative; }
+        #footer-tech-diagram-svg { width: 100%; height: auto; filter: drop-shadow(0 0 8px var(--primary-glow-color)); }
+        .footer-diagram-tagline { font-size: 1em; line-height: 1.6; color: #bbb; margin-bottom: 30px; max-width: 450px; margin-left: auto; margin-right: auto; text-shadow: 0 0 4px rgba(0,0,0,0.6); }
+        .footer-diagram-contact-button { display: inline-block; background-color: var(--button-blue); color: var(--text-color); padding: 10px 30px; border-radius: 25px; text-decoration: none; font-size: 1.1em; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 0 8px var(--button-blue), 0 0 15px var(--button-blue); }
+        .footer-diagram-contact-button:hover { background-color: #0056b3; box-shadow: 0 0 12px var(--button-blue), 0 0 25px var(--button-blue), inset 0 0 4px rgba(255,255,255,0.2); transform: translateY(-2px); }
+        .svg-line { stroke: var(--primary-glow-color); stroke-width: 1.5; stroke-linecap: round; }
+        .svg-node-dot { fill: var(--secondary-glow-color); }
+        .svg-circle-bg { fill: #080c14e0; }
+        .svg-circle-border { stroke: var(--primary-glow-color); stroke-width: 2; fill: none; }
+        .svg-icon { fill: var(--medical-icon-color); filter: drop-shadow(0 0 3px var(--secondary-glow-color)); }
+        .svg-text-main { font-family: 'Roboto', sans-serif; fill: var(--text-color); font-weight: 700; text-anchor: middle; dominant-baseline: middle; filter: drop-shadow(0 0 5px var(--primary-glow-color)); }
+        .svg-text-arrows { fill: var(--secondary-glow-color); font-size: 1.5em; text-anchor: middle; dominant-baseline: middle; }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .logo { font-size: 2.2rem; } /* Consistent with other pages */
+            main.container { padding: 15px; padding-top: 70px; } /* Adjust padding for smaller screens */
+            .page-title { font-size: 2.5rem; } /* Adjusted size */
+            h2.text-2xl, h3.text-2xl { font-size: 1.8rem; } /* General heading size adjustment */
+            .text-lg.md\:text-xl { font-size: 1rem; } /* Intro text adjustment */
+            .contact-card { padding: 15px; } /* Adjust card padding */
+
+            /* Footer specific adjustments */
+            .footer-diagram-title h3 {font-size: 1.8em;}
+            .footer-diagram-area { max-width: 90%; }
+            .footer-container-new { grid-template-columns: 1fr; text-align: center; }
+            .footer-heading-new { padding-left: 0; justify-content: center; }
+            .footer-heading-new::before { left: 50%; transform: translateX(-50%) translateY(-50%); }
+            .footer-quick-links-list, .footer-social-icons-new { justify-content: center; }
+        }
+        @media (max-width: 600px) {
+            .logo { font-size: 2.2rem; }
+            header { padding: 10px 15px;}
+            main.container { padding-top: 60px; } /* Adjust padding for even smaller screens */
+            .page-title { font-size: 2rem; }
+            h2.text-2xl, h3.text-2xl { font-size: 1.6rem; }
+            .text-lg.md\:text-xl { font-size: 0.95rem; }
+            .btn-primary { font-size: 1rem; padding: 12px 18px; }
+            .form-input { padding: 10px 12px; }
+            .faq-item summary { font-size: 1rem; padding: 12px 15px; }
+            .faq-content { padding: 10px 15px 15px 15px; font-size: 0.9rem; margin: 0 15px 0px 15px; }
+
+
+            /* Footer specific adjustments */
+            .footer-diagram-title h3 {font-size: 1.5em;}
+            .footer-diagram-tagline {font-size: 0.9em;}
+            .footer-diagram-contact-button {font-size: 1em; padding: 8px 25px;}
+            .footer-quick-links-list li a { font-size: 1em; padding: 10px 18px; }
+        }
+
+    </style>
+</head>
+<body class="fest-bg-accommodation">
+
+    <svg style="display: none;">
+        <defs>
+            <symbol id="icon-stethoscope" viewBox="0 0 24 24"><path d="M18 3H6c-1.1 0-2 .9-2 2v1H2.5C2.22 6 2 6.22 2 6.5S2.22 7 2.5 7H4v1c0 2.56 1.67 4.72 4 5.66V17H6.5c-.28 0-.5.22-.5.5s.22.5.5.5H8v1.5c0 .28.22.5.5.5s.5-.22.5-.5V18h1v-1.5c0-.98.46-1.85 1.2-2.42.4-.31.87-.58 1.4-.76.4-.14.78-.31 1.13-.51.4-.22.75-.48 1.06-.78.47-.47.81-1.04.99-1.65.04-.15.06-.3.06-.45V6c0-1.1-.9-2-2-2zm-2 3v.09c0 .43-.17.84-.47 1.15-.3.3-.7.46-1.12.46H9.59c-.42 0-.82-.16-1.12-.46-.3-.3-.47-.72-.47-1.15V6h8zm-3.5 10.5c-.28 0-.5.22-.5.5s.22.5.5.5h1.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5h-1.5zM6 9.22C5.07 8.7 4.42 7.77 4.16 6.69 4.06 6.28 4 5.87 4 5.46V5h12v.46c0 .41-.06.82-.16 1.23-.26 1.08-.91 2.01-1.84 2.53-.47.26-.88.6-1.21.99L12 11l-.79-.78c-.33-.39-.74-.73-1.21-.99z"/></symbol>
+            <symbol id="icon-heart-pulse" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35zM7.5 5C5.52 5 4 6.52 4 8.5c0 2.72 2.65 5.2 6.55 8.58L12 18.17l1.45-1.09C17.35 13.7 20 11.22 20 8.5c0-1.98-1.52-3.5-3.5-3.5-1.74 0-3.41.81-4.5 2.09C10.91 5.81 9.24 5 7.5 5zm13.21-1.21L19.5 5l-1.71 1.71-1.21-1.21-1.21 1.21L14.17 5l-1.21 1.21-1.21-1.21-1.21 1.21-1.21-1.21L6.5 5 4.79 3.79 3.58 5l1.21 1.21 1.21-1.21L7.17 5l1.21 1.21 1.21-1.21 1.21 1.21 1.21-1.21L13.5 5l1.71 1.71 1.21-1.21 1.21 1.21 1.71-1.71z"/></symbol>
+            <symbol id="icon-dna-helix" viewBox="0 0 24 24"><path d="M14.5 4c1.08 0 1.96.92 1.96 2.05 0 .2-.04.39-.09.58l-1.4 5.37h.01c.7-.62 1.12-1.51 1.12-2.5 0-1.77-1.31-3.22-3-3.46V4m-5 0v2.04c-1.69.24-3 1.69-3 3.46 0 .99.42 1.88 1.12 2.5h.01L6.63 6.63c-.05-.19-.09-.38-.09-.58C6.54 4.92 7.42 4 8.5 4M12 9c.83 0 1.5.67 1.5 1.5S12.83 12 12 12s-1.5-.67-1.5-1.5S11.17 9 12 9m2.5 6c-1.08 0-1.96-.92-1.96-2.05 0-.2.04-.39.09-.58l1.4-5.37h-.01c-.7.62-1.12 1.51-1.12 2.5 0 1.77 1.31 3.22 3 3.46V15m-5 0v-2.04c1.69-.24 3-1.69 3-3.46 0-.99-.42-1.88-1.12-2.5h-.01l1.41 5.37c.05.19.09.38.09.58 0 1.13-.88 2.05-1.96 2.05M12 17c-.83 0-1.5-.67-1.5-1.5S11.17 14 12 14s1.5.67 1.5 1.5S12.83 17 12 17m0-10c.28 0 .5.22.5.5V9h-.02c-.93-.24-1.9-.24-2.96 0H9V7.5c0-.28.22-.5.5-.5h.58c.95 0 1.85-.14 2.67-.37l.08-.02c.05-.01.1-.01.16-.01zm0 8c-.28 0-.5-.22-.5-.5V15h.02c.93.24 1.9.24 2.96 0H15v1.5c0 .28-.22.5-.5.5h-.58c-.95 0-1.85.14-2.67.37l-.08.02c-.05.01-.1.01-.16-.01z"/></symbol>
+            <symbol id="icon-microscope" viewBox="0 0 24 24"><path d="M16.5 6c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05H10V3H8v3H6.5c-1.13 0-2.05.92-2.05 2.05V10H3v2h1.45V10c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6H8v2h1V8.05c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6h1.05v1.95H13v-2h1.5c.64 0 1.22.21 1.69.6.47.39.76.96.76 1.6V12h1.45v-2H16.5V8.05C16.5 6.92 15.58 6 14.5 6h-2c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05S6.5 6.92 6.5 8.05V10H3v2h1.45V10A2.5 2.5 0 016.5 7.5H8v2h1V7.5A2.5 2.5 0 0111.5 5h1A2.5 2.5 0 0115 7.5V10h1.45v-2H16.5V8.05A2.5 2.5 0 0014.5 6M12 13c-1.93 0-3.5 1.57-3.5 3.5V21h7v-4.5c0-1.93-1.57-3.5-3.5-3.5zm0 1c1.38 0 2.5 1.12 2.5 2.5V20h-5v-3.5c0-1.38 1.12-2.5 2.5-2.5z"/></symbol>
+            <symbol id="icon-rod-of-asclepius" viewBox="0 0 24 24"><path d="M13.82 5.32c-.93-.89-2.18-1.32-3.48-1.32s-2.55.43-3.48 1.32C6 6.21 5.61 7.42 5.61 8.77c0 1.35.39 2.56 1.28 3.45.93.89 2.18 1.32 3.48 1.32s2.55-.43 3.48-1.32c.89-.89 1.28-2.1 1.28-3.45 0-1.35-.39-2.56-1.28-3.45M10.34 12c-1.31 0-2.4-.48-3.17-1.29-.77-.81-1.17-1.85-1.17-3.04 0-1.19.4-2.23 1.17-3.04.77-.81 1.86-1.29 3.17-1.29 1.31 0 2.4.48 3.17 1.29.77.81 1.17 1.85 1.17 3.04 0 1.19-.4 2.23-1.17 3.04-.77.81-1.86 1.29-3.17 1.29m.16 1.5c.34 0 .67.03.99.08v.02c.69.1 1.35.31 1.95.61l.01.01c.29.15.57.32.83.51l.01.01c.22.16.43.34.62.53l.01.01c.14.14.27.29.39.45l.01.01c.09.12.17.24.24.37.2.35.35.73.43 1.13l.01.06v.01c.04.22.06.44.06.67v2.09c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-1.88c0-.47-.15-.92-.43-1.28-.1-.13-.21-.25-.33-.36-.18-.17-.38-.32-.6-.45-.29-.18-.6-.33-.93-.45-.48-.18-1-.29-1.53-.33h-.01c-.18-.01-.36-.02-.54-.02s-.36.01-.54.02h-.01c-.53.04-1.05.15-1.53.33-.33.12-.64.27-.93.45-.22.13-.42.28-.6.45-.12.11-.23.23-.33.36-.28.36-.43.81-.43 1.28v1.88c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-2.09c0-.23.02-.45.06-.67v-.01l.01-.06c.08-.4.23-.78.43-1.13.07-.13.15-.25.24-.37l.01-.01c.12-.16.25-.31.39-.45l.01-.01c.19-.19.4-.37.62-.53l.01-.01c.26-.19.54-.36.83-.51l.01-.01c.6-.3 1.26-.51 1.95-.61v-.02c.32-.05.65-.08.99-.08z"/></symbol>
+            <symbol id="icon-brain" viewBox="0 0 24 24"><path d="M12 2C9.46 2 7.24 3.22 6 5.06c-1.01 1.52-1.59 3.29-1.59 5.11S4.99 13.67 6 15.2c.47.6 1.02 1.12 1.63 1.56.04.03.09.06.13.09C8.32 17.27 9 17.58 9 18.22V19c0 .94.44 1.79 1.15 2.36.05.04.1.08.15.12.72.54 1.79.62 2.7.62.91 0 1.98-.08 2.7-.62.05-.04.1-.08.15-.12.71-.57 1.15-1.42 1.15-2.36v-.78c0-.64.68-.95 1.24-1.37.04-.03.09-.06.13-.09.61-.44 1.16-.96 1.63-1.56 1.01-1.52 1.59-3.29 1.59-5.11S19.01 6.58 18 5.06C16.76 3.22 14.54 2 12 2m4.1 13.6c-.3.35-.65.66-1.02.93-.05.04-.1.07-.15.1-.73.53-1.13 1.28-1.13 2.15v.72c0 .41-.17.78-.45 1.04-.03.02-.06.04-.09.06-.37.28-.9.4-1.36.4s-.99-.12-1.36-.4c-.03-.02-.06-.04-.09-.06-.28-.26-.45-.63-.45-1.04v-.72c0-.87-.4-1.62-1.13-2.15-.05-.03-.1-.06-.15-.1-.37-.26-.72-.58-1.02-.93C7.21 14.07 7 12.87 7 11.63c0-1.29.28-2.55.82-3.66.44-.92 1.07-1.72 1.86-2.37.6-.48 1.29-.8 2.03-.95.73-.15 1.48-.15 2.21 0 .75.15 1.43.47 2.03.95.79.65 1.42 1.45 1.86 2.37.54 1.11.82 2.37.82 3.66 0 1.24-.21 2.44-.6 3.47m-2.1-5.1c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16m-4 0c0-.83-.67-1.5-1.5-1.5S9 9.67 9 10.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16z"/></symbol>
+            <symbol id="icon-medical-plus" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></symbol>
+            <symbol id="icon-atom" viewBox="0 0 24 24"><path d="M12 2c-2.36 0-4.48.77-6.23 2.11l1.01 1.74C8.04 4.79 9.92 4 12 4s3.96.79 5.22 1.85l1.01-1.74C16.48 2.77 14.36 2 12 2m0 16c-2.08 0-3.96-.79-5.22-1.85l-1.01 1.74c1.75 1.34 3.87 2.11 6.23 2.11s4.48-.77 6.23-2.11l-1.01-1.74c-1.26 1.06-3.14 1.85-5.22 1.85M5.92 7.32C4.79 8.58 4 10.27 4 12s.79 3.42 1.92 4.68l1.74-1.01C6.79 14.4 6 13.29 6 12s.79-2.4 1.66-3.67l-1.74-1.01M18.08 7.32l-1.74 1.01C17.21 9.6 18 10.71 18 12s-.79 2.4-1.66 3.67l1.74 1.01C19.21 15.42 20 13.73 20 12s-.79-3.42-1.92-4.68M12 7a5 5 0 100 10 5 5 0 000-10m0 2a3 3 0 110 6 3 3 0 010-6z"/></symbol>
+            <symbol id="icon-test-tube" viewBox="0 0 24 24"><path d="M7 2v11.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V6h2v9.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V2H7zm10 0v2h-2V2h2zm-2 4h2v2h-2V6zm2 4h-2v2h2v-2zM6 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm8-13.22L12.78 7H14v1h-2.22L10.56 9H12v1h-2.44L8.34 11H10v1H8v1h1.78l1.22 1H18V2h-4v3.78zM16 11h-1.11l-.89-1H16v1zm0-2h-2.22l-.89-1H16v1zm0-2h-3.33l-.89-1H16v1z"/></symbol>
+            <symbol id="icon-sparkle" viewBox="0 0 24 24"><path d="M12 2l1.5 4.5h4.5l-3.5 3 1.5 5-4.5-3.5-4.5 3.5 1.5-5-3.5-3h4.5L12 2z"/></symbol>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <feMerge> <feMergeNode in="coloredBlur"/> <feMergeNode in="SourceGraphic"/> </feMerge>
+            </filter>
+        </defs>
+    </svg>
+
+    <header class="visible">
+        <a href="index.html" class="logo">CEREBREXIA</a>
+        <button class="new-menu-toggle-button" id="newMenuToggleButton" aria-label="Open navigation menu" aria-expanded="false">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </header>
+
+    <div id="fullScreenNav">
+        <button class="nav-close-btn" id="navCloseButton" aria-label="Close navigation menu">×</button>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="events.html">EVENTS</a></li>
+            <li><a href="pronite.html">PRONITES</a></li>
+            <li><a href="register.html">REGISTER</a></li>
+            <li><a href="merch.html">MERCHANDISE</a></li>
+            <li><a href="accommodation.html" class="active-nav-link">ACCOMMODATION</a></li>
+            <li><a href="schedule.html">SCHEDULE</a></li>
+            <li><a href="profile.html">PROFILE</a></li>
+        </ul>
+    </div>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-12 p-6 md:p-8 rounded-xl glassmorphism" data-aos="fade-up">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-center neon-text-pink">Accommodation Portal</h1>
+            <h2 class="text-2xl md:text-3xl text-center neon-text-blue mb-6">Your Stay, Sorted for CEREBREXIA'25!</h2>
+            <p class="text-lg md:text-xl text-center leading-relaxed max-w-3xl mx-auto">
+                Welcome! We offer comfortable and secure accommodation options for participants traveling from out of town.
+                Facilities are separate for male and female attendees. Limited spots available, so submit your request early!
+            </p>
+        </section>
+
+        <section class="mb-12 p-6 md:p-8 rounded-xl glassmorphism info-box" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="text-2xl md:text-3xl font-semibold mb-4 text-center neon-text-blue">Important Information</h3>
+            <div class="space-y-3 text-gray-200 text-center md:text-left">
+                <p>
+                    <strong class="text-pink-300">Accommodation Charges & Payment:</strong> Charges for accommodation are applicable per person, per night. The final amount and detailed payment instructions (including payment gateway link/method) will be communicated to you via email if your accommodation request is confirmed by our team. Payment must be completed within the stipulated time to secure your spot.
+                </p>
+                <p>
+                    <strong class="text-pink-300">Accommodation Pass:</strong> Upon successful confirmation of your accommodation and completion of payment, you will receive an official CEREBREXIA'25 Accommodation Pass from our coordinators upon your arrival and check-in.
+                    <span class="font-bold text-yellow-300">This pass is mandatory and must be carried with you at all times</span> while on campus and within the accommodation premises for identification and access.
+                </p>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="p-6 rounded-xl glassmorphism" data-aos="fade-right" data-aos-delay="200">
+                <h3 class="text-2xl md:text-3xl font-semibold mb-4 text-center neon-text-blue">Male Accommodation</h3>
+                <img src="https://placehold.co/600x400/8A2BE2/FFFFFF?text=Modern+Male+Hostel+Concept" alt="Male Accommodation Concept" class="rounded-lg mb-4 w-full h-64 object-cover" onerror="this.src='https://placehold.co/600x400/8A2BE2/FFFFFF?text=Male+Hostel+Image';">
+                <p class="mb-2"><strong class="text-pink-300">Location:</strong> Near IGIMS Campus (details upon confirmation)</p>
+                <p class="mb-2"><strong class="text-pink-300">Room Type:</strong> Dormitory style (shared)</p>
+                <p class="mb-4"><strong class="text-pink-300">Capacity:</strong> 4-6 persons per room</p>
+                <h4 class="text-xl font-semibold mb-2 text-pink-200">Amenities:</h4>
+                <ul class="list-disc list-inside ml-4 space-y-1 text-gray-300">
+                    <li>Bunk beds with individual storage</li>
+                    <li>Clean bedding and linens provided</li>
+                    <li>Shared, hygienic washrooms</li>
+                    <li>24/7 Security and Warden supervision</li>
+                </ul>
+                <p class="mt-4 text-sm text-gray-400">Note: Participants are advised to bring their own toiletries and padlocks.</p>
+            </div>
+
+            <div class="p-6 rounded-xl glassmorphism" data-aos="fade-left" data-aos-delay="300">
+                <h3 class="text-2xl md:text-3xl font-semibold mb-4 text-center neon-text-blue">Female Accommodation</h3>
+                <img src="https://placehold.co/600x400/FF1493/FFFFFF?text=Secure+Female+Hostel+Concept" alt="Female Accommodation Concept" class="rounded-lg mb-4 w-full h-64 object-cover" onerror="this.src='https://placehold.co/600x400/FF1493/FFFFFF?text=Female+Hostel+Image';">
+                <p class="mb-2"><strong class="text-pink-300">Location:</strong> Secure facility near IGIMS Campus (details upon confirmation)</p>
+                <p class="mb-2"><strong class="text-pink-300">Room Type:</strong> Dormitory style (shared)</p>
+                <p class="mb-4"><strong class="text-pink-300">Capacity:</strong> 3-4 persons per room</p>
+                <h4 class="text-xl font-semibold mb-2 text-pink-200">Amenities:</h4>
+                <ul class="list-disc list-inside ml-4 space-y-1 text-gray-300">
+                    <li>Beds with individual storage units</li>
+                    <li>Clean bedding and linens provided</li>
+                    <li>Attached or shared hygienic washrooms</li>
+                    <li>24/7 Female Security and Warden supervision</li>
+                </ul>
+                <p class="mt-4 text-sm text-gray-400">Note: Strict in-out timings and visitor policies apply.</p>
+            </div>
+        </section>
+
+        <section class="mb-12 p-6 md:p-8 rounded-xl glassmorphism" data-aos="zoom-in-up">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center neon-text-pink">Request Accommodation</h2>
+            <form id="accommodationForm" class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label for="fullName" class="block text-lg font-medium text-pink-300 mb-1">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required class="w-full p-3 rounded-md form-input" placeholder="Enter your full name">
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="email" class="block text-lg font-medium text-pink-300 mb-1">Email Address</label>
+                        <input type="email" id="email" name="email" required class="w-full p-3 rounded-md form-input" placeholder="your.email@example.com">
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-lg font-medium text-pink-300 mb-1">Phone Number (WhatsApp preferred)</label>
+                        <input type="tel" id="phone" name="phone" required class="w-full p-3 rounded-md form-input" placeholder="+91 XXXXXXXXXX">
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="collegeName" class="block text-lg font-medium text-pink-300 mb-1">College Name</label>
+                        <input type="text" id="collegeName" name="collegeName" required class="w-full p-3 rounded-md form-input" placeholder="Your college/university name">
+                    </div>
+                    <div>
+                        <label for="city" class="block text-lg font-medium text-pink-300 mb-1">City</label>
+                        <input type="text" id="city" name="city" required class="w-full p-3 rounded-md form-input" placeholder="Your current city">
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="gender" class="block text-lg font-medium text-pink-300 mb-1">Gender</label>
+                        <select id="gender" name="gender" required class="w-full p-3 rounded-md form-input">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="accommodationType" class="block text-lg font-medium text-pink-300 mb-1">Preferred Accommodation</label>
+                        <select id="accommodationType" name="accommodationType" required class="w-full p-3 rounded-md form-input">
+                            <option value="">Select Type</option>
+                            <option value="Male">Male Facility</option>
+                            <option value="Female">Female Facility</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="checkInDate" class="block text-lg font-medium text-pink-300 mb-1">Check-in Date</label>
+                        <input type="date" id="checkInDate" name="checkInDate" required class="w-full p-3 rounded-md form-input">
+                         <p class="text-xs text-gray-400 mt-1">Please select your arrival date.</p>
+                    </div>
+                    <div>
+                        <label for="checkOutDate" class="block text-lg font-medium text-pink-300 mb-1">Check-out Date</label>
+                        <input type="date" id="checkOutDate" name="checkOutDate" required class="w-full p-3 rounded-md form-input">
+                        <p class="text-xs text-gray-400 mt-1">Please select your departure date.</p>
+                    </div>
+                </div>
+                <div>
+                    <label for="numberOfDays" class="block text-lg font-medium text-pink-300 mb-1">Number of Days of Stay</label>
+                    <select id="numberOfDays" name="numberOfDays" required class="w-full p-3 rounded-md form-input">
+                        <option value="">Select duration</option>
+                        <option value="1">1 Day</option>
+                        <option value="2">2 Days</option>
+                        <option value="3">3 Days (Full Fest)</option>
+                        <option value="4">4 Days (Max duration)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="specialRequests" class="block text-lg font-medium text-pink-300 mb-1">Special Requests (Optional)</label>
+                    <textarea id="specialRequests" name="specialRequests" rows="3" class="w-full p-3 rounded-md form-input" placeholder="Any specific needs (e.g., dietary, medical, accessibility)"></textarea>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="terms" name="terms" required class="h-5 w-5 text-pink-500 border-gray-400 rounded focus:ring-pink-500 mr-2 form-input">
+                    <label for="terms" class="text-sm text-gray-300">I acknowledge and agree to the accommodation rules and CEREBREXIA'25 guidelines, including the payment process mentioned.</label>
+                </div>
+                <button type="submit" id="submitButton" class="w-full py-3 px-6 rounded-md text-lg font-semibold btn-primary">
+                    Submit Request
+                </button>
+            </form>
+        </section>
+
+        <section class="mb-12 p-6 md:p-8 rounded-xl glassmorphism" data-aos="fade-up" data-aos-delay="150">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center neon-text-pink">Contact Our Coordinators</h2>
+            <p class="text-lg text-center text-gray-300 mb-8 max-w-xl mx-auto">
+                Have questions about accommodation? Reach out to our dedicated coordinators for assistance.
+            </p>
+            <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                <div class="p-6 rounded-lg glassmorphism contact-card text-center md:text-left" data-aos="zoom-in-right">
+                    <h4 class="text-2xl font-semibold mb-3 text-purple-300">Avinash Kumar</h4>
+                    <p class="text-md text-gray-400 mb-3">Male Accommodation Queries</p>
+                    <p class="mb-2 flex items-center justify-center md:justify-start">
+                        <svg class="contact-icon text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.308 1.154a11.042 11.042 0 005.516 5.516l1.154-2.308a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                        <a href="tel:+919876543210" class="hover:text-pink-400 transition-colors">+91 98765 43210</a> (Placeholder)
+                    </p>
+                    <p class="flex items-center justify-center md:justify-start">
+                         <svg class="contact-icon text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <a href="mailto:avinash.accom@cerebrexia.com" class="hover:text-pink-400 transition-colors">avinash.accom@cerebrexia.com</a> (Placeholder)
+                    </p>
+                </div>
+                <div class="p-6 rounded-lg glassmorphism contact-card text-center md:text-left" data-aos="zoom-in-left">
+                    <h4 class="text-2xl font-semibold mb-3 text-purple-300">Shruti Choudhary</h4>
+                    <p class="text-md text-gray-400 mb-3">Female Accommodation Queries</p>
+                     <p class="mb-2 flex items-center justify-center md:justify-start">
+                        <svg class="contact-icon text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.308 1.154a11.042 11.042 0 005.516 5.516l1.154-2.308a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                        <a href="tel:+919123456789" class="hover:text-pink-400 transition-colors">+91 91234 56789</a> (Placeholder)
+                    </p>
+                    <p class="flex items-center justify-center md:justify-start">
+                        <svg class="contact-icon text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <a href="mailto:shruti.accom@cerebrexia.com" class="hover:text-pink-400 transition-colors">shruti.accom@cerebrexia.com</a> (Placeholder)
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12 p-6 md:p-8 rounded-xl glassmorphism" data-aos="fade-up" data-aos-delay="200">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center neon-text-pink">Accommodation FAQs</h2>
+            <div class="max-w-3xl mx-auto space-y-4" id="accommodationFaqContainer">
+                <div class="faq-item"> <details> <summary> <span>What are the charges for accommodation?</span> <span class="faq-summary-icon">+</span> </summary> <div class="faq-content"> <p>Accommodation charges are applicable per person, per night. The exact amount will be communicated to you via email after your request is reviewed and confirmed by our team. This email will also contain detailed payment instructions.</p> </div> </details> </div>
+                <div class="faq-item"> <details> <summary> <span>How do I make the payment for accommodation?</span> <span class="faq-summary-icon">+</span> </summary> <div class="faq-content"> <p>Once your accommodation request is confirmed, you will receive an email with a payment link or other payment methods (like UPI/bank transfer details) and a deadline for payment. Please ensure timely payment to secure your spot.</p> </div> </details> </div>
+                <div class="faq-item"> <details> <summary> <span>What is an Accommodation Pass and why is it mandatory?</span> <span class="faq-summary-icon">+</span> </summary> <div class="faq-content"> <p>The Accommodation Pass is your official identification for accessing the provided accommodation facilities. It will be issued by our coordinators upon your arrival and after successful payment confirmation. For security and management purposes, it is mandatory to carry this pass with you at all times within the accommodation premises and on campus when requested.</p> </div> </details> </div>
+                <div class="faq-item"> <details> <summary> <span>What should I bring for my stay?</span> <span class="faq-summary-icon">+</span> </summary> <div class="faq-content"> <p>We provide clean bedding and linens. However, participants are advised to bring their own personal toiletries (soap, shampoo, towel, etc.) and a padlock for securing their belongings in the provided storage units.</p> </div> </details> </div>
+                <div class="faq-item"> <details> <summary> <span>Are there separate facilities for male and female participants?</span> <span class="faq-summary-icon">+</span> </summary> <div class="faq-content"> <p>Yes, absolutely. We have separate and secure accommodation facilities for male and female participants, each supervised by respective wardens and security personnel.</p> </div> </details> </div>
+                <div class="faq-item"> <details> <summary> <span>What are the check-in and check-out timings?</span> <span class="faq-summary-icon">+</span> </summary> <div class="faq-content"> <p>Standard check-in usually starts a day before the fest (e.g., Dec 14th if the fest is Dec 15-17) and check-out is typically the day after the fest concludes (e.g., Dec 18th). Specific timings will be communicated upon confirmation of your accommodation. Please adhere to these timings for smooth operations.</p> </div> </details> </div>
+                <div class="faq-item"> <details> <summary> <span>Can I choose my roommates?</span> <span class="faq-summary-icon">+</span> </summary> <div class="faq-content"> <p>Accommodation is generally provided on a shared, dormitory-style basis. While we cannot guarantee specific roommate requests due to logistical constraints, you can mention any preferences in the "Special Requests" section of the form, and we will try our best if feasible, especially for groups from the same college.</p> </div> </details> </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-diagram-feature" data-aos="fade-up">
+            <div class="footer-diagram-title-wrapper">
+                <div class="footer-diagram-title">
+                    <h3>CEREBREXIA VERSE</h3>
+                </div>
+            </div>
+            <div class="footer-diagram-area">
+                <svg id="footer-tech-diagram-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <line class="svg-line" x1="300" y1="200" x2="150" y2="80" /><line class="svg-line" x1="300" y1="200" x2="80" y2="200" /><line class="svg-line" x1="300" y1="200" x2="150" y2="320" /><line class="svg-line" x1="300" y1="200" x2="450" y2="80" /><line class="svg-line" x1="300" y1="200" x2="520" y2="200" /><line class="svg-line" x1="300" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="80" y2="200" /><line class="svg-line" x1="80" y1="200" x2="150" y2="320" /><line class="svg-line" x1="450" y1="80" x2="520" y2="200" /><line class="svg-line" x1="520" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="300" y2="50" /><line class="svg-line" x1="450" y1="80" x2="300" y2="50" /><line class="svg-line" x1="150" y1="320" x2="230" y2="360" /><line class="svg-line" x1="450" y1="320" x2="370" y2="360" />
+                    <circle class="svg-circle-bg" cx="300" cy="200" r="70"/><circle class="svg-circle-border" cx="300" cy="200" r="70" filter="url(#glow)"/><text class="svg-text-main" x="300" y="190" font-size="14px">CONNECTING</text><text class="svg-text-main" x="300" y="210" font-size="14px">MEDICS</text><text class="svg-text-arrows" x="300" y="155">⬆</text> <text class="svg-text-arrows" x="300" y="245">⬇</text><text class="svg-text-arrows" x="255" y="200">⬅</text> <text class="svg-text-arrows" x="345" y="200">➡</text><text class="svg-text-arrows" transform="translate(268 168) rotate(-45)" >↖</text><text class="svg-text-arrows" transform="translate(332 168) rotate(45)">↗</text><text class="svg-text-arrows" transform="translate(268 232) rotate(45)">↙</text><text class="svg-text-arrows" transform="translate(332 232) rotate(-45)">↘</text>
+                    <g transform="translate(150, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-stethoscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(80, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-heart-pulse" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(150, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-dna-helix" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
+                    <g transform="translate(450, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-microscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(520, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-rod-of-asclepius" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
+                    <g transform="translate(450, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-brain" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(300, 50)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-medical-plus" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(230, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-atom" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(370, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-test-tube" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(80, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
+                    <g transform="translate(520, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
+                    <circle class="svg-node-dot" cx="300" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="300" cy="50" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="230" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="370" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="120" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="120" r="3" filter="url(#glow)"/>
+                </svg>
+            </div>
+            <p class="footer-diagram-tagline">
+                Back again to make you guys vibe, Get stress free and enjoy the fest to its fullest
+            </p>
+            <a href="mailto:thecerebrexia17@gmail.com" class="footer-diagram-contact-button">CONTACT ORGANIZERS</a>
+        </div>
+
+        <div class="footer-container-new">
+          <div class="footer-section-new">
+            <h3 class="footer-heading-new">Connect</h3>
+            <div class="footer-social-icons-new">
+              <a href="https://facebook.com/cerebrexia" target="_blank" aria-label="Facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/igimsfest/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://twitter.com/cerebrexia" target="_blank" aria-label="Twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="https://linkedin.com/company/cerebrexia" target="_blank" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://www.youtube.com/@cerebrexia" target="_blank" aria-label="YouTube" title="YouTube"><i class="fab fa-youtube"></i></a>
+              <a href="https://whatsapp.com/channel/0029VbA0P20HbFV2ke5rlR2G" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Channel" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
+            </div>
+               <p style="margin-top: 15px; font-size: 1em; color: #b0b0c0;">Stay connected for live updates!</p>
+          </div>
+
+          <div class="footer-section-new">
+            <h3 class="footer-heading-new">Quick Links</h3>
+            <ul class="footer-quick-links-list">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="events.html">Events</a></li>
+              <li><a href="schedule.html">Schedule</a></li>
+              <li><a href="pronite.html">Pronites</a></li>
+              <li><a href="#team">Team</a></li>
+              <li><a href="accommodation.html">Accommodation</a></li>
+              <li><a href="register.html">Delegate Registration</a></li>
+              <li><a href="privacypolicy.html">Privacy Policy</a></li>
+              <li><a href="terms.html">Terms of Service</a></li>
+              <li><a href="codeofconduct.html">Code of Conduct</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section-new">
+            <h3 class="footer-heading-new">Contact</h3>
+            <div class="footer-contact-info">
+              <p>Email: <a href="mailto:info@cerebrexia25.com">info@cerebrexia25.com</a></p>
+              <p>Pankaj Kumar: <a href="tel:+919079956283">+91 90799 56283</a></p>
+              <p>Dhananjay Kumar: <a href="tel:+917425992291">+91 74259 92291</a></p>
+              <p style="margin-top:15px;">IGIMS Patna Campus,<br/>Sheikhpura, Patna, Bihar - 800014</p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom-new">
+          <p>© 2025 CEREBREXIA'25 - IGIMS Patna. All Rights Reserved. Designed with <i class="fas fa-heart" style="color: #ff00ff;"></i>.</p>
+        </div>
+    </footer>
+
+    <button class="scroll-top-btn" aria-label="Scroll to top">▲</button>
+
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-button" id="modalCloseBtn">&times;</span>
+            <p id="modalMessageText" class="text-xl"></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({ duration: 800, once: true });
+
+            function displayModalMessage(message, type = "success") {
+                const modalElement = document.getElementById('messageModal');
+                const modalMessageTextElement = document.getElementById('modalMessageText');
+                if (modalMessageTextElement && modalElement) {
+                    modalMessageTextElement.textContent = message;
+                    modalMessageTextElement.className = `text-xl ${type === "error" ? "text-red-400" : "text-green-400"}`;
+                    modalElement.style.display = "block";
+                } else {
+                    console.error("Modal elements for displayModalMessage not found. Fallback alert:", message);
+                    alert(message);
+                }
+            }
+
+            // --- Accommodation Form Logic (Formspree) ---
+            const accommodationForm = document.getElementById('accommodationForm');
+            const submitButton = document.getElementById('submitButton');
+            const modal = document.getElementById('messageModal');
+            const modalCloseBtn = document.getElementById('modalCloseBtn');
+            const genderSelect = document.getElementById('gender');
+            const accommodationTypeSelect = document.getElementById('accommodationType');
+
+            if(modalCloseBtn && modal) modalCloseBtn.onclick = () => modal.style.display = "none";
+            window.onclick = (event) => { if (event.target == modal && modal) modal.style.display = "none"; }
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && modal && modal.style.display === 'block') {
+                    modal.style.display = "none";
+                }
+            });
+
+            if (genderSelect && accommodationTypeSelect) {
+                genderSelect.addEventListener('change', function() {
+                    // Auto-select preferred accommodation based on gender
+                    accommodationTypeSelect.value = this.value === 'Male' ? 'Male' : (this.value === 'Female' ? 'Female' : '');
+                });
+            }
+
+            if (accommodationForm) {
+                accommodationForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    if (submitButton) {
+                        submitButton.disabled = true;
+                        submitButton.textContent = 'Submitting...';
+                    }
+
+                    // Collect form data
+                    const formData = new FormData(accommodationForm);
+                    const formDataObject = {};
+                    formData.forEach((value, key) => {
+                        formDataObject[key] = value;
+                    });
+
+                    // Add Formspree specific fields if needed (optional)
+                    formDataObject._subject = `New Accommodation Request: ${formDataObject.fullName}`;
+                    formDataObject._replyto = formDataObject.email; // Sets reply-to for easier response
+
+                    try {
+                        const response = await fetch('https://formspree.io/f/mldndngp', { // YOUR FORMSPREE ENDPOINT
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json' // Important for Formspree to send JSON response
+                            },
+                            body: JSON.stringify(formDataObject)
+                        });
+
+                        if (response.ok) {
+                            const responseData = await response.json(); // Or response.text() if not expecting JSON
+                            console.log('Formspree success:', responseData);
+                            displayModalMessage("Accommodation request submitted successfully! Our team will contact you shortly with further details.", "success");
+                            accommodationForm.reset();
+                        } else {
+                            // Try to parse error from Formspree if it's JSON
+                            const errorData = await response.json().catch(() => ({ error: "Submission failed with status: " + response.status }));
+                            console.error('Formspree error data:', errorData);
+                            // Display a more specific error if Formspree provides one, otherwise a generic message
+                            displayModalMessage(`Error: ${errorData.error || 'Could not submit your request. Please try again.'}`, "error");
+                        }
+                    } catch (error) {
+                        console.error("Error submitting form to Formspree:", error);
+                        displayModalMessage("An unexpected error occurred. Please check your internet connection and try again.", "error");
+                    } finally {
+                        if (submitButton) {
+                            submitButton.disabled = false;
+                            submitButton.textContent = 'Submit Request';
+                        }
+                    }
+                });
+            }
+
+            // --- Header Scroll Logic (consistent) ---
+            let lastScrollTop = 0;
+            const header = document.querySelector('header');
+            if(header){ /* Check if header exists before adding listener */
+                window.addEventListener('scroll', () => {
+                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    if (scrollTop > lastScrollTop && scrollTop > header.offsetHeight) {
+                        header.classList.add('hidden');
+                        header.classList.remove('visible');
+                    } else {
+                        // Make sure it becomes visible when scrolling up, even if near bottom, or at top
+                        if(scrollTop + window.innerHeight < document.documentElement.scrollHeight || scrollTop === 0) {
+                           header.classList.remove('hidden');
+                           header.classList.add('visible');
+                        }
+                    }
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; /* For Mobile or negative scrolling */
+                });
+            }
+
+            // --- Hamburger Menu Toggle Logic (consistent) ---
+            const newMenuToggleButton = document.getElementById('newMenuToggleButton');
+            const fullScreenNav = document.getElementById('fullScreenNav');
+            const navCloseButton = document.getElementById('navCloseButton'); /* Using navCloseButton from other pages */
+            const body = document.body;
+
+            if (newMenuToggleButton && fullScreenNav && navCloseButton) { /* Ensure all elements exist */
+                newMenuToggleButton.addEventListener('click', () => {
+                    const isExpanded = newMenuToggleButton.getAttribute('aria-expanded') === 'true' || false;
+                    newMenuToggleButton.setAttribute('aria-expanded', String(!isExpanded));
+                    newMenuToggleButton.classList.toggle('open');
+                    fullScreenNav.classList.toggle('active');
+                    body.style.overflow = fullScreenNav.classList.contains('active') ? 'hidden' : '';
+                });
+
+                navCloseButton.addEventListener('click', () => {
+                    newMenuToggleButton.setAttribute('aria-expanded', 'false');
+                    newMenuToggleButton.classList.remove('open');
+                    fullScreenNav.classList.remove('active');
+                    body.style.overflow = '';
+                });
+
+                // Close nav when a link is clicked
+                fullScreenNav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        // Check if it's an on-page anchor link
+                        if (link.getAttribute('href').startsWith('#')) {
+                            // For now, just closing the menu
+                            // Smooth scroll logic can be added here later for on-page anchors if needed
+                            /*
+                            const targetId = link.getAttribute('href');
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                const headerOffset = header ? header.offsetHeight + 20 : 0; // Adjust for fixed header
+                                const elementPosition = targetElement.getBoundingClientRect().top;
+                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                            }
+                            */
+                            newMenuToggleButton.setAttribute('aria-expanded', 'false'); // Set to false when menu closes
+                            newMenuToggleButton.classList.remove('open');
+                            fullScreenNav.classList.remove('active');
+                            body.style.overflow = '';
+                        } else {
+                            // For external links, the browser will navigate, just close menu
+                            newMenuToggleButton.setAttribute('aria-expanded', 'false'); // Set to false when menu closes
+                            newMenuToggleButton.classList.remove('open');
+                            fullScreenNav.classList.remove('active');
+                            body.style.overflow = '';
+                        }
+                    });
+                });
+
+                // Close nav on Escape key press
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === 'Escape' && fullScreenNav.classList.contains('active')) {
+                        newMenuToggleButton.setAttribute('aria-expanded', 'false');
+                        newMenuToggleButton.classList.remove('open');
+                        fullScreenNav.classList.remove('active');
+                        body.style.overflow = '';
+                    }
+                });
+            }
+
+            // --- Scroll Top Button (consistent) ---
+            const scrollTopBtn = document.querySelector('.scroll-top-btn');
+            if (!scrollTopBtn) { /* Create if not exists in HTML */
+                const tempScrollTopBtn = document.createElement('button');
+                tempScrollTopBtn.className = 'scroll-top-btn';
+                tempScrollTopBtn.setAttribute('aria-label', 'Scroll to top');
+                tempScrollTopBtn.textContent = '▲';
+                document.body.appendChild(tempScrollTopBtn);
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    .scroll-top-btn {
+                        position: fixed; bottom: 20px; right: 20px; background: rgba(13,0,31,0.85); color: #fff;
+                        border: none; border-radius: 5px; padding: 10px 15px; cursor: pointer;
+                        opacity: 0; visibility: hidden; transition: opacity .3s ease,visibility .3s ease; z-index: 1000;
+                    }
+                    .scroll-top-btn.show { opacity: 1; visibility: visible; }
+                    .scroll-top-btn:hover { background: #ff00ff; }
+                `;
+                document.head.appendChild(style);
+            }
+            const actualScrollTopBtn = document.querySelector('.scroll-top-btn'); /* Always get fresh reference */
+            if (actualScrollTopBtn) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > window.innerHeight / 2) { actualScrollTopBtn.classList.add('show'); }
+                    else { actualScrollTopBtn.classList.remove('show'); }
+                });
+                actualScrollTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+            }
+
+            // --- Accommodation FAQ Toggle Logic (Modified for new structure) ---
+            const faqContainer = document.getElementById('accommodationFaqContainer');
+            if (faqContainer) {
+                const detailsElements = faqContainer.querySelectorAll('details');
+                detailsElements.forEach((details) => {
+                    const summary = details.querySelector('summary');
+                    const icon = summary ? summary.querySelector('.faq-summary-icon') : null;
+
+                    if (summary) {
+                        summary.addEventListener('click', (event) => {
+                            // Close other open <details> elements
+                            if (!details.open) { // If this one is about to open
+                                detailsElements.forEach(otherDetails => {
+                                    if (otherDetails !== details && otherDetails.open) {
+                                        otherDetails.open = false; // Close others
+                                        const otherIcon = otherDetails.querySelector('.faq-summary-icon');
+                                        if (otherIcon) otherIcon.textContent = '+';
+                                    }
+                                });
+                            }
+                            // Toggle icon
+                            if (icon) {
+                                icon.textContent = details.open ? '+' : '−'; // Swap + and -
+                            }
+                        });
+
+                        // Set initial icon state (important for page load)
+                        if (icon) {
+                           icon.textContent = details.open ? '−' : '+';
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pronites - CEREBREXIA'25</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Savate:wght@518&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+    <style>
+        /* Base and Reset */
+        :root {
+            --primary-glow-color: #50c8ff;
+            --secondary-glow-color: #7efcff;
+            --text-color: #ffffff;
+            --dark-bg: #0a0e1a;
+            --medium-bg: #10182c;
+            --title-box-bg: #2a3045;
+            --title-box-border: #607080;
+            --button-blue: #007bff;
+            --icon-blue: #3cb5f5;
+            --medical-icon-color: #ffffff;
+        }
+
+        * { box-sizing: border-box; }
+        html {
+            background-color: #0d001f; /* Fallback background for the page */
+            scroll-behavior: smooth;
+        }
+        body, html {
+            margin: 0; padding: 0; min-height: 100vh;
+            font-family: 'Kanit', sans-serif; /* Consistent with events.html now */
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+        body {
+            background-color: transparent; /* Allow video background to show through if any */
+            position: relative; /* For stacking context if needed */
+        }
+
+        /* Consistent Header Styles (from index.html/events.html) */
+        header {
+            position: fixed; /* HEADER remains fixed as before */
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(13, 0, 31, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header.hidden { transform: translateY(-100%); }
+        header.visible { transform: translateY(0); }
+        .logo {
+            font-family: 'Savate', sans-serif;
+            font-size: 3rem;
+            font-weight: 518;
+            color: yellow;
+            user-select: none;
+            text-decoration: none;
+            z-index: 1001;
+        }
+        .new-menu-toggle-button { background: transparent; border: none; color: #fff; cursor: pointer; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1101; transition: transform 0.3s ease; }
+        .new-menu-toggle-button .icon-bar { display: block; width: 30px; height: 3px; background-color: #fff; margin: 6px 0; transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease; border-radius: 1px; }
+        .new-menu-toggle-button:hover .icon-bar { background-color: #ff00ff; }
+        .new-menu-toggle-button.open .icon-bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .new-menu-toggle-button.open .icon-bar:nth-child(2) { opacity: 0; }
+        .new-menu-toggle-button.open .icon-bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+
+        /* Fullscreen Nav styles (from index.html/events.html) */
+        #fullScreenNav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(13, 0, 31, 0.97); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            z-index: 1100; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0s linear 0.5s; overflow-y: auto;
+        }
+        #fullScreenNav.active { opacity: 1; visibility: visible; transition: opacity 0.5s ease, visibility 0s linear 0s; }
+        #fullScreenNav ul { list-style: none; padding: 0; margin: 0; text-align: center; }
+        #fullScreenNav li { margin: 20px 0; }
+        #fullScreenNav a {
+            font-family: 'Exo', sans-serif; font-weight: 400; font-size: clamp(2rem, 5vw, 3rem);
+            color: #fff; text-decoration: none; padding: 10px 25px; display: inline-block;
+            position: relative; transition: color 0.4s ease, transform 0.4s ease; letter-spacing: 1px; text-transform: uppercase;
+        }
+        #fullScreenNav a::before, #fullScreenNav a::after {
+            content: ''; position: absolute; width: 100%; height: 3px;
+            background: linear-gradient(90deg, #ff00ff, #ffae00, #00ffff, #ff00ff);
+            background-size: 300% 100%; left: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease; animation: borderFlow 8s linear infinite;
+        }
+        #fullScreenNav a::before { top: 0; transform: scaleX(0); transform-origin: left; }
+        #fullScreenNav a::after { bottom: 0; transform: scaleX(0); transform-origin: right; }
+        #fullScreenNav a:hover, #fullScreenNav a:focus { color: #ffdd57; transform: translateY(-5px) scale(1.05); }
+        #fullScreenNav a:hover::before, #fullScreenNav a:focus::before { transform: scaleX(1); transform-origin: right; }
+        #fullScreenNav a:hover::after, #fullScreenNav a:focus::after { transform: scaleX(1); transform-origin: left; }
+        @keyframes borderFlow { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
+        #fullScreenNav .nav-close-btn { position: absolute; top: 25px; right: 25px; background: transparent; color: #fff; border: none; font-size: 2.5rem; font-weight: bold; cursor: pointer; z-index: 1201; transition: color 0.3s ease, transform 0.3s ease; line-height: 1; }
+        #fullScreenNav .nav-close-btn:hover { color: #ff00ff; transform: rotate(90deg) scale(1.1); }
+        /* Active Link Specific Style (Pronites page specific for current page) */
+        #fullScreenNav a.active-nav-link {
+            color: #ffd700; /* Gold for active link */
+            text-shadow: 0 0 8px #ffd700, 0 0 15px rgba(255, 215, 0, 0.7);
+        }
+        #fullScreenNav a.active-nav-link::before,
+        #fullScreenNav a.active-nav-link::after {
+            width: 100%; /* Ensure active link borders are always full width */
+            transform: scaleX(1);
+            animation: none; /* No flowing animation on active link */
+            background-position: 0% 50%; /* Static background for active link */
+        }
+
+        /* General container for Pronite content */
+        .pronite-main-container {
+            max-width: 1100px;
+            margin: 0 auto 40px; /* Removed top margin, handled by title section */
+            padding: 0 20px 20px 20px; /* Adjusted padding */
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Page Main Title Section */
+        .page-main-title-section {
+            margin-top: 80px; /* Space for fixed header */
+            padding: 3rem 1rem 2rem; /* Adjusted padding for more vertical space */
+            text-align: center; /* Ensures content is centered */
+            overflow: hidden;
+            position: relative; /* Ensure it creates a stacking context, but not fixed */
+            z-index: 1; /* Keep it above background elements if any */
+            background: linear-gradient(135deg, rgba(30, 0, 70, 0.7), rgba(10, 0, 20, 0.7)); /* Darker, more saturated background */
+            backdrop-filter: blur(10px); /* Slightly more blur for better separation */
+            border-bottom: 2px solid #ff00ff66; /* Add a vibrant border */
+            box-shadow: 0 2px 15px rgba(255, 0, 255, 0.2); /* Subtle shadow */
+            display: flex; /* Use flexbox to center content vertically/horizontally */
+            flex-direction: column; /* Stack children vertically */
+            align-items: center; /* Center horizontally */
+            justify-content: center; /* Center vertically if section has fixed height, which it does not here */
+        }
+        .header-title-pronite {
+            font-family: 'Orbitron', sans-serif; /* Changed font for a more modern, energetic feel */
+            font-weight: 700; /* Orbitron is usually bolder */
+            font-size: clamp(3.5rem, 12vw, 7rem); /* Slightly larger and more responsive */
+            text-transform: uppercase;
+            letter-spacing: 0.1em; /* More pronounced letter spacing */
+            position: relative;
+            /* Dynamic Gradient with more contrast and movement */
+            background: linear-gradient(45deg, #ff4dff, #4dd0e1, #ffe600, #ff4dff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent; /* Make the text transparent to show the gradient */
+            background-size: 400% 400%;
+            animation: animatedDynamicGradientTitle 8s infinite alternate ease-in-out,
+                       subtle-float-pronite 5s infinite alternate ease-in-out; /* Faster gradient animation */
+            text-shadow: 0 0 10px #ff4dffaa, 0 0 25px #4dd0e188; /* Stronger, more vibrant shadows */
+            width: 100%; /* Ensure it takes full width to allow text-align:center to work consistently */
+            display: block; /* Ensure it behaves as a block element */
+        }
+
+        @keyframes animatedDynamicGradientTitle {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes subtle-float-pronite {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-8px) scale(1.03); } /* Slightly more pronounced float */
+            100% { transform: translateY(0) scale(1); }
+        }
+
+        .intro-text-pronite {
+            font-family: 'Kanit', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem); /* Slightly larger text */
+            font-weight: 500;
+            color: #e6e6fa; /* Very light, almost white lavender */
+            max-width: 800px; /* Allow slightly wider text */
+            margin: 1.5rem auto 0 auto; /* More space above the text */
+            line-height: 1.7;
+            letter-spacing: 0.04em; /* Slightly more letter spacing */
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5), 0 0 8px rgba(255, 102, 255, 0.4); /* Deeper shadow with a hint of pink */
+            display: block; /* Ensure it behaves as a block element */
+        }
+
+        /* Styling for Pronite Content Sections */
+        .pronite-content-section {
+            background: rgba(255,0,255,0.06);
+            padding: 30px 20px; /* Reduced padding */
+            border-radius: 18px;
+            box-shadow: 0 0 15px #ff00ff28; /* Softer shadow */
+            margin: 30px auto;
+        }
+        .pronite-section-title {
+            font-family: 'Exo', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+            margin-bottom: 25px;
+            color: #ff66ff;
+            user-select: none;
+            text-align: center;
+            text-shadow: 0 0 8px #ff00ff77;
+        }
+        .pronite-section-title i {
+            margin-right: 0.6rem;
+            font-size: 0.9em;
+        }
+
+        /* Artist Card Styling */
+        .artist-card-pronite {
+            background: rgba(255, 255, 255, 0.04); /* Slightly darker */
+            border-radius: 16px;
+            padding: 15px; /* Reduced padding for overall card */
+            box-shadow: 0 0 8px #ff00ff55, 0 0 12px #ff66ff66;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            overflow: hidden;
+        }
+        .artist-card-pronite:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 0 15px #ff00ff88, 0 0 30px #ff66ff88;
+        }
+        .artist-image-container-pronite {
+            position: relative;
+            overflow: hidden;
+            height: 230px; /* Adjusted height */
+            border-radius: 10px;
+        }
+        .artist-image-container-pronite img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .artist-card-pronite:hover .artist-image-container-pronite img {
+            transform: scale(1.1);
+        }
+        .artist-text-content { /* Added wrapper for text */
+            margin-top: 10px; /* This controls space between image and text block */
+        }
+        .artist-name-pronite {
+            font-family: 'Exo', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+            color: #ff99ff;
+            margin-bottom: 5px; /* Reduced space below name */
+            text-shadow: 0 0 6px #ff00ff77;
+        }
+        .artist-description-pronite {
+            font-size: 0.9rem; /* Slightly smaller */
+            line-height: 1.45;
+            color: #ddd; /* Lighter than #eee for better contrast on dark bg */
+            font-family: 'Kanit', sans-serif; /* Consistent with body font */
+        }
+
+        /* More Surprises Card */
+        .more-surprises-card-pronite {
+            justify-content: center;
+            background: linear-gradient(135deg, #2a002a, #3f003f); /* Adjusted gradient */
+            border: 2px dashed #ff00ff88;
+        }
+        .more-surprises-card-pronite .artist-name-pronite {
+             color: #ffdd57;
+             font-size: clamp(1.7rem, 4.5vw, 2.3rem);
+        }
+        .more-surprises-card-pronite p {
+            color: #f0e6ff;
+        }
+        .more-surprises-card-pronite svg {
+            color: #ffdd57;
+            opacity: 0.8;
+            width: 3rem; height: 3rem; margin-top: 0.8rem;
+        }
+
+        /* Carousel Section Specific Styles */
+        .swiper {
+            width: 100%;
+            padding-bottom: 50px; /* Space for pagination */
+            padding-top: 20px;
+            overflow: hidden; /* Ensure inner content doesn't overflow outside swiper bounds */
+        }
+        .swiper-slide {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2), 0 0 25px rgba(0, 255, 255, 0.1);
+            text-align: center;
+            padding-bottom: 20px; /* Space for text below image */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .swiper-slide:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.4), 0 0 40px rgba(0, 255, 255, 0.2);
+        }
+        .swiper-slide .artist-image-container-pronite {
+            height: 200px; /* Smaller images for carousel */
+            border-bottom: 2px solid #00ffff;
+        }
+        .swiper-slide .artist-name-carousel {
+            font-family: 'Exo', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: #00ffff;
+            margin-top: 15px;
+            text-shadow: 0 0 8px #00ffff55;
+        }
+        .swiper-slide .artist-description-carousel {
+            font-size: 0.95rem;
+            color: #b3f0ff;
+            margin-top: 5px;
+            line-height: 1.4;
+            padding: 0 15px;
+        }
+
+        /* Swiper Navigation & Pagination */
+        .swiper-button-next, .swiper-button-prev {
+            color: #00ffff !important; /* Cyan color */
+            filter: drop-shadow(0 0 5px #00ffff);
+        }
+        .swiper-button-next:after, .swiper-button-prev:after {
+            font-size: 28px !important;
+        }
+        .swiper-pagination-bullet {
+            background: #00ffff !important;
+            opacity: 0.6 !important;
+        }
+        .swiper-pagination-bullet-active {
+            background: #00ffff !important;
+            opacity: 1 !important;
+            box-shadow: 0 0 8px #00ffff;
+        }
+
+        /* Footer Styles (from index.html/events.html) */
+        .site-footer { background-color: #1a1a2e; color: #e0e0e0; padding: 30px 20px 30px; font-family: 'Kanit', sans-serif; margin-top: 60px; border-top: 3px solid #3a3a5e; box-shadow: 0 -5px 15px rgba(25, 25, 46, 0.5); }
+        .footer-container-new { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; }
+        .footer-section-new { padding: 10px; }
+        .footer-heading-new { font-size: 1.6em; font-weight: 600; color: #f9c74f; margin-bottom: 25px; position: relative; padding-left: 20px; font-family: 'Exo', sans-serif; }
+        .footer-heading-new::before { content: '●'; color: #f9c74f; position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 0.8em; }
+        .footer-quick-links-list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; }
+        .footer-quick-links-list li { margin-right: 12px; margin-bottom: 12px; }
+        .footer-quick-links-list li a { display: inline-block; background-color: #2a2a4e; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 25px; font-size: 1.1em; font-weight: 500; transition: background-color 0.3s ease, transform 0.2s ease; border: 1px solid #3a3a5e; }
+        .footer-quick-links-list li a:hover, .footer-quick-links-list li a:focus { background-color: #f9c74f; color: #1a1a2e; transform: translateY(-2px); }
+        .footer-contact-info p { font-size: 1.1em; margin-bottom: 12px; line-height: 1.7; color: #d0d0d0; }
+        .footer-contact-info p a { color: #a0cff0; text-decoration: none; transition: color 0.3s ease; }
+        .footer-contact-info p a:hover { color: #f9c74f; text-decoration: underline; }
+        .footer-social-icons-new { margin-top: 20px; display: flex; gap: 15px; }
+        .footer-social-icons-new a { display: inline-block; color: #e0e0e0; font-size: 1.8rem; transition: transform 0.3s ease, color 0.3s ease; }
+        .footer-social-icons-new a:hover { transform: scale(1.15) translateY(-2px); color: #f9c74f; }
+        .footer-social-icons-new .fa-instagram:hover { color: #E1306C; } .footer-social-icons-new .fa-youtube:hover { color: #FF0000; } .footer-social-icons-new .fa-facebook-f:hover { color: #1877F2; } .footer-social-icons-new .fa-twitter:hover { color: #1DA1F2; } .footer-social-icons-new .fa-linkedin-in:hover { color: #0A66C2; } .footer-social-icons-new .fa-whatsapp:hover { color: #25D366; }
+        .footer-bottom-new { text-align: center; margin-top: 40px; padding-top: 25px; border-top: 1px solid #3a3a5e; font-size: 0.95em; color: #a0a0a0; }
+
+
+        /* Styles for Diagram Section in Footer (from index.html) */
+        .footer-diagram-feature { padding: 40px 20px; margin-bottom: 30px; border-bottom: 1px solid #2a2a4e; text-align: center; }
+        .footer-diagram-title-wrapper { margin-bottom: 25px; display: inline-block; }
+        .footer-diagram-title { background-color: var(--title-box-bg); border: 2px solid var(--title-box-border); border-radius: 12px; padding: 8px 35px; box-shadow: 0 0 8px rgba(0,0,0,0.4), inset 0 0 4px rgba(255,255,255,0.1), 0 0 12px var(--primary-glow-color); display: inline-block; }
+        .footer-diagram-title h3 { font-family: 'Orbitron', sans-serif; font-size: 2em; color: var(--text-color); margin: 0; font-weight: 700; text-shadow: 0 0 4px var(--text-color), 0 0 8px var(--primary-glow-color); }
+        .footer-diagram-area { width: 100%; max-width: 600px; margin: 0 auto 25px auto; position: relative; }
+        #footer-tech-diagram-svg { width: 100%; height: auto; filter: drop-shadow(0 0 8px var(--primary-glow-color)); }
+        .footer-diagram-tagline { font-size: 1em; line-height: 1.6; color: #bbb; margin-bottom: 30px; max-width: 450px; margin-left: auto; margin-right: auto; text-shadow: 0 0 4px rgba(0,0,0,0.6); }
+        .footer-diagram-contact-button { display: inline-block; background-color: var(--button-blue); color: var(--text-color); padding: 10px 30px; border-radius: 25px; text-decoration: none; font-size: 1.1em; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 0 8px var(--button-blue), 0 0 15px var(--button-blue); }
+        .footer-diagram-contact-button:hover { background-color: #0056b3; box-shadow: 0 0 12px var(--button-blue), 0 0 25px var(--button-blue), inset 0 0 4px rgba(255,255,255,0.2); transform: translateY(-2px); }
+        .svg-line { stroke: var(--primary-glow-color); stroke-width: 1.5; stroke-linecap: round; }
+        .svg-node-dot { fill: var(--secondary-glow-color); }
+        .svg-circle-bg { fill: #080c14e0; }
+        .svg-circle-border { stroke: var(--primary-glow-color); stroke-width: 2; fill: none; }
+        .svg-icon { fill: var(--medical-icon-color); filter: drop-shadow(0 0 3px var(--secondary-glow-color)); }
+        .svg-text-main { font-family: 'Roboto', sans-serif; fill: var(--text-color); font-weight: 700; text-anchor: middle; dominant-baseline: middle; filter: drop-shadow(0 0 5px var(--primary-glow-color)); }
+        .svg-text-arrows { fill: var(--secondary-glow-color); font-size: 1.5em; text-anchor: middle; dominant-baseline: middle; }
+
+
+        /* Responsive Adjustments (from index.html/events.html) */
+        @media (max-width: 768px) {
+            .pronite-main-container { margin-top: 70px; padding: 15px; }
+            .header-title-pronite { font-size: clamp(2.5rem, 9vw, 5.5rem); }
+            .intro-text-pronite { font-size: 1rem; }
+
+            .footer-diagram-title h3 {font-size: 1.8em;}
+            .footer-diagram-area { max-width: 90%; }
+            .footer-container-new { grid-template-columns: 1fr; text-align: center; }
+            .footer-heading-new { padding-left: 0; justify-content: center; }
+            .footer-heading-new::before { left: 50%; transform: translateX(-50%) translateY(-50%); }
+            .footer-quick-links-list, .footer-social-icons-new { justify-content: center; }
+
+            /* Swiper responsiveness */
+            .swiper-button-next, .swiper-button-prev {
+                display: none !important; /* Hide navigation arrows on small screens */
+            }
+        }
+        @media (max-width: 600px) {
+            .logo { font-size: 2.2rem; }
+            header { padding: 10px 15px;}
+            .pronite-main-container { margin-top: 60px; }
+            .header-title-pronite { font-size: clamp(2rem, 8vw, 4.5rem); }
+            .intro-text-pronite { font-size: 0.9rem; }
+            .pronite-content-section { padding: 20px 15px; }
+            .artist-card-pronite { padding: 10px; }
+            .artist-image-container-pronite { height: 180px; }
+            .artist-name-pronite { font-size: clamp(1.2rem, 3vw, 1.6rem); }
+            .artist-description-pronite { font-size: 0.85rem; }
+            .pronite-section-title { font-size: clamp(1.6rem, 4vw, 2.2rem); } /* Adjusted for better fit */
+
+
+            .footer-diagram-title h3 {font-size: 1.5em;}
+            .footer-diagram-tagline {font-size: 0.9em;}
+            .footer-diagram-contact-button {font-size: 1em; padding: 8px 25px;}
+
+            .footer-quick-links-list li a { font-size: 1em; padding: 10px 18px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <svg style="display: none;">
+        <defs>
+            <symbol id="icon-stethoscope" viewBox="0 0 24 24"><path d="M18 3H6c-1.1 0-2 .9-2 2v1H2.5C2.22 6 2 6.22 2 6.5S2.22 7 2.5 7H4v1c0 2.56 1.67 4.72 4 5.66V17H6.5c-.28 0-.5.22-.5.5s.22.5.5.5H8v1.5c0 .28.22.5.5.5s.5-.22.5-.5V18h1v-1.5c0-.98.46-1.85 1.2-2.42.4-.31.87-.58 1.4-.76.4-.14.78-.31 1.13-.51.4-.22.75-.48 1.06-.78.47-.47.81-1.04.99-1.65.04-.15.06-.3.06-.45V6c0-1.1-.9-2-2-2zm-2 3v.09c0 .43-.17.84-.47 1.15-.3.3-.7.46-1.12.46H9.59c-.42 0-.82-.16-1.12-.46-.3-.3-.47-.72-.47-1.15V6h8zm-3.5 10.5c-.28 0-.5.22-.5.5s.22.5.5.5h1.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5h-1.5zM6 9.22C5.07 8.7 4.42 7.77 4.16 6.69 4.06 6.28 4 5.87 4 5.46V5h12v.46c0 .41-.06.82-.16 1.23-.26 1.08-.91 2.01-1.84 2.53-.47.26-.88.6-1.21.99L12 11l-.79-.78c-.33-.39-.74-.73-1.21-.99z"/></symbol>
+            <symbol id="icon-heart-pulse" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35zM7.5 5C5.52 5 4 6.52 4 8.5c0 2.72 2.65 5.2 6.55 8.58L12 18.17l1.45-1.09C17.35 13.7 20 11.22 20 8.5c0-1.98-1.52-3.5-3.5-3.5-1.74 0-3.41.81-4.5 2.09C10.91 5.81 9.24 5 7.5 5zm13.21-1.21L19.5 5l-1.71 1.71-1.21-1.21-1.21 1.21L14.17 5l-1.21 1.21-1.21-1.21-1.21 1.21-1.21-1.21L6.5 5 4.79 3.79 3.58 5l1.21 1.21 1.21-1.21L7.17 5l1.21 1.21 1.21-1.21 1.21 1.21 1.21-1.21L13.5 5l1.71 1.71 1.21-1.21 1.21 1.21 1.71-1.71z"/></symbol>
+            <symbol id="icon-dna-helix" viewBox="0 0 24 24"><path d="M14.5 4c1.08 0 1.96.92 1.96 2.05 0 .2-.04.39-.09.58l-1.4 5.37h.01c.7-.62 1.12-1.51 1.12-2.5 0-1.77-1.31-3.22-3-3.46V4m-5 0v2.04c-1.69.24-3 1.69-3 3.46 0 .99.42 1.88 1.12 2.5h.01L6.63 6.63c-.05-.19-.09-.38-.09-.58C6.54 4.92 7.42 4 8.5 4M12 9c.83 0 1.5.67 1.5 1.5S12.83 12 12 12s-1.5-.67-1.5-1.5S11.17 9 12 9m2.5 6c-1.08 0-1.96-.92-1.96-2.05 0-.2.04-.39.09-.58l1.4-5.37h-.01c-.7.62-1.12 1.51-1.12 2.5 0 1.77 1.31 3.22 3 3.46V15m-5 0v-2.04c1.69-.24 3-1.69 3-3.46 0-.99-.42-1.88-1.12-2.5h-.01l1.41 5.37c.05.19.09.38.09.58 0 1.13-.88 2.05-1.96 2.05M12 17c-.83 0-1.5-.67-1.5-1.5S11.17 14 12 14s1.5.67 1.5 1.5S12.83 17 12 17m0-10c.28 0 .5.22.5.5V9h-.02c-.93-.24-1.9-.24-2.96 0H9V7.5c0-.28.22-.5.5-.5h.58c.95 0 1.85-.14 2.67-.37l.08-.02c.05-.01.1-.01.16-.01zm0 8c-.28 0-.5-.22-.5-.5V15h.02c.93.24 1.9.24 2.96 0H15v1.5c0 .28-.22.5-.5.5h-.58c-.95 0-1.85.14-2.67.37l-.08.02c-.05.01-.1.01-.16-.01z"/></symbol>
+            <symbol id="icon-microscope" viewBox="0 0 24 24"><path d="M16.5 6c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05H10V3H8v3H6.5c-1.13 0-2.05.92-2.05 2.05V10H3v2h1.45V10c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6H8v2h1V8.05c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6h1.05v1.95H13v-2h1.5c.64 0 1.22.21 1.69.6.47.39.76.96.76 1.6V12h1.45v-2H16.5V8.05C16.5 6.92 15.58 6 14.5 6h-2c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05S6.5 6.92 6.5 8.05V10H3v2h1.45V10A2.5 2.5 0 016.5 7.5H8v2h1V7.5A2.5 2.5 0 0111.5 5h1A2.5 2.5 0 0115 7.5V10h1.45v-2H16.5V8.05A2.5 2.5 0 0014.5 6M12 13c-1.93 0-3.5 1.57-3.5 3.5V21h7v-4.5c0-1.93-1.57-3.5-3.5-3.5zm0 1c1.38 0 2.5 1.12 2.5 2.5V20h-5v-3.5c0-1.38 1.12-2.5 2.5-2.5z"/></symbol>
+            <symbol id="icon-rod-of-asclepius" viewBox="0 0 24 24"><path d="M13.82 5.32c-.93-.89-2.18-1.32-3.48-1.32s-2.55.43-3.48 1.32C6 6.21 5.61 7.42 5.61 8.77c0 1.35.39 2.56 1.28 3.45.93.89 2.18 1.32 3.48 1.32s2.55-.43 3.48-1.32c.89-.89 1.28-2.1 1.28-3.45 0-1.35-.39-2.56-1.28-3.45M10.34 12c-1.31 0-2.4-.48-3.17-1.29-.77-.81-1.17-1.85-1.17-3.04 0-1.19.4-2.23 1.17-3.04.77-.81 1.86-1.29 3.17-1.29 1.31 0 2.4.48 3.17 1.29.77.81 1.17 1.85 1.17 3.04 0 1.19-.4 2.23-1.17 3.04-.77.81-1.86 1.29-3.17 1.29m.16 1.5c.34 0 .67.03.99.08v.02c.69.1 1.35.31 1.95.61l.01.01c.29.15.57.32.83.51l.01.01c.22.16.43.34.62.53l.01.01c.14.14.27.29.39.45l.01.01c.09.12.17.24.24.37.2.35.35.73.43 1.13l.01.06v.01c.04.22.06.44.06.67v2.09c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-1.88c0-.47-.15-.92-.43-1.28-.1-.13-.21-.25-.33-.36-.18-.17-.38-.32-.6-.45-.29-.18-.6-.33-.93-.45-.48-.18-1-.29-1.53-.33h-.01c-.18-.01-.36-.02-.54-.02s-.36.01-.54.02h-.01c-.53.04-1.05.15-1.53.33-.33.12-.64.27-.93.45-.22.13-.42.28-.6.45-.12.11-.23.23-.33.36-.28.36-.43.81-.43 1.28v1.88c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-2.09c0-.23.02-.45.06-.67v-.01l.01-.06c.08-.4.23-.78.43-1.13.07-.13.15-.25.24-.37l.01-.01c.12-.16.25-.31.39-.45l.01-.01c.19-.19.4-.37.62-.53l.01-.01c.26-.19.54-.36.83-.51l.01-.01c.6-.3 1.26-.51 1.95-.61v-.02c.32-.05.65-.08.99-.08z"/></symbol>
+            <symbol id="icon-brain" viewBox="0 0 24 24"><path d="M12 2C9.46 2 7.24 3.22 6 5.06c-1.01 1.52-1.59 3.29-1.59 5.11S4.99 13.67 6 15.2c.47.6 1.02 1.12 1.63 1.56.04.03.09.06.13.09C8.32 17.27 9 17.58 9 18.22V19c0 .94.44 1.79 1.15 2.36.05.04.1.08.15.12.72.54 1.79.62 2.7.62.91 0 1.98-.08 2.7-.62.05-.04.1-.08.15-.12.71-.57 1.15-1.42 1.15-2.36v-.78c0-.64.68-.95 1.24-1.37.04-.03.09-.06.13-.09.61-.44 1.16-.96 1.63-1.56 1.01-1.52 1.59-3.29 1.59-5.11S19.01 6.58 18 5.06C16.76 3.22 14.54 2 12 2m4.1 13.6c-.3.35-.65.66-1.02.93-.05.04-.1.07-.15.1-.73.53-1.13 1.28-1.13 2.15v.72c0 .41-.17.78-.45 1.04-.03.02-.06.04-.09.06-.37.28-.9.4-1.36.4s-.99-.12-1.36-.4c-.03-.02-.06-.04-.09-.06-.28-.26-.45-.63-.45-1.04v-.72c0-.87-.4-1.62-1.13-2.15-.05-.03-.1-.06-.15-.1-.37-.26-.72-.58-1.02-.93C7.21 14.07 7 12.87 7 11.63c0-1.29.28-2.55.82-3.66.44-.92 1.07-1.72 1.86-2.37.6-.48 1.29-.8 2.03-.95.73-.15 1.48-.15 2.21 0 .75.15 1.43.47 2.03.95.79.65 1.42 1.45 1.86 2.37.54 1.11.82 2.37.82 3.66 0 1.24-.21 2.44-.6 3.47m-2.1-5.1c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16m-4 0c0-.83-.67-1.5-1.5-1.5S9 9.67 9 10.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16z"/></symbol>
+            <symbol id="icon-medical-plus" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></symbol>
+            <symbol id="icon-atom" viewBox="0 0 24 24"><path d="M12 2c-2.36 0-4.48.77-6.23 2.11l1.01 1.74C8.04 4.79 9.92 4 12 4s3.96.79 5.22 1.85l1.01-1.74C16.48 2.77 14.36 2 12 2m0 16c-2.08 0-3.96-.79-5.22-1.85l-1.01 1.74c1.75 1.34 3.87 2.11 6.23 2.11s4.48-.77 6.23-2.11l-1.01-1.74c-1.26 1.06-3.14 1.85-5.22 1.85M5.92 7.32C4.79 8.58 4 10.27 4 12s.79 3.42 1.92 4.68l1.74-1.01C6.79 14.4 6 13.29 6 12s.79-2.4 1.66-3.67l-1.74-1.01M18.08 7.32l-1.74 1.01C17.21 9.6 18 10.71 18 12s-.79 2.4-1.66 3.67l1.74 1.01C19.21 15.42 20 13.73 20 12s-.79-3.42-1.92-4.68M12 7a5 5 0 100 10 5 5 0 000-10m0 2a3 3 0 110 6 3 3 0 010-6z"/></symbol>
+            <symbol id="icon-test-tube" viewBox="0 0 24 24"><path d="M7 2v11.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V6h2v9.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V2H7zm10 0v2h-2V2h2zm-2 4h2v2h-2V6zm2 4h-2v2h2v-2zM6 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm8-13.22L12.78 7H14v1h-2.22L10.56 9H12v1h-2.44L8.34 11H10v1H8v1h1.78l1.22 1H18V2h-4v3.78zM16 11h-1.11l-.89-1H16v1zm0-2h-2.22l-.89-1H16v1zm0-2h-3.33l-.89-1H16v1z"/></symbol>
+            <symbol id="icon-sparkle" viewBox="0 0 24 24"><path d="M12 2l1.5 4.5h4.5l-3.5 3 1.5 5-4.5-3.5-4.5 3.5 1.5-5-3.5-3h4.5L12 2z"/></symbol>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <feMerge> <feMergeNode in="coloredBlur"/> <feMergeNode in="SourceGraphic"/> </feMerge>
+            </filter>
+        </defs>
+    </svg>
+
+    <header class="visible">
+        <a href="index.html" class="logo">CEREBREXIA</a>
+        <button class="new-menu-toggle-button" id="newMenuToggleButton" aria-label="Open navigation menu" aria-expanded="false">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </header>
+
+    <div id="fullScreenNav">
+        <button class="nav-close-btn" id="navCloseButton" aria-label="Close navigation menu">×</button>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="events.html">EVENTS</a></li>
+            <li><a href="pronite.html" class="active-nav-link">PRONITES</a></li>
+            <li><a href="register.html">REGISTER</a></li>
+            <li><a href="merch.html">MERCHANDISE</a></li>
+            <li><a href="accommodation.html">ACCOMMODATION</a></li>
+            <li><a href="schedule.html">SCHEDULE</a></li>
+			 <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="profile.html">PROFILE</a></li>
+        </ul>
+    </div>
+
+    <header class="page-main-title-section">
+        <h1 class="header-title-pronite">PRONITES</h1>
+        <p class="intro-text-pronite">
+            Brace yourselves for nights filled with electrifying performances, soulful melodies, and roaring laughter!
+        </p>
+    </header>
+
+    <main class="pronite-main-container">
+
+        <section id="expected-artists" class="pronite-content-section" data-aos="fade-up">
+            <h2 class="pronite-section-title"><i class="fas fa-star"></i>Expected This Year</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <div class="artist-card-pronite">
+                    <div class="artist-image-container-pronite">
+                        <img src="images/JUBIN.jpg" alt="Jubin Nautiyal" onerror="this.src='https://placehold.co/600x400/0d001f/ff99ff?text=Jubin+Nautiyal&fontsize=24'; this.onerror=null;">
+                    </div>
+                    <div class="artist-text-content">
+                        <h3 class="artist-name-pronite">Jubin Nautiyal</h3>
+                        <p class="artist-description-pronite">Get ready for a soulful evening!</p>
+                    </div>
+                </div>
+                <div class="artist-card-pronite">
+                     <div class="artist-image-container-pronite">
+                        <img src="images/SHAAN.jpg" alt="Shaan" onerror="this.src='https://placehold.co/600x400/0d001f/ff99ff?text=Shaan&fontsize=24'; this.onerror=null;">
+                    </div>
+                    <div class="artist-text-content">
+                        <h3 class="artist-name-pronite">Shaan</h3>
+                        <p class="artist-description-pronite">Melodies that touch the heart.</p>
+                    </div>
+                </div>
+                <div class="artist-card-pronite">
+                     <div class="artist-image-container-pronite">
+                        <img src="images/NAKAASH.jpg" alt="Nakash Aziz" onerror="this.src='https://placehold.co/600x400/0d001f/ff99ff?text=Nakash+Aziz&fontsize=24'; this.onerror=null;">
+                    </div>
+                    <div class="artist-text-content">
+                        <h3 class="artist-name-pronite">Nakash Aziz</h3>
+                        <p class="artist-description-pronite">High energy, unforgettable performance!</p>
+                    </div>
+                </div>
+                <div class="artist-card-pronite">
+                     <div class="artist-image-container-pronite">
+                        <img src="images/ASHISH.jpg" alt="Ashish Solanki" onerror="this.src='https://placehold.co/600x400/0d001f/ff99ff?text=Ashish+Solanki&fontsize=24'; this.onerror=null;">
+                    </div>
+                    <div class="artist-text-content">
+                        <h3 class="artist-name-pronite">Ashish Solanki</h3>
+                        <p class="artist-description-pronite">Get ready to laugh out loud!</p>
+                    </div>
+                </div>
+                <div class="artist-card-pronite">
+                     <div class="artist-image-container-pronite">
+                        <img src="https://placehold.co/600x400/0d001f/ff99ff?text=Harsh+Gujral&fontsize=24" alt="Harsh Gujral" onerror="this.src='https://placehold.co/600x400/0d001f/ff99ff?text=Image+Error&fontsize=24'; this.onerror=null;">
+                    </div>
+                    <div class="artist-text-content">
+                        <h3 class="artist-name-pronite">Harsh Gujral</h3>
+                        <p class="artist-description-pronite">Sarcasm and relatable comedy.</p>
+                    </div>
+                </div>
+                <div class="artist-card-pronite more-surprises-card-pronite">
+                    <div>
+                        <h3 class="artist-name-pronite">More Surprises</h3>
+                        <p class="mt-1.5 text-md sm:text-lg">Await You!</p> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                             <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z"/>
+                         </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pronite24-glimpses" class="pronite-content-section" data-aos="fade-up">
+            <h2 class="pronite-section-title"><i class="fas fa-camera-retro"></i>Glimpses of Pronite '24</h2>
+            <div class="swiper pronite24-glimpses-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="artist-image-container-pronite">
+                            <img src="images/Mohit-Chauhan-1.jpg" alt="Mohit Chauhan" onerror="this.src='https://placehold.co/600x400/0d001f/dddddd?text=Mohit+Chauhan&fontsize=24'; this.onerror=null;">
+                        </div>
+                        <div class="artist-text-content">
+                            <h3 class="artist-name-carousel">Mohit Chauhan</h3>
+                            <p class="artist-description-carousel">A magical performance!</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="artist-image-container-pronite">
+                            <img src="images/RAVI%20GUPTA.jpg" alt="Comedian Ravi Gupta" onerror="this.src='https://placehold.co/600x400/0d001f/dddddd?text=Ravi+Gupta&fontsize=24'; this.onerror=null;">
+                        </div>
+                        <div class="artist-text-content">
+                            <h3 class="artist-name-carousel">Ravi Gupta</h3>
+                            <p class="artist-description-carousel">Laughter riot!</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="artist-image-container-pronite">
+                            <img src="images/SABAALI.jpg" alt="Sabali Band" onerror="this.src='https://placehold.co/600x400/0d001f/dddddd?text=Sabali+Band&fontsize=24'; this.onerror=null;">
+                        </div>
+                        <div class="artist-text-content">
+                            <h3 class="artist-name-carousel">Sabali Band</h3>
+                            <p class="artist-description-carousel">Rocked the stage!</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="artist-image-container-pronite">
+                            <img src="images/DJ%20%20SWIZEL.jpg" alt="DJ Swizöl" onerror="this.src='https://placehold.co/600x400/0d001f/dddddd?text=DJ+Swizöl&fontsize=24'; this.onerror=null;">
+                        </div>
+                        <div class="artist-text-content">
+                            <h3 class="artist-name-carousel">DJ Swizöl</h3>
+                            <p class="artist-description-carousel">Electrifying beats!</p>
+                        </div>
+                    </div>
+                     <div class="swiper-slide">
+                        <div class="artist-image-container-pronite">
+                            <img src="https://placehold.co/600x400/0d001f/dddddd?text=More+2024+Glimpses&fontsize=20" alt="More Glimpses 2024" onerror="this.src='https://placehold.co/600x400/0d001f/dddddd?text=More+2024+Glimpses&fontsize=20'; this.onerror=null;">
+                        </div>
+                        <div class="artist-text-content">
+                            <h3 class="artist-name-carousel">More Memories</h3>
+                            <p class="artist-description-carousel">Relive the magic of last year!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </section>
+
+        <section id="pronite23-glimpses" class="pronite-content-section" data-aos="fade-up">
+            <h2 class="pronite-section-title"><i class="fas fa-magic"></i>Glimpses of Pronite '23</h2>
+            <div class="swiper pronite23-glimpses-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="artist-image-container-pronite">
+                            <img src="https://i.imgur.com/ArmaanMalik.jpg" alt="Armaan Malik" onerror="this.src='https://placehold.co/600x400/0d001f/00ffff?text=Armaan+Malik&fontsize=24'; this.onerror=null;">
+                        </div>
+                        <div class="artist-text-content">
+                            <h3 class="artist-name-carousel">Armaan Malik</h3>
+                            <p class="artist-description-carousel">His soulful voice enchanted everyone!</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="artist-image-container-pronite">
+                            <img src="https://i.imgur.com/VipulGoyal.jpg" alt="Vipul Goyal" onerror="this.src='https://placehold.co/600x400/0d001f/00ffff?text=Vipul+Goyal&fontsize=24'; this.onerror=null;">
+                        </div>
+                        <div class="artist-text-content">
+                            <h3 class="artist-name-carousel">Vipul Goyal</h3>
+                            <p class="artist-description-carousel">Laughter riot with his sharp wit!</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="artist-image-container-pronite">
+                            <img src="https://i.imgur.com/TrapBand.jpg" alt="Trap Band" onerror="this.src='https://placehold.co/600x400/0d001f/00ffff?text=Trap+Band&fontsize=24'; this.onerror=null;">
+                        </div>
+                        <div class="artist-text-content">
+                            <h3 class="artist-name-carousel">The Trap Band</h3>
+                            <p class="artist-description-carousel">Electrifying performance, everyone grooved!</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="artist-image-container-pronite">
+                            <img src="https://i.imgur.com/NandiniGupta.jpg" alt="Nandini Gupta" onerror="this.src='https://placehold.co/600x400/0d001f/00ffff?text=Nandini+Gupta&fontsize=24'; this.onerror=null;">
+                        </div>
+                        <div class="artist-text-content">
+                            <h3 class="artist-name-carousel">Nandini Gupta</h3>
+                            <p class="artist-description-carousel">Her captivating presence on stage!</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="artist-image-container-pronite">
+                            <img src="https://i.imgur.com/ProniteVibe.jpg" alt="Pronite Crowd" onerror="this.src='https://placehold.co/600x400/0d001f/00ffff?text=Pronite+Vibes&fontsize=24'; this.onerror=null;">
+                        </div>
+                        <div class="artist-text-content">
+                            <h3 class="artist-name-carousel">Unforgettable Energy</h3>
+                            <p class="artist-description-carousel">The crowd's energy made it special!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-diagram-feature" data-aos="fade-up">
+            <div class="footer-diagram-title-wrapper">
+                <div class="footer-diagram-title">
+                    <h3>CEREBREXIA VERSE</h3>
+                </div>
+            </div>
+            <div class="footer-diagram-area">
+                <svg id="footer-tech-diagram-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <line class="svg-line" x1="300" y1="200" x2="150" y2="80" /><line class="svg-line" x1="300" y1="200" x2="80" y2="200" /><line class="svg-line" x1="300" y1="200" x2="150" y2="320" /><line class="svg-line" x1="300" y1="200" x2="450" y2="80" /><line class="svg-line" x1="300" y1="200" x2="520" y2="200" /><line class="svg-line" x1="300" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="80" y2="200" /><line class="svg-line" x1="80" y1="200" x2="150" y2="320" /><line class="svg-line" x1="450" y1="80" x2="520" y2="200" /><line class="svg-line" x1="520" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="300" y2="50" /><line class="svg-line" x1="450" y1="80" x2="300" y2="50" /><line class="svg-line" x1="150" y1="320" x2="230" y2="360" /><line class="svg-line" x1="450" y1="320" x2="370" y2="360" />
+                    <circle class="svg-circle-bg" cx="300" cy="200" r="70"/><circle class="svg-circle-border" cx="300" cy="200" r="70" filter="url(#glow)"/><text class="svg-text-main" x="300" y="190" font-size="14px">CONNECTING</text><text class="svg-text-main" x="300" y="210" font-size="14px">MEDICS</text><text class="svg-text-arrows" x="300" y="155">⬆</text> <text class="svg-text-arrows" x="300" y="245">⬇</text><text class="svg-text-arrows" x="255" y="200">⬅</text> <text class="svg-text-arrows" x="345" y="200">➡</text><text class="svg-text-arrows" transform="translate(268 168) rotate(-45)" >↖</text><text class="svg-text-arrows" transform="translate(332 168) rotate(45)">↗</text><text class="svg-text-arrows" transform="translate(268 232) rotate(45)">↙</text><text class="svg-text-arrows" transform="translate(332 232) rotate(-45)">↘</text>
+                    <g transform="translate(150, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-stethoscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(80, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-heart-pulse" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(150, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-dna-helix" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
+                    <g transform="translate(450, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-microscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(520, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-rod-of-asclepius" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
+                    <g transform="translate(450, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-brain" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(300, 50)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-medical-plus" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(230, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-atom" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(370, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-test-tube" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(80, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
+                    <g transform="translate(520, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
+                    <circle class="svg-node-dot" cx="300" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="300" cy="50" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="230" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="370" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="120" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="120" r="3" filter="url(#glow)"/>
+                </svg>
+            </div>
+            <p class="footer-diagram-tagline">
+                Back again to make you guys vibe, Get stress free and enjoy the fest to its fullest
+            </p>
+            <a href="mailto:thecerebrexia17@gmail.com" class="footer-diagram-contact-button">CONTACT ORGANIZERS</a>
+        </div>
+
+        <div class="footer-container-new">
+          <div class="footer-section-new">
+            <h3 class="footer-heading-new">Connect</h3>
+            <div class="footer-social-icons-new">
+              <a href="https://facebook.com/cerebrexia" target="_blank" aria-label="Facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/igimsfest/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://twitter.com/cerebrexia" target="_blank" aria-label="Twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="https://linkedin.com/company/cerebrexia" target="_blank" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://www.youtube.com/@cerebrexia" target="_blank" aria-label="YouTube" title="YouTube"><i class="fab fa-youtube"></i></a>
+              <a href="https://whatsapp.com/channel/0029VbA0P20HbFV2ke5rlR2G" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Channel" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
+            </div>
+               <p style="margin-top: 15px; font-size: 1em; color: #b0b0c0;">Stay connected for live updates!</p>
+          </div>
+
+          <div class="footer-section-new">
+            <h3 class="footer-heading-new"> | Quick Links</h3>
+            <ul class="footer-quick-links-list">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="events.html">Events</a></li>
+              <li><a href="schedule.html">Schedule</a></li>
+              <li><a href="pronite.html">Pronites</a></li>
+              <li><a href="#team">Team</a></li>
+              <li><a href="accommodation.html">Accommodation</a></li>
+              <li><a href="register.html">Delegate Registration</a></li>
+              <li><a href="privacypolicy.html">Privacy Policy</a></li>
+              <li><a href="terms.html">Terms of Service</a></li>
+              <li><a href="codeofconduct.html">Code of Conduct</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section-new">
+            <h3 class="footer-heading-new">Contact</h3>
+            <div class="footer-contact-info">
+              <p>Email: <a href="mailto:info@cerebrexia25.com">info@cerebrexia25.com</a></p>
+              <p>Pankaj Kumar: <a href="tel:+919079956283">+91 90799 56283</a></p>
+              <p>Dhananjay Kumar: <a href="tel:+917425992291">+91 74259 92291</a></p>
+              <p style="margin-top:15px;">IGIMS Patna Campus,<br/>Sheikhpura, Patna, Bihar - 800014</p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom-new">
+          <p>© 2025 CEREBREXIA'25 - IGIMS Patna. All Rights Reserved. Designed with <i class="fas fa-heart" style="color: #ff00ff;"></i>.</p>
+        </div>
+    </footer>
+
+    <button class="scroll-top-btn" aria-label="Scroll to top">▲</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <script>
+        AOS.init({
+            duration: 1200, // Consistent with index.html
+            once: false,
+            mirror: true // Consistent with index.html
+        });
+
+        // Initialize Swiper for "Glimpses of Pronite '24"
+        const pronite24GlimpsesSwiper = new Swiper('.pronite24-glimpses-swiper', {
+            slidesPerView: 3, // Default for larger screens
+            spaceBetween: 30,
+            loop: true,
+            centeredSlides: true,
+            grabCursor: true,
+            autoplay: {
+                delay: 4500, // Auto-play slides every 4.5 seconds
+                disableOnInteraction: false, // Continue autoplay even after user interaction
+            },
+            pagination: {
+                el: '#pronite24-glimpses .swiper-pagination', // Specific pagination for this swiper
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '#pronite24-glimpses .swiper-button-next', // Specific navigation for this swiper
+                prevEl: '#pronite24-glimpses .swiper-button-prev', // Specific navigation for this swiper
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 15,
+                },
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                },
+            },
+        });
+
+        // Initialize Swiper for "Glimpses of Pronite '23"
+        const pronite23GlimpsesSwiper = new Swiper('.pronite23-glimpses-swiper', {
+            slidesPerView: 3, // Default for larger screens
+            spaceBetween: 30,
+            loop: true,
+            centeredSlides: true,
+            grabCursor: true,
+            autoplay: {
+                delay: 5000, // Slightly different delay for variety
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '#pronite23-glimpses .swiper-pagination', // Specific pagination for this swiper
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '#pronite23-glimpses .swiper-button-next', // Specific navigation for this swiper
+                prevEl: '#pronite23-glimpses .swiper-button-prev', // Specific navigation for this swiper
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 15,
+                },
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                },
+            },
+        });
+
+
+        // Header Menu Toggle Logic (from index.html/events.html)
+        const newMenuToggleButton = document.getElementById('newMenuToggleButton');
+        const fullScreenNav = document.getElementById('fullScreenNav');
+        const navCloseButton = document.getElementById('navCloseButton'); // Close button for full screen nav
+        const body = document.body;
+
+        if (newMenuToggleButton && fullScreenNav && navCloseButton) {
+            newMenuToggleButton.addEventListener('click', () => {
+                const isExpanded = newMenuToggleButton.getAttribute('aria-expanded') === 'true' || false;
+                newMenuToggleButton.setAttribute('aria-expanded', String(!isExpanded));
+                newMenuToggleButton.classList.toggle('open');
+                fullScreenNav.classList.toggle('active');
+                body.style.overflow = fullScreenNav.classList.contains('active') ? 'hidden' : '';
+            });
+            navCloseButton.addEventListener('click', () => {
+                newMenuToggleButton.setAttribute('aria-expanded', 'false'); newMenuToggleButton.classList.remove('open');
+                fullScreenNav.classList.remove('active'); body.style.overflow = '';
+            });
+            fullScreenNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (fullScreenNav.classList.contains('active')) {
+                        newMenuToggleButton.setAttribute('aria-expanded', 'false'); newMenuToggleButton.classList.remove('open');
+                        fullScreenNav.classList.remove('active'); body.style.overflow = '';
+                    }
+                });
+            });
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && fullScreenNav.classList.contains('active')) {
+                    newMenuToggleButton.setAttribute('aria-expanded', 'false'); newMenuToggleButton.classList.remove('open');
+                    fullScreenNav.classList.remove('active'); body.style.overflow = '';
+                }
+            });
+        }
+
+        // Header hide/show on scroll logic (from index.html/events.html)
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+        if(header){
+            window.addEventListener('scroll', () => {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrollTop > lastScrollTop && scrollTop > header.offsetHeight) {
+                    header.classList.add('hidden'); header.classList.remove('visible');
+                } else {
+                    header.classList.remove('hidden'); header.classList.add('visible');
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            });
+        }
+
+        // Scroll Top Button (from index.html/events.html)
+        const scrollTopBtn = document.querySelector('.scroll-top-btn');
+        // Adding the button to events.html if it's not already there.
+        // Since it's not in the provided pronite.html, adding a placeholder for it here.
+        // You might want to add this button HTML: <button class="scroll-top-btn" aria-label="Scroll to top">▲</button> just before the closing </body> tag.
+        if (!scrollTopBtn) {
+            const tempScrollTopBtn = document.createElement('button');
+            tempScrollTopBtn.className = 'scroll-top-btn';
+            tempScrollTopBtn.setAttribute('aria-label', 'Scroll to top');
+            tempScrollTopBtn.textContent = '▲';
+            document.body.appendChild(tempScrollTopBtn);
+            // Re-select the button after adding it to the DOM
+            const actualScrollTopBtn = document.querySelector('.scroll-top-btn');
+
+            // Add styles for it if not already present or if you want to override
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .scroll-top-btn {
+                    position: fixed; bottom: 20px; right: 20px; background: rgba(13,0,31,0.85); color: #fff;
+                    border: none; border-radius: 5px; padding: 10px 15px; cursor: pointer;
+                    opacity: 0; visibility: hidden; transition: opacity .3s ease,visibility .3s ease; z-index: 1000;
+                }
+                .scroll-top-btn.show { opacity: 1; visibility: visible; }
+                .scroll-top-btn:hover { background: #ff00ff; }
+            `;
+            document.head.appendChild(style);
+
+            if (actualScrollTopBtn) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > window.innerHeight / 2) { actualScrollTopBtn.classList.add('show'); }
+                    else { actualScrollTopBtn.classList.remove('show'); }
+                });
+                actualScrollTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+            }
+        }
+
+    </script>
+
+</body>
+</html>

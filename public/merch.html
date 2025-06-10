@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CEREBREXIA'25 - Official Merchandise</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Savate:wght@518&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <style>
+        /* Base and Reset */
+        :root {
+            --primary-glow-color: #50c8ff;
+            --secondary-glow-color: #7efcff;
+            --text-color: #ffffff;
+            --dark-bg: #0a0e1a;
+            --medium-bg: #10182c;
+            --title-box-bg: #2a3045;
+            --title-box-border: #607080;
+            --button-blue: #007bff;
+            --icon-blue: #3cb5f5;
+            --medical-icon-color: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            font-family: 'Kanit', sans-serif; /* Consistent font with other pages */
+            background-color: #0d001f;
+            color: var(--text-color); /* Use global text color variable */
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            min-height: 100vh; /* Ensure full height */
+            display: flex; /* For footer sticking to bottom if content is short */
+            flex-direction: column; /* For footer sticking to bottom */
+        }
+
+        /* Consistent Header Styles (from index.html/events.html/pronites.html) */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(13, 0, 31, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            /* box-shadow: 0 2px 15px rgba(255, 0, 255, 0.1); -- Removed as not in other common headers */
+        }
+        header.hidden {
+            transform: translateY(-100%);
+        }
+        header.visible {
+            transform: translateY(0);
+        }
+        .logo {
+            font-family: 'Savate', sans-serif; /* Consistent font with other pages */
+            font-size: 3rem; /* Consistent size */
+            font-weight: 518; /* Consistent weight */
+            color: yellow;
+            user-select: none;
+            text-decoration: none;
+            z-index: 1001;
+        }
+
+        /* Hamburger Menu Button (consistent) */
+        .new-menu-toggle-button {
+            background: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1101;
+            transition: transform 0.3s ease;
+        }
+        .new-menu-toggle-button .icon-bar {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            margin: 6px 0;
+            transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+            border-radius: 1px;
+        }
+        .new-menu-toggle-button:hover .icon-bar {
+            background-color: #ff00ff;
+        }
+        .new-menu-toggle-button.open .icon-bar:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        .new-menu-toggle-button.open .icon-bar:nth-child(2) {
+            opacity: 0;
+        }
+        .new-menu-toggle-button.open .icon-bar:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* Fullscreen Navigation Menu (consistent) */
+        #fullScreenNav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 0, 31, 0.97);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+            overflow-y: auto;
+        }
+        #fullScreenNav.active {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease, visibility 0s linear 0s;
+        }
+        #fullScreenNav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+        #fullScreenNav li {
+            margin: 20px 0; /* Consistent margin */
+        }
+        #fullScreenNav a {
+            font-family: 'Exo', sans-serif;
+            font-weight: 400; /* Consistent weight */
+            font-size: clamp(2rem, 5vw, 3rem); /* Consistent size */
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 25px;
+            display: inline-block;
+            position: relative;
+            transition: color 0.4s ease, transform 0.4s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        #fullScreenNav a::before,
+        #fullScreenNav a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff00ff, #ffae00, #00ffff, #ff00ff);
+            background-size: 300% 100%;
+            left: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            animation: borderFlow 8s linear infinite;
+        }
+        #fullScreenNav a::before { top: 0; transform: scaleX(0); transform-origin: left; }
+        #fullScreenNav a::after { bottom: 0; transform: scaleX(0); transform-origin: right; }
+        #fullScreenNav a:hover,
+        #fullScreenNav a:focus {
+            color: #ffdd57;
+            transform: translateY(-5px) scale(1.05);
+        }
+        #fullScreenNav a:hover::before, #fullScreenNav a:focus::before { transform: scaleX(1); transform-origin: right; }
+        #fullScreenNav a:hover::after, #fullScreenNav a:focus::after { transform: scaleX(1); transform-origin: left; }
+        @keyframes borderFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+
+        /* Close Button for Full Screen Nav (consistent) */
+        #fullScreenNav .nav-close-btn { /* Updated selector to match other pages */
+            position: absolute;
+            top: 25px;
+            right: 25px; /* Consistent with other pages */
+            background: transparent;
+            color: #fff;
+            border: none;
+            font-size: 2.5rem;
+            font-weight: bold; /* Consistent weight */
+            cursor: pointer;
+            padding: 0; /* No padding from other pages */
+            line-height: 1;
+            z-index: 1201; /* Higher z-index */
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        #fullScreenNav .nav-close-btn:hover {
+            color: #ff00ff;
+            transform: rotate(90deg) scale(1.1); /* Consistent transform */
+        }
+        /* Active Link Specific Style (Merchandise page specific for current page) */
+        #fullScreenNav a.active-nav-link {
+            color: #ffd700; /* Gold for active link */
+            text-shadow: 0 0 8px #ffd700, 0 0 15px rgba(255, 215, 0, 0.7);
+        }
+        #fullScreenNav a.active-nav-link::before,
+        #fullScreenNav a.active-nav-link::after {
+            width: 100%; /* Ensure active link borders are always full width */
+            transform: scaleX(1);
+            animation: none; /* No flowing animation on active link */
+            background-position: 0% 50%; /* Static background for active link */
+        }
+
+
+        /* Main Content Wrapper */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            padding-top: 80px; /* Account for fixed header */
+            flex-grow: 1; /* Allows container to grow and push footer down */
+        }
+
+        .page-title {
+            font-family: 'Exo', sans-serif;
+            font-weight: 900;
+            font-size: 2.8rem;
+            color: #ff00ff;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 0 8px rgba(255, 0, 255, 0.7), 0 0 15px rgba(255, 0, 255, 0.5);
+        }
+
+        /* Merchandise Showcase */
+        .merchandise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        @media (min-width: 600px) and (max-width: 899px) {
+            .merchandise-grid.two-items {
+                grid-template-columns: repeat(2, minmax(280px, 1fr));
+                max-width: 700px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+         @media (min-width: 900px) {
+            .merchandise-grid.two-items {
+                 grid-template-columns: repeat(2, minmax(280px, 1fr));
+                 max-width: 800px;
+                 margin-left: auto;
+                 margin-right: auto;
+            }
+        }
+
+
+        .merch-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.1);
+            overflow: hidden;
+        }
+        .merch-item:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.3), 0 5px 20px rgba(255, 0, 255, 0.2);
+        }
+        .merch-item img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: transform 0.4s ease;
+        }
+        .merch-item:hover img {
+            transform: scale(1.1);
+        }
+        .merch-item h3 {
+            font-size: 1.7rem;
+            color: #00ffff;
+            margin-bottom: 10px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .merch-item p {
+            font-size: 0.9rem;
+            color: #c0c0c0;
+            margin-bottom: 10px;
+            min-height: 50px;
+            line-height: 1.5;
+        }
+        .merch-item .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffae00;
+            margin-bottom: 15px;
+        }
+
+        /* Request Form Section */
+        .request-form-section, .merch-coordinator-section, .faq-section {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+            margin-bottom: 40px;
+        }
+        .request-form-section h2, .merch-coordinator-section h2, .faq-section h2 {
+            font-size: 2.2rem;
+            color: #ffae00;
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: 'Exo', sans-serif;
+            font-weight: 700;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.95rem;
+            color: #00ffff;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            background-color: rgba(13, 0, 31, 0.8);
+            color: #e0e0e0;
+            font-family: 'Kanit', sans-serif; /* Consistent font with other pages */
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="tel"]:focus,
+        .form-group input[type="number"]:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff00ff;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.4);
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            max-width: 280px;
+            margin: 20px auto 0;
+            padding: 14px 20px;
+            font-family: 'Exo', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0d001f;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-size 0.3s ease;
+            background-size: 200% auto;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .submit-btn:hover {
+            background-position: right center;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #ff00ff, 0 0 25px #00ffff;
+        }
+        #formMessage {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        #formMessage.success {
+            background-color: rgba(0, 255, 127, 0.2);
+            color: #00ff7f;
+            border: 1px solid #00ff7f;
+        }
+        #formMessage.error {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: #ff4d4d;
+            border: 1px solid #ff4d4d;
+        }
+
+        /* Merchandise Coordinator Section */
+        .merch-coordinator-section p {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #c0c0c0;
+            line-height: 1.7;
+        }
+        .merch-coordinator-section .coordinator-name {
+            font-weight: 700;
+            color: #00ffff; /* Cyan */
+        }
+        .merch-coordinator-section .coordinator-contact {
+            color: #ffae00; /* Gold/Orange */
+            text-decoration: none;
+        }
+         .merch-coordinator-section .coordinator-contact:hover {
+            text-decoration: underline;
+         }
+
+        /* FAQ Section */
+        .faq-item { margin-bottom: 15px; }
+        .faq-question {
+            background: #220033;
+            color: #fff;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            padding: 15px;
+            width: 100%;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            position: relative;
+        }
+        .faq-question::after {
+            content: '\\25BC';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+            color: #ff00ff;
+        }
+        .faq-question.open::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        .faq-question:hover { background: #330044; transform: scale(1.02); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            background: rgba(13, 0, 31, 0.7);
+            color: #ddd;
+            padding: 0 15px;
+            border-radius: 0 0 10px 10px;
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            border-top: none;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+        }
+        .faq-answer.open { padding: 20px 15px; max-height: 500px; }
+        .faq-answer p { margin-bottom: 10px; line-height: 1.6; }
+        .faq-answer p:last-child { margin-bottom: 0; }
+
+
+        /* Footer Styles (from index.html/events.html/pronites.html) */
+        .site-footer {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            padding: 30px 20px 30px;
+            font-family: 'Kanit', sans-serif;
+            margin-top: 60px;
+            border-top: 3px solid #3a3a5e;
+            box-shadow: 0 -5px 15px rgba(25, 25, 46, 0.5);
+            flex-shrink: 0; /* Prevents footer from shrinking if content is small */
+        }
+        .footer-container-new { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; }
+        .footer-section-new { padding: 10px; }
+        .footer-heading-new { font-size: 1.6em; font-weight: 600; color: #f9c74f; margin-bottom: 25px; position: relative; padding-left: 20px; font-family: 'Exo', sans-serif; }
+        .footer-heading-new::before { content: '●'; color: #f9c74f; position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 0.8em; }
+        .footer-quick-links-list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; }
+        .footer-quick-links-list li { margin-right: 12px; margin-bottom: 12px; }
+        .footer-quick-links-list li a { display: inline-block; background-color: #2a2a4e; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 25px; font-size: 1.1em; font-weight: 500; transition: background-color 0.3s ease, transform 0.2s ease; border: 1px solid #3a3a5e; }
+        .footer-quick-links-list li a:hover, .footer-quick-links-list li a:focus { background-color: #f9c74f; color: #1a1a2e; transform: translateY(-2px); }
+        .footer-contact-info p { font-size: 1.1em; margin-bottom: 12px; line-height: 1.7; color: #d0d0d0; }
+        .footer-contact-info p a { color: #a0cff0; text-decoration: none; transition: color 0.3s ease; }
+        .footer-contact-info p a:hover { color: #f9c74f; text-decoration: underline; }
+        .footer-social-icons-new { margin-top: 20px; display: flex; gap: 15px; }
+        .footer-social-icons-new a { display: inline-block; color: #e0e0e0; font-size: 1.8rem; transition: transform 0.3s ease, color 0.3s ease; }
+        .footer-social-icons-new a:hover { transform: scale(1.15) translateY(-2px); color: #f9c74f; }
+        .footer-social-icons-new .fa-instagram:hover { color: #E1306C; } .footer-social-icons-new .fa-youtube:hover { color: #FF0000; } .footer-social-icons-new .fa-facebook-f:hover { color: #1877F2; } .footer-social-icons-new .fa-twitter:hover { color: #1DA1F2; } .footer-social-icons-new .fa-linkedin-in:hover { color: #0A66C2; } .footer-social-icons-new .fa-whatsapp:hover { color: #25D366; }
+        .footer-bottom-new { text-align: center; margin-top: 40px; padding-top: 25px; border-top: 1px solid #3a3a5e; font-size: 0.95em; color: #a0a0a0; }
+
+
+        /* Styles for Diagram Section in Footer (from index.html) */
+        .footer-diagram-feature { padding: 40px 20px; margin-bottom: 30px; border-bottom: 1px solid #2a2a4e; text-align: center; }
+        .footer-diagram-title-wrapper { margin-bottom: 25px; display: inline-block; }
+        .footer-diagram-title { background-color: var(--title-box-bg); border: 2px solid var(--title-box-border); border-radius: 12px; padding: 8px 35px; box-shadow: 0 0 8px rgba(0,0,0,0.4), inset 0 0 4px rgba(255,255,255,0.1), 0 0 12px var(--primary-glow-color); display: inline-block; }
+        .footer-diagram-title h3 { font-family: 'Orbitron', sans-serif; font-size: 2em; color: var(--text-color); margin: 0; font-weight: 700; text-shadow: 0 0 4px var(--text-color), 0 0 8px var(--primary-glow-color); }
+        .footer-diagram-area { width: 100%; max-width: 600px; margin: 0 auto 25px auto; position: relative; }
+        #footer-tech-diagram-svg { width: 100%; height: auto; filter: drop-shadow(0 0 8px var(--primary-glow-color)); }
+        .footer-diagram-tagline { font-size: 1em; line-height: 1.6; color: #bbb; margin-bottom: 30px; max-width: 450px; margin-left: auto; margin-right: auto; text-shadow: 0 0 4px rgba(0,0,0,0.6); }
+        .footer-diagram-contact-button { display: inline-block; background-color: var(--button-blue); color: var(--text-color); padding: 10px 30px; border-radius: 25px; text-decoration: none; font-size: 1.1em; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 0 8px var(--button-blue), 0 0 15px var(--button-blue); }
+        .footer-diagram-contact-button:hover { background-color: #0056b3; box-shadow: 0 0 12px var(--button-blue), 0 0 25px var(--button-blue), inset 0 0 4px rgba(255,255,255,0.2); transform: translateY(-2px); }
+        .svg-line { stroke: var(--primary-glow-color); stroke-width: 1.5; stroke-linecap: round; }
+        .svg-node-dot { fill: var(--secondary-glow-color); }
+        .svg-circle-bg { fill: #080c14e0; }
+        .svg-circle-border { stroke: var(--primary-glow-color); stroke-width: 2; fill: none; }
+        .svg-icon { fill: var(--medical-icon-color); filter: drop-shadow(0 0 3px var(--secondary-glow-color)); }
+        .svg-text-main { font-family: 'Roboto', sans-serif; fill: var(--text-color); font-weight: 700; text-anchor: middle; dominant-baseline: middle; filter: drop-shadow(0 0 5px var(--primary-glow-color)); }
+        .svg-text-arrows { fill: var(--secondary-glow-color); font-size: 1.5em; text-anchor: middle; dominant-baseline: middle; }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .logo { font-size: 2.2rem; } /* Consistent with other pages */
+            .page-title { font-size: 2rem; }
+            .merch-item h3 { font-size: 1.5rem; }
+            .request-form-section h2, .merch-coordinator-section h2, .faq-section h2 { font-size: 1.8rem; }
+            .merchandise-grid, .merchandise-grid.two-items {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+            }
+            /* .close-nav-button { top: 15px; left: 15px; font-size: 2rem; } -- Removed as #fullScreenNav .nav-close-btn handles it */
+
+            /* Footer specific adjustments */
+            .footer-diagram-title h3 {font-size: 1.8em;}
+            .footer-diagram-area { max-width: 90%; }
+            .footer-container-new { grid-template-columns: 1fr; text-align: center; }
+            .footer-heading-new { padding-left: 0; justify-content: center; }
+            .footer-heading-new::before { left: 50%; transform: translateX(-50%) translateY(-50%); }
+            .footer-quick-links-list, .footer-social-icons-new { justify-content: center; }
+        }
+        @media (max-width: 480px) {
+            .page-title { font-size: 1.7rem; }
+            .merch-item .price { font-size: 1.1rem; }
+            .submit-btn { font-size: 1rem; }
+            #fullScreenNav a { font-size: clamp(1.5rem, 5vw, 2rem); }
+
+            /* Footer specific adjustments */
+            .footer-diagram-title h3 {font-size: 1.5em;}
+            .footer-diagram-tagline {font-size: 0.9em;}
+            .footer-diagram-contact-button {font-size: 1em; padding: 8px 25px;}
+            .footer-quick-links-list li a { font-size: 1em; padding: 10px 18px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <svg style="display: none;">
+        <defs>
+            <symbol id="icon-stethoscope" viewBox="0 0 24 24"><path d="M18 3H6c-1.1 0-2 .9-2 2v1H2.5C2.22 6 2 6.22 2 6.5S2.22 7 2.5 7H4v1c0 2.56 1.67 4.72 4 5.66V17H6.5c-.28 0-.5.22-.5.5s.22.5.5.5H8v1.5c0 .28.22.5.5.5s.5-.22.5-.5V18h1v-1.5c0-.98.46-1.85 1.2-2.42.4-.31.87-.58 1.4-.76.4-.14.78-.31 1.13-.51.4-.22.75-.48 1.06-.78.47-.47.81-1.04.99-1.65.04-.15.06-.3.06-.45V6c0-1.1-.9-2-2-2zm-2 3v.09c0 .43-.17.84-.47 1.15-.3.3-.7.46-1.12.46H9.59c-.42 0-.82-.16-1.12-.46-.3-.3-.47-.72-.47-1.15V6h8zm-3.5 10.5c-.28 0-.5.22-.5.5s.22.5.5.5h1.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5h-1.5zM6 9.22C5.07 8.7 4.42 7.77 4.16 6.69 4.06 6.28 4 5.87 4 5.46V5h12v.46c0 .41-.06.82-.16 1.23-.26 1.08-.91 2.01-1.84 2.53-.47.26-.88.6-1.21.99L12 11l-.79-.78c-.33-.39-.74-.73-1.21-.99z"/></symbol>
+            <symbol id="icon-heart-pulse" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35zM7.5 5C5.52 5 4 6.52 4 8.5c0 2.72 2.65 5.2 6.55 8.58L12 18.17l1.45-1.09C17.35 13.7 20 11.22 20 8.5c0-1.98-1.52-3.5-3.5-3.5-1.74 0-3.41.81-4.5 2.09C10.91 5.81 9.24 5 7.5 5zm13.21-1.21L19.5 5l-1.71 1.71-1.21-1.21-1.21 1.21L14.17 5l-1.21 1.21-1.21-1.21-1.21 1.21-1.21-1.21L6.5 5 4.79 3.79 3.58 5l1.21 1.21 1.21-1.21L7.17 5l1.21 1.21 1.21-1.21 1.21 1.21 1.21-1.21L13.5 5l1.71 1.71 1.21-1.21 1.21 1.21 1.71-1.71z"/></symbol>
+            <symbol id="icon-dna-helix" viewBox="0 0 24 24"><path d="M14.5 4c1.08 0 1.96.92 1.96 2.05 0 .2-.04.39-.09.58l-1.4 5.37h.01c.7-.62 1.12-1.51 1.12-2.5 0-1.77-1.31-3.22-3-3.46V4m-5 0v2.04c-1.69.24-3 1.69-3 3.46 0 .99.42 1.88 1.12 2.5h.01L6.63 6.63c-.05-.19-.09-.38-.09-.58C6.54 4.92 7.42 4 8.5 4M12 9c.83 0 1.5.67 1.5 1.5S12.83 12 12 12s-1.5-.67-1.5-1.5S11.17 9 12 9m2.5 6c-1.08 0-1.96-.92-1.96-2.05 0-.2.04-.39.09-.58l1.4-5.37h-.01c-.7.62-1.12 1.51-1.12 2.5 0 1.77 1.31 3.22 3 3.46V15m-5 0v-2.04c1.69-.24 3-1.69 3-3.46 0-.99-.42-1.88-1.12-2.5h-.01l1.41 5.37c.05.19.09.38.09.58 0 1.13-.88 2.05-1.96 2.05M12 17c-.83 0-1.5-.67-1.5-1.5S11.17 14 12 14s1.5.67 1.5 1.5S12.83 17 12 17m0-10c.28 0 .5.22.5.5V9h-.02c-.93-.24-1.9-.24-2.96 0H9V7.5c0-.28.22-.5.5-.5h.58c.95 0 1.85-.14 2.67-.37l.08-.02c.05-.01.1-.01.16-.01zm0 8c-.28 0-.5-.22-.5-.5V15h.02c.93.24 1.9.24 2.96 0H15v1.5c0 .28-.22.5-.5.5h-.58c-.95 0-1.85.14-2.67.37l-.08.02c-.05.01-.1.01-.16-.01z"/></symbol>
+            <symbol id="icon-microscope" viewBox="0 0 24 24"><path d="M16.5 6c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05H10V3H8v3H6.5c-1.13 0-2.05.92-2.05 2.05V10H3v2h1.45V10c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6H8v2h1V8.05c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6h1.05v1.95H13v-2h1.5c.64 0 1.22.21 1.69.6.47.39.76.96.76 1.6V12h1.45v-2H16.5V8.05C16.5 6.92 15.58 6 14.5 6h-2c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05S6.5 6.92 6.5 8.05V10H3v2h1.45V10A2.5 2.5 0 016.5 7.5H8v2h1V7.5A2.5 2.5 0 0111.5 5h1A2.5 2.5 0 0115 7.5V10h1.45v-2H16.5V8.05A2.5 2.5 0 0014.5 6M12 13c-1.93 0-3.5 1.57-3.5 3.5V21h7v-4.5c0-1.93-1.57-3.5-3.5-3.5zm0 1c1.38 0 2.5 1.12 2.5 2.5V20h-5v-3.5c0-1.38 1.12-2.5 2.5-2.5z"/></symbol>
+            <symbol id="icon-rod-of-asclepius" viewBox="0 0 24 24"><path d="M13.82 5.32c-.93-.89-2.18-1.32-3.48-1.32s-2.55.43-3.48 1.32C6 6.21 5.61 7.42 5.61 8.77c0 1.35.39 2.56 1.28 3.45.93.89 2.18 1.32 3.48 1.32s2.55-.43 3.48-1.32c.89-.89 1.28-2.1 1.28-3.45 0-1.35-.39-2.56-1.28-3.45M10.34 12c-1.31 0-2.4-.48-3.17-1.29-.77-.81-1.17-1.85-1.17-3.04 0-1.19.4-2.23 1.17-3.04.77-.81 1.86-1.29 3.17-1.29 1.31 0 2.4.48 3.17 1.29.77.81 1.17 1.85 1.17 3.04 0 1.19-.4 2.23-1.17 3.04-.77.81-1.86 1.29-3.17 1.29m.16 1.5c.34 0 .67.03.99.08v.02c.69.1 1.35.31 1.95.61l.01.01c.29.15.57.32.83.51l.01.01c.22.16.43.34.62.53l.01.01c.14.14.27.29.39.45l.01.01c.09.12.17.24.24.37.2.35.35.73.43 1.13l.01.06v.01c.04.22.06.44.06.67v2.09c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-1.88c0-.47-.15-.92-.43-1.28-.1-.13-.21-.25-.33-.36-.18-.17-.38-.32-.6-.45-.29-.18-.6-.33-.93-.45-.48-.18-1-.29-1.53-.33h-.01c-.18-.01-.36-.02-.54-.02s-.36.01-.54.02h-.01c-.53.04-1.05.15-1.53.33-.33.12-.64.27-.93.45-.22.13-.42.28-.6.45-.12.11-.23.23-.33.36-.28.36-.43.81-.43 1.28v1.88c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-2.09c0-.23.02-.45.06-.67v-.01l.01-.06c.08-.4.23-.78.43-1.13.07-.13.15-.25.24-.37l.01-.01c.12-.16.25-.31.39-.45l.01-.01c.19-.19.4-.37.62-.53l.01-.01c.26-.19.54-.36.83-.51l.01-.01c.6-.3 1.26-.51 1.95-.61v-.02c.32-.05.65-.08.99-.08z"/></symbol>
+            <symbol id="icon-brain" viewBox="0 0 24 24"><path d="M12 2C9.46 2 7.24 3.22 6 5.06c-1.01 1.52-1.59 3.29-1.59 5.11S4.99 13.67 6 15.2c.47.6 1.02 1.12 1.63 1.56.04.03.09.06.13.09C8.32 17.27 9 17.58 9 18.22V19c0 .94.44 1.79 1.15 2.36.05.04.1.08.15.12.72.54 1.79.62 2.7.62.91 0 1.98-.08 2.7-.62.05-.04.1-.08.15-.12.71-.57 1.15-1.42 1.15-2.36v-.78c0-.64.68-.95 1.24-1.37.04-.03.09-.06.13-.09.61-.44 1.16-.96 1.63-1.56 1.01-1.52 1.59-3.29 1.59-5.11S19.01 6.58 18 5.06C16.76 3.22 14.54 2 12 2m4.1 13.6c-.3.35-.65.66-1.02.93-.05.04-.1.07-.15.1-.73.53-1.13 1.28-1.13 2.15v.72c0 .41-.17.78-.45 1.04-.03.02-.06.04-.09.06-.37.28-.9.4-1.36.4s-.99-.12-1.36-.4c-.03-.02-.06-.04-.09-.06-.28-.26-.45-.63-.45-1.04v-.72c0-.87-.4-1.62-1.13-2.15-.05-.03-.1-.06-.15-.1-.37-.26-.72-.58-1.02-.93C7.21 14.07 7 12.87 7 11.63c0-1.29.28-2.55.82-3.66.44-.92 1.07-1.72 1.86-2.37.6-.48 1.29-.8 2.03-.95.73-.15 1.48-.15 2.21 0 .75.15 1.43.47 2.03.95.79.65 1.42 1.45 1.86 2.37.54 1.11.82 2.37.82 3.66 0 1.24-.21 2.44-.6 3.47m-2.1-5.1c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16m-4 0c0-.83-.67-1.5-1.5-1.5S9 9.67 9 10.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16z"/></symbol>
+            <symbol id="icon-medical-plus" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></symbol>
+            <symbol id="icon-atom" viewBox="0 0 24 24"><path d="M12 2c-2.36 0-4.48.77-6.23 2.11l1.01 1.74C8.04 4.79 9.92 4 12 4s3.96.79 5.22 1.85l1.01-1.74C16.48 2.77 14.36 2 12 2m0 16c-2.08 0-3.96-.79-5.22-1.85l-1.01 1.74c1.75 1.34 3.87 2.11 6.23 2.11s4.48-.77 6.23-2.11l-1.01-1.74c-1.26 1.06-3.14 1.85-5.22 1.85M5.92 7.32C4.79 8.58 4 10.27 4 12s.79 3.42 1.92 4.68l1.74-1.01C6.79 14.4 6 13.29 6 12s.79-2.4 1.66-3.67l-1.74-1.01M18.08 7.32l-1.74 1.01C17.21 9.6 18 10.71 18 12s-.79 2.4-1.66 3.67l1.74 1.01C19.21 15.42 20 13.73 20 12s-.79-3.42-1.92-4.68M12 7a5 5 0 100 10 5 5 0 000-10m0 2a3 3 0 110 6 3 3 0 010-6z"/></symbol>
+            <symbol id="icon-test-tube" viewBox="0 0 24 24"><path d="M7 2v11.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V6h2v9.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V2H7zm10 0v2h-2V2h2zm-2 4h2v2h-2V6zm2 4h-2v2h2v-2zM6 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm8-13.22L12.78 7H14v1h-2.22L10.56 9H12v1h-2.44L8.34 11H10v1H8v1h1.78l1.22 1H18V2h-4v3.78zM16 11h-1.11l-.89-1H16v1zm0-2h-2.22l-.89-1H16v1zm0-2h-3.33l-.89-1H16v1z"/></symbol>
+            <symbol id="icon-sparkle" viewBox="0 0 24 24"><path d="M12 2l1.5 4.5h4.5l-3.5 3 1.5 5-4.5-3.5-4.5 3.5 1.5-5-3.5-3h4.5L12 2z"/></symbol>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <feMerge> <feMergeNode in="coloredBlur"/> <feMergeNode in="SourceGraphic"/> </feMerge>
+            </filter>
+        </defs>
+    </svg>
+
+    <header class="visible">
+        <a href="index.html" class="logo">CEREBREXIA</a>
+        <button class="new-menu-toggle-button" id="newMenuToggleButton" aria-label="Open navigation menu" aria-expanded="false">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </header>
+
+    <div id="fullScreenNav">
+        <button class="nav-close-btn" id="navCloseButton" aria-label="Close navigation menu">×</button>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="events.html">EVENTS</a></li>
+            <li><a href="pronite.html">PRONITES</a></li>
+            <li><a href="register.html">REGISTER</a></li>
+            <li><a href="merch.html" class="active-nav-link">MERCHANDISE</a></li>
+            <li><a href="accommodation.html">ACCOMMODATION</a></li>
+            <li><a href="schedule.html">SCHEDULE</a></li>
+            <li><a href="profile.html">PROFILE</a></li>
+        </ul>
+    </div>
+
+
+    <div class="container">
+        <h1 class="page-title">CEREBREXIA'25 Official Gear</h1>
+
+        <section class="merchandise-grid two-items">
+            <div class="merch-item" id="chrono-tee">
+                <img src="https://placehold.co/400x300/1a0033/ff00ff?text=Chrono-Tee+v2.1" alt="Futuristic T-Shirt" onerror="this.src='https://placehold.co/400x300/1a0033/ffffff?text=Image+Not+Found'">
+                <h3>Chrono-Tee v2.1</h3>
+                <p>Sync with the fest's pulse. This tee features evolving cyber-glow patterns. Premium fabric for ultimate comfort. Limited CEREBREXIA'25 edition.</p>
+                <div class="price">₹849</div>
+            </div>
+
+            <div class="merch-item" id="glitch-hoodie">
+                <img src="https://placehold.co/400x300/003333/00ffff?text=Glitch+Core+Hoodie" alt="Glitch Hoodie" onerror="this.src='https://placehold.co/400x300/003333/ffffff?text=Image+Not+Found'">
+                <h3>Glitch Core Hoodie</h3>
+                <p>Immerse yourself in digital artistry. Ultra-soft hoodie with an intricate embroidered glitch emblem and secure, tech-friendly pockets.</p>
+                <div class="price">₹1599</div>
+            </div>
+        </section>
+
+        <section class="request-form-section" id="merch-form">
+            <h2>Request Your Gear</h2>
+            <form id="merchandiseRequestForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="e.g., Priya Sharma" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="e.g., priya.sharma@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Contact Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="e.g., 9876543210" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="merchItem">Select Item</label>
+                    <select id="merchItem" name="merchItem" required>
+                        <option value="">--Choose an Item--</option>
+                        <option value="Chrono-Tee v2.1">Chrono-Tee v2.1 (₹849)</option>
+                        <option value="Glitch Core Hoodie">Glitch Core Hoodie (₹1599)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="size">Size (for apparel)</label>
+                    <select id="size" name="size">
+                        <option value="">--Select Size (if applicable)--</option>
+                        <option value="S">Small (S)</option>
+                        <option value="M">Medium (M)</option>
+                        <option value="L">Large (L)</option>
+                        <option value="XL">Extra Large (XL)</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1" required style="width: 100px; padding: 12px 10px;">
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Request</button>
+            </form>
+            <div id="formMessage"></div>
+            <p style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #aaa;">
+                <strong>Note:</strong> This is a request form. Our team will contact you regarding availability and payment after submission.
+            </p>
+        </section>
+
+        <section class="merch-coordinator-section">
+            <h2>Merchandise Enquiries</h2>
+            <p>
+                For any questions regarding merchandise, bulk orders, or customization, please contact our Merchandise Coordinator:
+            </p>
+            <p>
+                <span class="coordinator-name">Rohan Verma</span><br>
+                Contact: <a href="tel:+919000080000" class="coordinator-contact">+91 90000 80000</a> <br>
+                (Available 10 AM - 6 PM, Mon-Sat)
+            </p>
+        </section>
+
+        <section class="faq-section" id="merch-faqs">
+            <h2>Frequently Asked Questions (Merch)</h2>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">How do I place an order for merchandise?</button>
+                <div class="faq-answer">
+                    <p>You can request merchandise by filling out the "Request Your Gear" form on this page. After submission, our team will contact you regarding availability, payment, and confirmation.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">What are the payment methods?</button>
+                <div class="faq-answer">
+                    <p>Once your request is confirmed, we will provide you with payment options, which typically include online UPI (GPay, PhonePe, etc.) and bank transfer. Cash on delivery is not available.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">When and where can I collect my merchandise?</button>
+                <div class="faq-answer">
+                    <p>Merchandise can be collected from the official CEREBREXIA'25 merch desk at IGIMS Patna during the fest dates (December 15th-17th, 2025). Specific timings and location of the desk will be communicated to confirmed buyers.</p>
+                    <p>Shipping options are currently not available unless specified otherwise for bulk orders.</p>
+                </div>
+            </div>
+             <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Are the items available in different sizes?</button>
+                <div class="faq-answer">
+                    <p>Yes, apparel items like T-shirts and Hoodies are available in standard sizes (S, M, L, XL, XXL). Please select your preferred size in the request form. Availability may vary.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Can I return or exchange an item?</button>
+                <div class="faq-answer">
+                    <p>All merchandise sales are final. Returns or exchanges are generally not permitted, except in the case of a manufacturing defect. Please check your items carefully at the time of collection.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">What if an item I want is out of stock?</button>
+                <div class="faq-answer">
+                    <p>Our merchandise is produced in limited quantities. We recommend placing your request early. If an item is out of stock, our team will inform you. We cannot guarantee availability for all requested items.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-diagram-feature" data-aos="fade-up">
+            <div class="footer-diagram-title-wrapper">
+                <div class="footer-diagram-title">
+                    <h3>CEREBREXIA VERSE</h3>
+                </div>
+            </div>
+            <div class="footer-diagram-area">
+                <svg id="footer-tech-diagram-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <line class="svg-line" x1="300" y1="200" x2="150" y2="80" /><line class="svg-line" x1="300" y1="200" x2="80" y2="200" /><line class="svg-line" x1="300" y1="200" x2="150" y2="320" /><line class="svg-line" x1="300" y1="200" x2="450" y2="80" /><line class="svg-line" x1="300" y1="200" x2="520" y2="200" /><line class="svg-line" x1="300" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="80" y2="200" /><line class="svg-line" x1="80" y1="200" x2="150" y2="320" /><line class="svg-line" x1="450" y1="80" x2="520" y2="200" /><line class="svg-line" x1="520" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="300" y2="50" /><line class="svg-line" x1="450" y1="80" x2="300" y2="50" /><line class="svg-line" x1="150" y1="320" x2="230" y2="360" /><line class="svg-line" x1="450" y1="320" x2="370" y2="360" />
+                    <circle class="svg-circle-bg" cx="300" cy="200" r="70"/><circle class="svg-circle-border" cx="300" cy="200" r="70" filter="url(#glow)"/><text class="svg-text-main" x="300" y="190" font-size="14px">CONNECTING</text><text class="svg-text-main" x="300" y="210" font-size="14px">MEDICS</text><text class="svg-text-arrows" x="300" y="155">⬆</text> <text class="svg-text-arrows" x="300" y="245">⬇</text><text class="svg-text-arrows" x="255" y="200">⬅</text> <text class="svg-text-arrows" x="345" y="200">➡</text><text class="svg-text-arrows" transform="translate(268 168) rotate(-45)" >↖</text><text class="svg-text-arrows" transform="translate(332 168) rotate(45)">↗</text><text class="svg-text-arrows" transform="translate(268 232) rotate(45)">↙</text><text class="svg-text-arrows" transform="translate(332 232) rotate(-45)">↘</text>
+                    <g transform="translate(150, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-stethoscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(80, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-heart-pulse" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(150, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-dna-helix" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
+                    <g transform="translate(450, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-microscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(520, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-rod-of-asclepius" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
+                    <g transform="translate(450, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-brain" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(300, 50)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-medical-plus" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(230, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-atom" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(370, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-test-tube" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(80, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
+                    <g transform="translate(520, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
+                    <circle class="svg-node-dot" cx="300" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="300" cy="50" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="230" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="370" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="120" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="120" r="3" filter="url(#glow)"/>
+                </svg>
+            </div>
+            <p class="footer-diagram-tagline">
+                Back again to make you guys vibe, Get stress free and enjoy the fest to its fullest
+            </p>
+            <a href="mailto:thecerebrexia17@gmail.com" class="footer-diagram-contact-button">CONTACT ORGANIZERS</a>
+        </div>
+
+        <div class="footer-container-new">
+          <div class="footer-section-new">
+            <h3 class="footer-heading-new">Connect</h3>
+            <div class="footer-social-icons-new">
+              <a href="https://facebook.com/cerebrexia" target="_blank" aria-label="Facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/igimsfest/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://twitter.com/cerebrexia" target="_blank" aria-label="Twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="https://linkedin.com/company/cerebrexia" target="_blank" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://www.youtube.com/@cerebrexia" target="_blank" aria-label="YouTube" title="YouTube"><i class="fab fa-youtube"></i></a>
+              <a href="https://whatsapp.com/channel/0029VbA0P20HbFV2ke5rlR2G" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Channel" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
+            </div>
+               <p style="margin-top: 15px; font-size: 1em; color: #b0b0c0;">Stay connected for live updates!</p>
+          </div>
+
+          <div class="footer-section-new">
+            <h3 class="footer-heading-new">Quick Links</h3>
+            <ul class="footer-quick-links-list">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="events.html">Events</a></li>
+              <li><a href="schedule.html">Schedule</a></li>
+              <li><a href="pronite.html">Pronites</a></li>
+              <li><a href="#team">Team</a></li>
+              <li><a href="accommodation.html">Accommodation</a></li>
+              <li><a href="register.html">Delegate Registration</a></li>
+              <li><a href="privacypolicy.html">Privacy Policy</a></li>
+              <li><a href="terms.html">Terms of Service</a></li>
+              <li><a href="codeofconduct.html">Code of Conduct</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section-new">
+            <h3 class="footer-heading-new">Contact</h3>
+            <div class="footer-contact-info">
+              <p>Email: <a href="mailto:info@cerebrexia25.com">info@cerebrexia25.com</a></p>
+              <p>Pankaj Kumar: <a href="tel:+919079956283">+91 90799 56283</a></p>
+              <p>Dhananjay Kumar: <a href="tel:+917425992291">+91 74259 92291</a></p>
+              <p style="margin-top:15px;">IGIMS Patna Campus,<br/>Sheikhpura, Patna, Bihar - 800014</p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom-new">
+          <p>© 2025 CEREBREXIA'25 - IGIMS Patna. All Rights Reserved. Designed with <i class="fas fa-heart" style="color: #ff00ff;"></i>.</p>
+        </div>
+    </footer>
+
+    <button class="scroll-top-btn" aria-label="Scroll to top">▲</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({
+                duration: 1200, /* Consistent with index.html */
+                once: false,
+                mirror: true /* Consistent with index.html */
+            });
+
+            const form = document.getElementById('merchandiseRequestForm');
+            const formMessage = document.getElementById('formMessage');
+            const submitButton = form.querySelector('.submit-btn');
+
+            // Header hide/show on scroll logic (consistent)
+            let lastScrollTop = 0;
+            const header = document.querySelector('header');
+            if(header){ /* Check if header exists before adding listener */
+                window.addEventListener('scroll', () => {
+                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    if (scrollTop > lastScrollTop && scrollTop > header.offsetHeight) {
+                        header.classList.add('hidden');
+                        header.classList.remove('visible');
+                    } else {
+                        header.classList.remove('hidden');
+                        header.classList.add('visible');
+                    }
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                });
+            }
+
+            // Hamburger Menu Toggle Logic (consistent)
+            const newMenuToggleButton = document.getElementById('newMenuToggleButton');
+            const fullScreenNav = document.getElementById('fullScreenNav');
+            const navCloseButton = document.getElementById('navCloseButton');
+            const body = document.body; /* Use body directly */
+
+            if (newMenuToggleButton && fullScreenNav && navCloseButton) {
+                newMenuToggleButton.addEventListener('click', () => {
+                    const isExpanded = newMenuToggleButton.getAttribute('aria-expanded') === 'true' || false;
+                    newMenuToggleButton.setAttribute('aria-expanded', String(!isExpanded));
+                    newMenuToggleButton.classList.toggle('open');
+                    fullScreenNav.classList.toggle('active');
+                    body.style.overflow = fullScreenNav.classList.contains('active') ? 'hidden' : '';
+                });
+
+                navCloseButton.addEventListener('click', () => {
+                    newMenuToggleButton.setAttribute('aria-expanded', 'false');
+                    newMenuToggleButton.classList.remove('open');
+                    fullScreenNav.classList.remove('active');
+                    body.style.overflow = '';
+                });
+
+                fullScreenNav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (fullScreenNav.classList.contains('active')) {
+                            newMenuToggleButton.setAttribute('aria-expanded', 'false');
+                            newMenuToggleButton.classList.remove('open');
+                            fullScreenNav.classList.remove('active');
+                            body.style.overflow = '';
+                        }
+                    });
+                });
+
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === 'Escape' && fullScreenNav.classList.contains('active')) {
+                        newMenuToggleButton.setAttribute('aria-expanded', 'false');
+                        newMenuToggleButton.classList.remove('open');
+                        fullScreenNav.classList.remove('active');
+                        body.style.overflow = '';
+                    }
+                });
+            }
+
+            // Scroll Top Button (consistent)
+            const scrollTopBtn = document.querySelector('.scroll-top-btn');
+            if (!scrollTopBtn) { /* Create if not exists in HTML */
+                const tempScrollTopBtn = document.createElement('button');
+                tempScrollTopBtn.className = 'scroll-top-btn';
+                tempScrollTopBtn.setAttribute('aria-label', 'Scroll to top');
+                tempScrollTopBtn.textContent = '▲';
+                document.body.appendChild(tempScrollTopBtn);
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    .scroll-top-btn {
+                        position: fixed; bottom: 20px; right: 20px; background: rgba(13,0,31,0.85); color: #fff;
+                        border: none; border-radius: 5px; padding: 10px 15px; cursor: pointer;
+                        opacity: 0; visibility: hidden; transition: opacity .3s ease,visibility .3s ease; z-index: 1000;
+                    }
+                    .scroll-top-btn.show { opacity: 1; visibility: visible; }
+                    .scroll-top-btn:hover { background: #ff00ff; }
+                `;
+                document.head.appendChild(style);
+            }
+            const actualScrollTopBtn = document.querySelector('.scroll-top-btn'); /* Always get fresh reference */
+            if (actualScrollTopBtn) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > window.innerHeight / 2) { actualScrollTopBtn.classList.add('show'); }
+                    else { actualScrollTopBtn.classList.remove('show'); }
+                });
+                actualScrollTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+            }
+
+            // FAQ Accordion Logic (existing from your code, just moved to DOMContentLoaded)
+            document.querySelectorAll('.faq-question').forEach(button => {
+                button.addEventListener('click', () => {
+                    const answer = button.nextElementSibling;
+                    const isOpen = answer.classList.contains('open');
+                    // Close all other open answers
+                    document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
+                        if (openAnswer !== answer) { // Only close if it's not the current one
+                            openAnswer.classList.remove('open');
+                            openAnswer.previousElementSibling.classList.remove('open');
+                            openAnswer.previousElementSibling.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                    // Toggle current answer
+                    if (isOpen) {
+                        answer.classList.remove('open');
+                        button.classList.remove('open');
+                        button.setAttribute('aria-expanded', 'false');
+                    } else {
+                        answer.classList.add('open');
+                        button.classList.add('open');
+                        button.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+
+            // Merchandise Form Submission Logic (existing from your code)
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                submitButton.disabled = true;
+                submitButton.textContent = 'Submitting...';
+                formMessage.style.display = 'none'; // Hide message initially
+
+                const fullName = document.getElementById('fullName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const selectedItem = document.getElementById('merchItem').value;
+                const quantity = document.getElementById('quantity').value;
+                const size = document.getElementById('size').value;
+
+
+                if (!fullName || !email || !phone || !selectedItem || !quantity || parseInt(quantity) < 1) {
+                    displayMessage('Please fill out all required fields correctly.', 'error');
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit Request';
+                    return;
+                }
+
+                const formDataObject = {
+                    name: fullName,
+                    email: email,
+                    phone: phone,
+                    item: selectedItem,
+                    size: size,
+                    quantity: quantity,
+                    _subject: `New Merch Request: ${selectedItem} from ${fullName}`,
+                    _replyto: email
+                };
+
+                fetch('https://formspree.io/f/mpwrwrzg', { /* YOUR FORMSPREE ENDPOINT - Please ensure this is correctly set up on your Formspree account */
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formDataObject)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.error || 'Network response was not ok.');
+                    }).catch(() => {
+                        throw new Error('Network response was not ok and error details could not be parsed.');
+                    });
+                })
+                .then(data => {
+                    console.log('Formspree success data:', data);
+                    displayMessage(`Thank you, ${formDataObject.name}! Your request has been successfully submitted. We will contact you shortly.`, 'success');
+                    form.reset();
+                })
+                .catch(error => {
+                    console.error('Error submitting to Formspree:', error);
+                    let userErrorMessage = 'Could not submit your request. Please try again later.';
+                    if (error.message && error.message.includes("form")) {
+                        userErrorMessage = `Submission failed: ${error.message}. Please check your details or try again.`;
+                    }
+                    displayMessage(userErrorMessage, 'error');
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit Request';
+                });
+            });
+
+            function displayMessage(message, type) {
+                formMessage.textContent = message;
+                formMessage.className = type; /* 'success' or 'error' */
+                formMessage.style.display = 'block';
+
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 7000);
+            }
+
+            // Apply 'two-items' class if only two items are present (existing from your code)
+            const merchGrid = document.querySelector('.merchandise-grid');
+            if (merchGrid && merchGrid.children.length === 2) {
+                merchGrid.classList.add('two-items');
+            }
+
+        });
+    </script>
+
+</body>
+</html>

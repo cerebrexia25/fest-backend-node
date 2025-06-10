@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CEREBREXIA'25 - QR Scanner</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Savate:wght@518&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+<style>
+    /* General Styles matching your fest theme */
+    :root {
+        --primary-glow-color: #50c8ff;
+        --secondary-glow-color: #7efcff;
+        --text-color: #ffffff;
+        --dark-bg: #0a0e1a;
+        --medium-bg: #10182c;
+        --title-box-bg: #2a3045;
+        --title-box-border: #607080;
+        --button-blue: #007bff;
+        --icon-blue: #3cb5f5;
+        --neon-pink: #ff00ff;
+        --neon-cyan: #00ffff;
+        --warning-yellow: #f9d71c;
+        --success-green: #00e676;
+        --error-red: #ff5252;
+    }
+
+    html { background-color: var(--dark-bg); scroll-behavior: smooth; }
+    body {
+        margin: 0; padding: 0; min-height: 100vh;
+        font-family: 'Kanit', sans-serif;
+        color: var(--text-color);
+        overflow-x: hidden;
+        display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    /* Page Title */
+    h1.page-title {
+        font-family: 'Exo', sans-serif; font-weight: 900;
+        font-size: clamp(2.2rem, 6vw, 3rem); color: var(--text-color); text-align: center; margin-bottom: 30px;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px var(--neon-pink);
+    }
+
+    /* Main Container for Scanner and Results */
+    .scanner-container {
+        background: rgba(30, 10, 50, 0.8); /* Darker, prominent background */
+        border: 1px solid rgba(255,0,255,0.4);
+        border-radius: 15px;
+        box-shadow: 0 0 25px rgba(255,0,255,0.3), inset 0 0 15px rgba(255,0,255,0.15);
+        padding: 30px;
+        width: 100%; max-width: 600px;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+    }
+
+    /* Volunteer Login Section */
+    #volunteer-login-section {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+    #volunteer-id-input {
+        width: calc(100% - 20px); padding: 12px; margin-bottom: 15px;
+        background-color: rgba(10,0,20,0.6); border: 1px solid var(--neon-pink);
+        border-radius: 8px; color: var(--text-color); font-size: 1.1em;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    #volunteer-id-input:focus {
+        outline: none; border-color: var(--neon-cyan); box-shadow: 0 0 10px rgba(0,255,255,0.5);
+    }
+    .btn {
+        border: none; padding: 12px 24px; border-radius: 8px;
+        font-size: 1.1rem; font-weight: 600; cursor: pointer;
+        transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 10px;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .btn-primary { background-color: var(--neon-pink); color: white; box-shadow: 0 3px 12px rgba(255,0,255,0.4); }
+    .btn-primary:hover { background-color: #e600e6; transform: translateY(-2px) scale(1.02); box-shadow: 0 5px 18px rgba(255,0,255,0.6); }
+    .btn-disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; box-shadow: none; }
+
+    /* QR Scanner Video Area */
+    #qr-reader {
+        width: 100%;
+        border: 2px solid var(--neon-cyan);
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,255,255,0.5);
+        background-color: #000;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+    #qr-reader video { width: 100% !important; height: auto !important; border-radius: 8px; }
+
+    /* Scan Result Display */
+    .scan-result-box {
+        background-color: rgba(0, 255, 255, 0.1); /* Light cyan background */
+        border: 1px solid var(--neon-cyan);
+        border-radius: 10px;
+        padding: 15px; margin-top: 20px;
+        text-align: center;
+        box-shadow: 0 0 15px rgba(0,255,255,0.4);
+    }
+    .scan-result-box p { margin: 8px 0; line-height: 1.5; }
+    .scan-result-box strong { color: var(--neon-cyan); }
+    .scan-result-box .status-message {
+        font-weight: bold; font-size: 1.2em; margin-bottom: 10px;
+    }
+    .status-success { color: var(--success-green); text-shadow: 0 0 5px rgba(0,230,118,0.5); }
+    .status-warning { color: var(--warning-yellow); text-shadow: 0 0 5px rgba(249,215,28,0.5); }
+    .status-error { color: var(--error-red); text-shadow: 0 0 5px rgba(255,82,82,0.5); }
+    .pass-number {
+        font-family: 'Orbitron', monospace; font-size: 2em; font-weight: 700;
+        color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+        margin-top: 15px; padding: 10px; background: rgba(255,0,255,0.1); border-radius: 8px;
+    }
+    .last-scan-details {
+        font-size: 0.9em; color: #aaa; margin-top: 10px;
+    }
+
+    /* Messages below scanner */
+    .info-message {
+        background-color: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;
+        color: #ccc; text-align: center; margin-top: 20px;
+        border: 1px dashed rgba(255,255,255,0.2);
+    }
+
+    /* Hidden elements */
+    [data-section="scanner"], [data-section="results"] { display: none; }
+    [data-section="active"] { display: block; }
+
+    /* Footer - Optional, but good to include for consistency */
+    .site-footer {
+        width: 100%; max-width: 600px;
+        background-color: #1a1a2e; color: #e0e0e0; padding: 20px;
+        font-family: 'Kanit', sans-serif; margin-top: 40px;
+        border-top: 3px solid #3a3a5e; box-shadow: 0 -5px 15px rgba(25, 25, 46, 0.5);
+        text-align: center; border-radius: 10px;
+    }
+    .footer-content p { margin: 5px 0; font-size: 0.9em; }
+    .footer-content a { color: var(--neon-cyan); text-decoration: none; }
+    .footer-content a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+        body { padding: 10px; }
+        .page-title { font-size: 2rem; margin-bottom: 20px; }
+        .scanner-container { padding: 20px; border-radius: 10px; }
+        .btn { padding: 10px 18px; font-size: 1em; }
+        .pass-number { font-size: 1.5em; }
+        .site-footer { margin-top: 20px; padding: 15px; }
+    }
+
+</style>
+</head>
+<body>
+    <h1 class="page-title">CEREBREXIA'25 QR Scanner</h1>
+
+    <div class="scanner-container">
+        <div id="volunteer-login-section" data-section="active">
+            <h2>Volunteer Login</h2>
+            <p>Please enter your unique Volunteer ID to start scanning.</p>
+            <input type="text" id="volunteer-id-input" placeholder="Enter Volunteer ID" />
+            <button id="start-scan-btn" class="btn btn-primary">Start Scanning</button>
+            <p class="info-message" style="margin-top: 20px;">Your session will be linked to this ID for tracking.</p>
+        </div>
+
+        <div id="scanner-section" data-section="scanner">
+            <h2>Scan QR Code</h2>
+            <p class="info-message">Point camera at QR code. Ensure good lighting.</p>
+            <div id="qr-reader"></div>
+            <button id="stop-scan-btn" class="btn btn-disabled" style="width: 100%; margin-top: 20px;">Stop Scanning</button>
+            <button id="manual-entry-btn" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Manual Entry (Reg ID)</button>
+        </div>
+
+        <div id="manual-entry-section" data-section="manual-entry">
+            <h2>Manual Entry</h2>
+            <p>Enter Registration ID (RegID) manually.</p>
+            <input type="text" id="manual-regid-input" placeholder="Enter Registration ID from QR" />
+            <input type="text" id="manual-memberid-input" placeholder="Enter Member ID (if group)" />
+            <button id="submit-manual-entry-btn" class="btn btn-primary" style="width: 100%; margin-top: 15px;">Submit Manual Entry</button>
+            <button id="back-to-scan-btn" class="btn btn-disabled" style="width: 100%; margin-top: 10px;">Back to Scanner</button>
+        </div>
+
+
+        <div id="scan-results-section" class="scan-result-box" data-section="results">
+            <p class="status-message" id="result-status-message"></p>
+            <p><strong>Name:</strong> <span id="result-name">N/A</span></p>
+            <p><strong>College:</strong> <span id="result-college">N/A</span></p>
+            <p><strong>Enrollment:</strong> <span id="result-enrollment">N/A</span></p>
+            <p id="result-member-id" style="font-size:0.8em; color:#aaa;"><strong>Member ID:</strong> <span id="result-memberid-value">N/A</span></p>
+            <p id="result-pass-number"><strong>PASS NUMBER:</strong> <span class="pass-number" id="pass-number-value"></span></p>
+            <div id="last-scan-info" class="last-scan-details" style="display: none;">
+                <p>Last scanned on: <span id="last-scan-time">N/A</span> by <span id="last-scanned-by">N/A</span></p>
+            </div>
+            <button id="scan-again-btn" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Scan Next QR</button>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; <span id="currentYear"></span> CEREBREXIA'25 - QR Scanner</p>
+            <p>Contact: <a href="mailto:info@cerebrexia25.com">info@cerebrexia25.com</a></p>
+        </div>
+    </footer>
+
+
+<script>
+    // --- Firebase Configuration (Same as your project) ---
+    const firebaseConfig = {
+        apiKey: "AIzaSyBOWumY95hdMt2uOvmJEk5WG0GhdqUHUNc",
+        authDomain: "cerebrexia-ee068.firebaseapp.com",
+        projectId: "cerebrexia-ee068",
+        storageBucket: "cerebrexia-ee068.appspot.com",
+        messagingSenderId: "328864114758",
+        appId: "1:328864114758:web:108968f6576b6967f14247",
+        measurementId: "G-6Z6EP1ZTEJ"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // --- DOM Elements ---
+    const volunteerLoginSection = document.getElementById('volunteer-login-section');
+    const volunteerIdInput = document.getElementById('volunteer-id-input');
+    const startScanBtn = document.getElementById('start-scan-btn');
+    const scannerSection = document.getElementById('scanner-section');
+    const qrReader = document.getElementById('qr-reader');
+    const stopScanBtn = document.getElementById('stop-scan-btn');
+    const manualEntryBtn = document.getElementById('manual-entry-btn');
+    const manualEntrySection = document.getElementById('manual-entry-section');
+    const manualRegIdInput = document.getElementById('manual-regid-input');
+    const manualMemberIdInput = document.getElementById('manual-memberid-input');
+    const submitManualEntryBtn = document.getElementById('submit-manual-entry-btn');
+    const backToScanBtn = document.getElementById('back-to-scan-btn');
+    const scanResultsSection = document.getElementById('scan-results-section');
+    const resultStatusMessage = document.getElementById('result-status-message');
+    const resultName = document.getElementById('result-name');
+    const resultCollege = document.getElementById('result-college');
+    const resultEnrollment = document.getElementById('result-enrollment');
+    const resultMemberId = document.getElementById('result-member-id');
+    const resultMemberIdValue = document.getElementById('result-memberid-value');
+    const resultPassNumber = document.getElementById('result-pass-number');
+    const passNumberValue = document.getElementById('pass-number-value');
+    const lastScanInfo = document.getElementById('last-scan-info');
+    const lastScanTime = document.getElementById('last-scan-time');
+    const lastScannedBy = document.getElementById('last-scanned-by');
+    const scanAgainBtn = document.getElementById('scan-again-btn');
+
+    // --- Global Variables ---
+    let html5QrCode; // Instance of Html5QrcodeScanner
+    let currentVolunteerId = null; // Store the ID of the logged-in volunteer
+    const SCANNER_API_ENDPOINT = 'http://localhost:8080/api/scan-qr'; // Update this to your deployed backend URL later
+
+    // --- Utility Functions ---
+    function showSection(sectionId) {
+        // Hide all main sections
+        volunteerLoginSection.setAttribute('data-section', '');
+        scannerSection.setAttribute('data-section', '');
+        manualEntrySection.setAttribute('data-section', '');
+        scanResultsSection.setAttribute('data-section', '');
+
+        // Show the requested section
+        document.getElementById(sectionId).setAttribute('data-section', 'active');
+    }
+
+    function displayResult(status, message, data = {}) {
+        resultStatusMessage.className = 'status-message'; // Reset classes
+        if (status === 'success') {
+            resultStatusMessage.classList.add('status-success');
+        } else if (status === 'warning') {
+            resultStatusMessage.classList.add('status-warning');
+        } else if (status === 'error') {
+            resultStatusMessage.classList.add('status-error');
+        }
+        resultStatusMessage.textContent = message;
+
+        resultName.textContent = data.name || 'N/A';
+        resultCollege.textContent = data.college || 'N/A';
+        resultEnrollment.textContent = data.enrollmentType ? (data.enrollmentType === 'group' ? `Group (${data.numMembers})` : 'Individual') : 'N/A';
+        resultMemberIdValue.textContent = data.memberId || 'N/A';
+        resultMemberId.style.display = data.memberId ? 'block' : 'none'; // Show member ID if present
+
+        if (data.passNumber) {
+            resultPassNumber.style.display = 'block';
+            passNumberValue.textContent = data.passNumber;
+        } else {
+            resultPassNumber.style.display = 'none';
+        }
+
+        if (data.lastScanTime && data.lastScannedBy) {
+            lastScanInfo.style.display = 'block';
+            lastScanTime.textContent = new Date(data.lastScanTime._seconds * 1000).toLocaleString(); // Convert Firestore timestamp
+            lastScannedBy.textContent = data.lastScannedBy;
+        } else {
+            lastScanInfo.style.display = 'none';
+        }
+
+        showSection('scan-results-section');
+    }
+
+    async function processScan(decodedText, isManual = false) {
+        html5QrCode.stop().then(() => {
+            console.log("QR Code scanner stopped.");
+            stopScanBtn.classList.add('btn-disabled'); // Disable stop button
+        }).catch(err => {
+            console.error("Error stopping QR scanner:", err);
+        });
+
+        let scannedData;
+        try {
+            scannedData = JSON.parse(decodedText);
+            if (!scannedData.regId || !scannedData.memberId) { // Basic validation
+                displayResult('error', 'Invalid QR Code format: Missing Reg ID or Member ID.');
+                return;
+            }
+        } catch (e) {
+            displayResult('error', 'Invalid QR Code data: Not JSON or malformed.');
+            return;
+        }
+
+        console.log("Scanned QR Data:", scannedData);
+
+        try {
+            // Send scanned data to backend API for verification and update
+            const response = await fetch(SCANNER_API_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-volunteer-id': currentVolunteerId // Send volunteer ID in header
+                },
+                body: JSON.stringify({
+                    regId: scannedData.regId,
+                    memberId: scannedData.memberId,
+                    isManual: isManual,
+                    // Add other relevant data from QR if needed by backend, e.g., scannedData.name
+                })
+            });
+
+            const result = await response.json();
+            console.log("Backend API Response:", result);
+
+            if (response.ok) {
+                if (result.status === 'success') {
+                    displayResult('success', result.message || 'Entry Successful!', result.data);
+                } else if (result.status === 'warning') {
+                    displayResult('warning', result.message || 'Already Scanned!', result.data);
+                } else { // Handle 'fail' or other statuses from backend
+                    displayResult('error', result.message || 'Entry Failed. Please try again.', result.data);
+                }
+            } else {
+                displayResult('error', result.message || 'Server error processing scan.', result.data);
+            }
+
+        } catch (error) {
+            console.error("Error communicating with scanner API:", error);
+            displayResult('error', 'Network error or server unreachable. Please check backend.');
+        }
+    }
+
+    // --- Event Listeners ---
+
+    // Volunteer Login
+    startScanBtn.addEventListener('click', () => {
+        const volunteerId = volunteerIdInput.value.trim();
+        if (volunteerId) {
+            currentVolunteerId = volunteerId;
+            showSection('scanner-section');
+            html5QrCode = new Html5Qrcode("qr-reader");
+            html5QrCode.start(
+                { facingMode: "environment" }, // Prefer rear camera
+                {
+                    fps: 10,    // frames per second
+                    qrbox: { width: 250, height: 250 }  // Scanner box size
+                },
+                (decodedText, decodedResult) => {
+                    // console.log(`QR Code detected: ${decodedText}`, decodedResult);
+                    processScan(decodedText);
+                },
+                (errorMessage) => {
+                    // console.warn(`QR Code no scan: ${errorMessage}`); // Too verbose, keep commented for production
+                }
+            ).catch(err => {
+                console.error("Error starting QR scanner:", err);
+                alert("Error starting camera: " + err);
+                showSection('volunteer-login-section'); // Go back to login on camera error
+            });
+            stopScanBtn.classList.remove('btn-disabled'); // Enable stop button
+        } else {
+            alert("Please enter a Volunteer ID.");
+        }
+    });
+
+    // Stop Scanning
+    stopScanBtn.addEventListener('click', () => {
+        if (html5QrCode && html5QrCode.is == true) { // Check if scanner is running
+            html5QrCode.stop().then(() => {
+                console.log("QR Code scanner stopped.");
+                stopScanBtn.classList.add('btn-disabled'); // Disable stop button
+                showSection('volunteer-login-section'); // Go back to login
+                volunteerIdInput.value = ''; // Clear volunteer ID
+                currentVolunteerId = null;
+            }).catch(err => {
+                console.error("Error stopping QR scanner:", err);
+            });
+        }
+    });
+
+    // Manual Entry
+    manualEntryBtn.addEventListener('click', () => {
+        if (html5QrCode && html5QrCode.isStarted()) {
+            html5QrCode.stop().then(() => {
+                console.log("Scanner stopped for manual entry.");
+                stopScanBtn.classList.add('btn-disabled');
+                showSection('manual-entry-section');
+            }).catch(err => console.error("Error stopping scanner for manual entry:", err));
+        } else {
+            showSection('manual-entry-section');
+        }
+    });
+
+    submitManualEntryBtn.addEventListener('click', () => {
+        const regId = manualRegIdInput.value.trim();
+        const memberId = manualMemberIdInput.value.trim(); // Optional for groups
+
+        if (!regId) {
+            alert("Please enter a Registration ID for manual entry.");
+            return;
+        }
+
+        // Construct fake QR data from manual inputs
+        const manualQrData = JSON.stringify({ regId: regId, memberId: memberId || 'N/A' }); // Use N/A or actual memberId
+        processScan(manualQrData, true); // Process as manual scan
+        manualRegIdInput.value = '';
+        manualMemberIdInput.value = '';
+    });
+
+    backToScanBtn.addEventListener('click', () => {
+        showSection('scanner-section');
+        html5QrCode = new Html5Qrcode("qr-reader"); // Re-initialize if stopped
+        html5QrCode.start(
+            { facingMode: "environment" },
+            { fps: 10, qrbox: { width: 250, height: 250 } },
+            (decodedText, decodedResult) => { processScan(decodedText); },
+            (errorMessage) => {}
+        ).catch(err => {
+            console.error("Error restarting camera:", err);
+            alert("Error restarting camera: " + err);
+            showSection('volunteer-login-section');
+        });
+        stopScanBtn.classList.remove('btn-disabled');
+    });
+
+    // Scan Again Button
+    scanAgainBtn.addEventListener('click', () => {
+        if (currentVolunteerId) { // If volunteer is logged in, go back to scanner
+            showSection('scanner-section');
+            html5QrCode = new Html5Qrcode("qr-reader"); // Re-initialize as it might have been stopped
+            html5QrCode.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: { width: 250, height: 250 } },
+                (decodedText, decodedResult) => { processScan(decodedText); },
+                (errorMessage) => {}
+            ).catch(err => {
+                console.error("Error restarting camera after scan:", err);
+                alert("Error restarting camera: " + err);
+                showSection('volunteer-login-section');
+            });
+            stopScanBtn.classList.remove('btn-disabled');
+        } else { // If not logged in, go to login section
+            showSection('volunteer-login-section');
+        }
+    });
+
+    // --- Footer Year Update ---
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

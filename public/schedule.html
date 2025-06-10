@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule - CEREBREXIA'25</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Savate:wght@518&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+    <style>
+        :root {
+            --primary-glow-color: #50c8ff;
+            --secondary-glow-color: #7efcff;
+            --text-color: #ffffff;
+            --dark-bg: #0a0e1a;
+            --medium-bg: #10182c;
+            --title-box-bg: #2a3045;
+            --title-box-border: #607080;
+            --button-blue: #007bff;
+            --icon-blue: #3cb5f5;
+            --medical-icon-color: #ffffff;
+        }
+
+        html {
+            background-color: #0d001f; /* Fallback background for the page */
+            scroll-behavior: smooth;
+        }
+        body, html {
+            margin: 0; padding: 0; min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Consistent with index.html */
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        body {
+            background-color: transparent; /* Allow custom background to show through */
+            position: relative; /* For stacking context if needed */
+        }
+
+        .page-content-wrapper { /* Added for consistent top padding */
+            position: relative;
+            z-index: 1;
+            background-color: transparent;
+            padding-top: 80px; /* To push content below fixed header */
+        }
+        main.container { /* Adjusted for general page content container */
+            max-width: 960px; /* Common max-width */
+            margin: 0 auto 60px; /* Center content and add bottom margin */
+            padding: 20px;
+        }
+
+
+        /* ==== HEADER STYLES (Copied from index.html) ==== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(13, 0, 31, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header.hidden { transform: translateY(-100%); }
+        header.visible { transform: translateY(0); }
+        .logo {
+            font-family: 'Savate', sans-serif; /* Changed to Savate, consistent with index.html */
+            font-size: 3rem; /* Consistent with index.html */
+            font-weight: 518; /* Consistent with index.html */
+            color: yellow; /* Consistent with index.html */
+            user-select: none;
+            text-decoration: none;
+            z-index: 1001;
+        }
+
+        .new-menu-toggle-button { background: transparent; border: none; color: #fff; cursor: pointer; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1101; transition: transform 0.3s ease; }
+        .new-menu-toggle-button .icon-bar { display: block; width: 30px; height: 3px; background-color: #fff; margin: 6px 0; transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease; border-radius: 1px; }
+        .new-menu-toggle-button:hover .icon-bar { background-color: #ff00ff; }
+        .new-menu-toggle-button.open .icon-bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .new-menu-toggle-button.open .icon-bar:nth-child(2) { opacity: 0; }
+        .new-menu-toggle-button.open .icon-bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+        #fullScreenNav { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 0, 31, 0.97); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); z-index: 1100; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0s linear 0.5s; overflow-y: auto; }
+        #fullScreenNav.active { opacity: 1; visibility: visible; transition: opacity 0.5s ease, visibility 0s linear 0s; }
+        #fullScreenNav ul { list-style: none; padding: 0; margin: 0; text-align: center; }
+        #fullScreenNav li { margin: 20px 0; }
+        #fullScreenNav a { font-family: 'Exo', sans-serif; font-weight: 400; font-size: clamp(2rem, 5vw, 3rem); color: #fff; text-decoration: none; padding: 10px 25px; display: inline-block; position: relative; transition: color 0.4s ease, transform 0.4s ease; letter-spacing: 1px; text-transform: uppercase; }
+        #fullScreenNav a.active-nav-link { color: #ffd700; transform: translateY(-5px) scale(1.05); }
+        #fullScreenNav a::before, #fullScreenNav a::after { content: ''; position: absolute; width: 100%; height: 3px; background: linear-gradient(90deg, #ff00ff, #ffae00, #00ffff, #ff00ff); background-size: 300% 100%; left: 0; transition: transform 0.4s ease, opacity 0.4s ease; animation: borderFlow 8s linear infinite; }
+        #fullScreenNav a::before { top: 0; transform: scaleX(0); transform-origin: left; }
+        #fullScreenNav a::after { bottom: 0; transform: scaleX(0); transform-origin: right; }
+        #fullScreenNav a:hover, #fullScreenNav a:focus { color: #ffdd57; transform: translateY(-5px) scale(1.05); }
+        #fullScreenNav a:hover::before, #fullScreenNav a:focus::before { transform: scaleX(1); transform-origin: right; }
+        #fullScreenNav a:hover::after, #fullScreenNav a:focus::after { transform: scaleX(1); transform-origin: left; }
+        @keyframes borderFlow { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
+        #fullScreenNav .nav-close-btn { position: absolute; top: 25px; right: 25px; background: transparent; color: #fff; border: none; font-size: 2.5rem; font-weight: bold; cursor: pointer; z-index: 1201; transition: color 0.3s ease, transform 0.3s ease; line-height: 1; }
+        #fullScreenNav .nav-close-btn:hover { color: #ff00ff; transform: rotate(90deg) scale(1.1); }
+
+        /* Schedule Page Specific Styles */
+        .fest-bg-schedule {
+            background-image: linear-gradient(rgba(13, 0, 31, 0.92), rgba(13, 0, 31, 0.98)), url('https://placehold.co/1920x1080/0d001f/330066?text=Abstract+Timeline+Concept'); /* Keep this background image for schedule page */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        h1, h2, h3, .logo-font {
+            font-family: 'Exo', sans-serif;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+        }
+        .neon-text-pink {
+            color: #ff00ff;
+            text-shadow: 0 0 4px #ff00ff, 0 0 8px #ff00ff, 0 0 12px rgba(255, 0, 255, 0.7);
+        }
+        .neon-text-cyan {
+            color: #00ffff;
+            text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff, 0 0 12px rgba(0, 255, 255, 0.7);
+        }
+        .neon-text-gold {
+            color: #ffd700;
+            text-shadow: 0 0 3px #ffd700, 0 0 6px #ffd700, 0 0 9px rgba(255, 215, 0, 0.5);
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a0530; }
+        ::-webkit-scrollbar-thumb { background: #ff00ff; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #bf00bf; }
+
+        /* Schedule Specific Styles */
+        .day-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem; /* Adjust gap as needed */
+            margin-bottom: 2.5rem; /* Equivalent to mb-10 */
+        }
+        .day-tabs button {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Exo', sans-serif;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .day-tabs button:hover, .day-tabs button.active-tab {
+            background-color: #00ffff;
+            color: #0d001f;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 25px rgba(0, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .schedule-content { display: none; }
+        .schedule-content.active { display: block; }
+
+        .timeline { position: relative; padding: 2rem 0; }
+        .timeline::before {
+            content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 4px;
+            background: linear-gradient(to bottom, #ff00ff, #00ffff, #ff00ff);
+            border-radius: 2px; animation: flowGradient 5s linear infinite;
+        }
+        @keyframes flowGradient { 0% { background-position: 0% 0%; } 100% { background-position: 0% 200%; } }
+
+        .timeline-event { position: relative; padding-left: 60px; margin-bottom: 2.5rem; }
+        .timeline-event::before { /* Dot on the timeline */
+            content: ''; position: absolute; left: 12px; top: 5px;
+            width: 16px; height: 16px; background-color: #00ffff;
+            border: 3px solid #0d001f; border-radius: 50%; z-index: 1;
+            box-shadow: 0 0 10px #00ffff;
+        }
+        .timeline-event.flagship-event::before { background-color: #ffd700; box-shadow: 0 0 10px #ffd700; }
+        .timeline-event.pronite-event::before { background-color: #ff00ff; box-shadow: 0 0 10px #ff00ff; }
+
+        .event-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #00ffff;
+            padding: 1.25rem; /* p-5 equivalent */
+            border-radius: 0.5rem; /* rounded-lg equivalent */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl equivalent */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-left-color 0.3s ease;
+        }
+        .event-card:hover {
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        .event-card.flagship-event { border-left-color: #ffd700; }
+        .event-card.pronite-event { border-left-color: #ff00ff; }
+
+        /* Styles for LIVE events */
+        .event-live {
+            border-left-color: #ff3333 !important;
+            box-shadow: 0 0 18px #ff3333, 0 0 30px #ff3333aa, 0 0 5px white inset !important;
+            transform: scale(1.03) translateX(5px) !important;
+        }
+        .event-live .event-time { color: #ff3333 !important; font-weight: bold; }
+        .live-indicator {
+            display: inline-block;
+            background-color: #ff3333;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            border-radius: 5px;
+            font-weight: bold;
+            animation: pulseLive 1.5s infinite ease-in-out;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 8px;
+        }
+        @keyframes pulseLive {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.08); }
+        }
+        .hidden { display: none !important; } /* Utility class */
+
+
+        .event-time {
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 600;
+        }
+        .event-tag {
+            display: inline-block; padding: 0.2rem 0.6rem; border-radius: 12px;
+            font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .tag-technical { background-color: rgba(0, 255, 255, 0.2); color: #00ffff; border: 1px solid rgba(0,255,255,0.4); }
+        .tag-cultural { background-color: rgba(255, 0, 255, 0.2); color: #ff00ff; border: 1px solid rgba(255,0,255,0.4); }
+        .tag-workshop { background-color: rgba(255, 215, 0, 0.2); color: #ffd700; border: 1px solid rgba(255,215,0,0.4); }
+        .tag-flagship { background-color: rgba(255, 165, 0, 0.2); color: #ffa500; border: 1px solid rgba(255,165,0,0.4); }
+        .tag-pronite { background-color: rgba(128, 0, 128, 0.3); color: #da70d6; border: 1px solid rgba(128,0,128,0.5); }
+
+        /* ==== FOOTER STYLES (Copied from index.html) ==== */
+        .site-footer { background-color: #1a1a2e; color: #e0e0e0; padding: 30px 20px 30px; font-family: 'Kanit', sans-serif; margin-top: 60px; border-top: 3px solid #3a3a5e; box-shadow: 0 -5px 15px rgba(25, 25, 46, 0.5); }
+        .footer-diagram-feature { padding: 40px 20px; margin-bottom: 30px; border-bottom: 1px solid #2a2a4e; text-align: center; }
+        .footer-diagram-title-wrapper { margin-bottom: 25px; display: inline-block; }
+        .footer-diagram-title { background-color: var(--title-box-bg); border: 2px solid var(--title-box-border); border-radius: 12px; padding: 8px 35px; box-shadow: 0 0 8px rgba(0,0,0,0.4), inset 0 0 4px rgba(255,255,255,0.1), 0 0 12px var(--primary-glow-color); display: inline-block; }
+        .footer-diagram-title h3 { font-family: 'Orbitron', sans-serif; font-size: 2em; color: var(--text-color); margin: 0; font-weight: 700; text-shadow: 0 0 4px var(--text-color), 0 0 8px var(--primary-glow-color); }
+        .footer-diagram-area { width: 100%; max-width: 600px; margin: 0 auto 25px auto; position: relative; }
+        #footer-tech-diagram-svg { width: 100%; height: auto; filter: drop-shadow(0 0 8px var(--primary-glow-color)); }
+        .footer-diagram-tagline {
+            font-size: 1em; line-height: 1.6; color: #bbb; margin-bottom: 30px;
+            max-width: 450px; margin-left: auto; margin-right: auto;
+            text-shadow: 0 0 4px rgba(0,0,0,0.6);
+            word-wrap: break-word; /* Added for better text wrapping */
+            overflow-wrap: break-word; /* Added for better text wrapping */
+        }
+        .footer-diagram-contact-button { display: inline-block; background-color: var(--button-blue); color: var(--text-color); padding: 10px 30px; border-radius: 25px; text-decoration: none; font-size: 1.1em; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 0 8px var(--button-blue), 0 0 15px var(--button-blue); }
+        .footer-diagram-contact-button:hover { background-color: #0056b3; box-shadow: 0 0 12px var(--button-blue), 0 0 25px var(--button-blue), inset 0 0 4px rgba(255,255,255,0.2); transform: translateY(-2px); }
+        .svg-line { stroke: var(--primary-glow-color); stroke-width: 1.5; stroke-linecap: round; }
+        .svg-node-dot { fill: var(--secondary-glow-color); }
+        .svg-circle-bg { fill: #080c14e0; }
+        .svg-circle-border { stroke: var(--primary-glow-color); stroke-width: 2; fill: none; }
+        .svg-icon { fill: var(--medical-icon-color); filter: drop-shadow(0 0 3px var(--secondary-glow-color)); }
+        .svg-text-main { font-family: 'Roboto', sans-serif; fill: var(--text-color); font-weight: 700; text-anchor: middle; dominant-baseline: middle; filter: drop-shadow(0 0 5px var(--primary-glow-color)); }
+        .svg-text-arrows { fill: var(--secondary-glow-color); font-size: 1.5em; text-anchor: middle; dominant-baseline: middle; }
+        .footer-container-new { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; }
+        .footer-section-new { padding: 10px; }
+        .footer-heading-new { font-size: 1.6em; font-weight: 600; color: #f9c74f; margin-bottom: 25px; position: relative; padding-left: 20px; font-family: 'Exo', sans-serif; }
+        .footer-heading-new::before { content: '●'; color: #f9c74f; position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 0.8em; }
+        .footer-quick-links-list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; }
+        .footer-quick-links-list li { margin-right: 12px; margin-bottom: 12px; }
+        .footer-quick-links-list li a { display: inline-block; background-color: #2a2a4e; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 25px; font-size: 1.1em; font-weight: 500; transition: background-color 0.3s ease, transform 0.2s ease; border: 1px solid #3a3a5e; }
+        .footer-quick-links-list li a:hover, .footer-quick-links-list li a:focus { background-color: #f9c74f; color: #1a1a2e; transform: translateY(-2px); }
+        .footer-contact-info p {
+            font-size: 1.1em; margin-bottom: 12px; line-height: 1.7; color: #d0d0d0;
+            word-wrap: break-word; /* Added for better text wrapping */
+            overflow-wrap: break-word; /* Added for better text wrapping */
+        }
+        .footer-contact-info p a { color: #a0cff0; text-decoration: none; transition: color 0.3s ease; }
+        .footer-contact-info p a:hover { color: #f9c74f; text-decoration: underline; }
+        .footer-social-icons-new { margin-top: 20px; display: flex; gap: 15px; }
+        .footer-social-icons-new a { display: inline-block; color: #e0e0e0; font-size: 1.8rem; transition: transform 0.3s ease, color 0.3s ease; }
+        .footer-social-icons-new a:hover { transform: scale(1.15) translateY(-2px); color: #f9c74f; }
+        .footer-social-icons-new .fa-instagram:hover { color: #E1306C; } .footer-social-icons-new .fa-youtube:hover { color: #FF0000; } .footer-social-icons-new .fa-facebook-f:hover { color: #1877F2; } .footer-social-icons-new .fa-twitter:hover { color: #1DA1F2; } .footer-social-icons-new .fa-linkedin-in:hover { color: #0A66C2; } .footer-social-icons-new .fa-whatsapp:hover { color: #25D366; }
+        .footer-bottom-new { text-align: center; margin-top: 40px; padding-top: 25px; border-top: 1px solid #3a3a5e; font-size: 0.95em; color: #a0a0a0; }
+        /* Scroll to top button (from index.html) */
+        .scroll-top-btn { position: fixed; bottom: 20px; right: 20px; background: rgba(13,0,31,0.85); color: #fff; border: none; border-radius: 5px; padding: 10px 15px; cursor: pointer; opacity: 0; visibility: hidden; transition: opacity .3s ease,visibility .3s ease; z-index: 1000; }
+        .scroll-top-btn.show { opacity: 1; visibility: visible; }
+        .scroll-top-btn:hover { background: #ff00ff; }
+
+
+        /* Responsive Adjustments (from index.html and combined with existing schedule.html) */
+        @media (max-width: 768px) {
+            .container { margin-top: 70px; padding: 15px; }
+            section h2 { font-size: 2rem; }
+            .logo { font-size: 2.5rem; } /* Adjusted for slightly larger logo on smaller screens */
+
+            /* Schedule Specific */
+            .timeline::before { left: 10px; }
+            .timeline-event { padding-left: 40px; }
+            .timeline-event::before { left: 2px; }
+            .day-tabs { flex-direction: column; align-items: stretch; }
+            .day-tabs button { margin-bottom: 0.5rem; width: 100%; }
+            .event-card .flex { flex-direction: column; align-items: flex-start; }
+            .live-indicator { margin-left: 0; margin-top: 0.25rem; }
+            h1.text-4xl, h2.text-2xl { font-size: 2.5rem; } /* Adjusted for better mobile display */
+            h3.text-3xl { font-size: 2rem; } /* Adjusted */
+
+            /* Footer responsive adjustments from index.html template */
+            .footer-diagram-title h3 {font-size: 1.8em;}
+            .footer-diagram-area { max-width: 90%; }
+            .footer-container-new { grid-template-columns: 1fr; text-align: center; }
+            .footer-heading-new { padding-left: 0; }
+            .footer-heading-new::before { left: 50%; transform: translateX(-50%) translateY(-50%); }
+            .footer-quick-links-list, .footer-social-icons-new { justify-content: center; }
+        }
+
+        @media (max-width: 600px) {
+            .logo { font-size: 2.2rem; }
+            header { padding: 10px 15px;}
+            .container { margin-top: 60px; }
+            h1.text-4xl, h2.text-2xl { font-size: 2rem; } /* Further adjusted for smaller screens */
+            h3.text-3xl { font-size: 1.8rem; } /* Further adjusted */
+
+            /* Schedule Specific */
+            .day-tabs { gap: 0.5rem; }
+            .event-card { padding: 1rem; }
+            .event-card h4 { font-size: 1.1rem; }
+            .event-card p { font-size: 0.85rem; }
+
+
+            /* Footer responsive adjustments from index.html template */
+            .footer-diagram-title h3 {font-size: 1.5em;}
+            .footer-diagram-tagline {font-size: 0.9em; max-width: 95%;} /* Ensure tagline fits */
+            .footer-diagram-contact-button {font-size: 1em; padding: 8px 25px;}
+            .footer-quick-links-list li a { font-size: 1em; padding: 10px 18px; }
+        }
+
+    </style>
+</head>
+<body class="fest-bg-schedule">
+
+    <header class="visible">
+        <a href="index.html" class="logo">CEREBREXIA</a>
+        <button class="new-menu-toggle-button" id="newMenuToggleButton" aria-label="Open navigation menu" aria-expanded="false">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </header>
+
+    <div id="fullScreenNav">
+        <button class="nav-close-btn" id="navCloseButton" aria-label="Close navigation menu">×</button>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="events.html">EVENTS</a></li>
+            <li><a href="pronite.html">PRONITES</a></li>
+            <li><a href="register.html">REGISTER</a></li>
+            <li><a href="merch.html">MERCHANDISE</a></li>
+            <li><a href="accomodation.html">ACCOMMODATION</a></li>
+            <li><a href="schedule.html" class="active-nav-link">SCHEDULE</a></li>
+            <li><a href="profile.html">PROFILE</a></li>
+        </ul>
+    </div>
+
+    <div class="page-content-wrapper">
+        <main class="container mx-auto px-4 py-8">
+            <section class="mb-12 p-6 md:p-8 rounded-xl glassmorphism" data-aos="fade-down">
+                <h1 class="text-4xl md:text-5xl font-bold mb-3 text-center neon-text-pink">Chrono-Matrix</h1>
+                <h2 class="text-2xl md:text-3xl text-center neon-text-cyan mb-6">CEREBREXIA'25 Event Timeline</h2>
+                <p class="text-lg md:text-xl text-center leading-relaxed max-w-3xl mx-auto text-gray-300">
+                    Navigate the currents of CEREBREXIA'25! Select a day to unveil its unique sequence of events, workshops, and stellar performances.
+                    Your journey through innovation and celebration starts here.
+                </p>
+            </section>
+
+            <section class="mb-12" data-aos="fade-up">
+                <div class="day-tabs flex flex-wrap justify-center gap-3 md:gap-4 mb-10">
+                    <button data-day="day1" class="active-tab">Day 1: Genesis Protocol <span class="block text-xs opacity-80">(Dec 15)</span></button>
+                    <button data-day="day2">Day 2: Apex Convergence <span class="block text-xs opacity-80">(Dec 16)</span></button>
+                    <button data-day="day3">Day 3: Zenith Gala <span class="block text-xs opacity-80">(Dec 17)</span></button>
+                </div>
+
+                <div id="day1" class="schedule-content active" data-date="2025-12-15" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-3xl md:text-4xl font-semibold mb-8 text-center neon-text-gold">Day 1: Genesis Protocol - December 15, 2025</h3>
+                    <div class="timeline max-w-4xl mx-auto">
+                        <div class="timeline-event flagship-event" data-aos="fade-left">
+                            <div class="p-5 rounded-lg shadow-xl event-card flagship-event" data-time-start="09:00" data-time-end="10:30">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-pink-400 event-time">09:00 AM - 10:30 AM</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-yellow-300">Inauguration Ceremony</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Main Auditorium</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">Kickstarting CEREBREXIA'25 with esteemed guests, lamp lighting, and an overview of the fest's vision.</p>
+                                <span class="event-tag tag-flagship mt-2">Flagship</span>
+                            </div>
+                        </div>
+                        <div class="timeline-event" data-aos="fade-left" data-aos-delay="50">
+                            <div class="p-5 rounded-lg shadow-xl event-card" data-time-start="10:30" data-time-end="13:00">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-cyan-400 event-time">10:30 AM - 01:00 PM</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-white">RoboWars: Qualifiers</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Tech Park Arena</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">Witness battling bots in the initial rounds of our flagship robotics combat event.</p>
+                                <span class="event-tag tag-technical mt-2">Technical</span>
+                            </div>
+                        </div>
+                        <div class="timeline-event" data-aos="fade-left" data-aos-delay="100">
+                            <div class="p-5 rounded-lg shadow-xl event-card" data-time-start="11:00" data-time-end="13:00">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-cyan-400 event-time">11:00 AM - 01:00 PM</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-white">Workshop: AI & The Future</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Seminar Hall Alpha</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">Interactive session on the latest advancements and ethical considerations in Artificial Intelligence.</p>
+                                <span class="event-tag tag-workshop mt-2">Workshop</span>
+                            </div>
+                        </div>
+                         <div class="timeline-event" data-aos="fade-left" data-aos-delay="150">
+                            <div class="p-5 rounded-lg shadow-xl event-card" data-time-start="14:00" data-time-end="16:00">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-cyan-400 event-time">02:00 PM - 04:00 PM</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-white">CodeRelay: The Coding Marathon</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Cyber Labs Complex</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">Team-based competitive programming challenge. Speed, logic, and collaboration are key.</p>
+                                <span class="event-tag tag-technical mt-2">Technical</span>
+                            </div>
+                        </div>
+                        <div class="timeline-event" data-aos="fade-left" data-aos-delay="200">
+                            <div class="p-5 rounded-lg shadow-xl event-card" data-time-start="16:30" data-time-end="18:30">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-pink-400 event-time">04:30 PM - 06:30 PM</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-white">Nukkad Natak: Street Theatre Finals</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Central Quadrangle</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">Powerful street plays addressing social themes, performed by talented student teams.</p>
+                                <span class="event-tag tag-cultural mt-2">Cultural</span>
+                            </div>
+                        </div>
+                        <div class="timeline-event pronite-event" data-aos="fade-left" data-aos-delay="250">
+                            <div class="p-5 rounded-lg shadow-xl event-card pronite-event" data-time-start="19:00" data-time-end="22:00">
+                                 <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-purple-400 event-time">07:00 PM Onwards</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-pink-300">DJ Night ft. DJ Astra</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Open Air Stage</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">Ignite the night with electrifying beats from the renowned DJ Astra. Get ready to dance!</p>
+                                <span class="event-tag tag-pronite mt-2">Pronite</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="day2" class="schedule-content" data-date="2025-12-16" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-3xl md:text-4xl font-semibold mb-8 text-center neon-text-gold">Day 2: Apex Convergence - December 16, 2025</h3>
+                    <div class="timeline max-w-4xl mx-auto">
+                        <div class="timeline-event" data-aos="fade-left">
+                            <div class="p-5 rounded-lg shadow-xl event-card" data-time-start="10:00" data-time-end="13:00">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-cyan-400 event-time">10:00 AM - 01:00 PM</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-white">Hackathon: InnovateX Finals</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Tech Incubation Hub</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">Final presentations and judging for the 24-hour hackathon. Witness groundbreaking solutions.</p>
+                                <span class="event-tag tag-technical mt-2">Technical</span> <span class="event-tag tag-flagship ml-1 mt-2">Flagship</span>
+                            </div>
+                        </div>
+                        <div class="timeline-event" data-aos="fade-left" data-aos-delay="50">
+                            <div class="p-5 rounded-lg shadow-xl event-card" data-time-start="11:00" data-time-end="14:00">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-pink-400 event-time">11:00 AM - 02:00 PM</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-white">Battle of Bands: Prelims</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Cultural Arena Stage</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">Rock, pop, fusion - bands battle it out for a spot in the grand finale.</p>
+                                <span class="event-tag tag-cultural mt-2">Cultural</span>
+                            </div>
+                        </div>
+                        <div class="timeline-event" data-aos="fade-left" data-aos-delay="100">
+                            <div class="p-5 rounded-lg shadow-xl event-card" data-time-start="14:30" data-time-end="16:30">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-cyan-400 event-time">02:30 PM - 04:30 PM</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-white">Debate: Vaad Vivaad Championship</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Auditorium Annex</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">Sharp minds clash in a riveting debate competition on contemporary issues.</p>
+                                <span class="event-tag tag-cultural mt-2">Literary</span>
+                            </div>
+                        </div>
+                         <div class="timeline-event" data-aos="fade-left" data-aos-delay="150">
+                            <div class="p-5 rounded-lg shadow-xl event-card" data-time-start="15:00" data-time-end="17:00">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-cyan-400 event-time">03:00 PM - 05:00 PM</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-white">Workshop: Drone Dynamics</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: AeroModelling Lab</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">Hands-on workshop on drone assembly, piloting, and applications. Limited seats.</p>
+                                <span class="event-tag tag-workshop mt-2">Workshop</span>
+                            </div>
+                        </div>
+                        <div class="timeline-event pronite-event flagship-event" data-aos="fade-left" data-aos-delay="200">
+                            <div class="p-5 rounded-lg shadow-xl event-card pronite-event flagship-event" data-time-start="19:30" data-time-end="23:00">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-purple-400 event-time">07:30 PM Onwards</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-pink-300">Star Night ft. "The Quantum Leap"</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Main Grounds Stage</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">An unforgettable evening with a headline performance by the sensational band "The Quantum Leap"! </p>
+                                <span class="event-tag tag-pronite mt-2">Pronite</span> <span class="event-tag tag-flagship ml-1 mt-2">Flagship</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="day3" class="schedule-content" data-date="2025-12-17" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-3xl md:text-4xl font-semibold mb-8 text-center neon-text-gold">Day 3: Zenith Gala - December 17, 2025</h3>
+                    <div class="timeline max-w-4xl mx-auto">
+                        <div class="timeline-event" data-aos="fade-left">
+                            <div class="p-5 rounded-lg shadow-xl event-card" data-time-start="10:00" data-time-end="12:00">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-cyan-400 event-time">10:00 AM - 12:00 PM</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-white">RoboWars: Grand Finale</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Tech Park Arena</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">The ultimate showdown! Metal clashes as the final bots compete for glory.</p>
+                                <span class="event-tag tag-technical mt-2">Technical</span> <span class="event-tag tag-flagship ml-1 mt-2">Flagship</span>
+                            </div>
+                        </div>
+                        <div class="timeline-event" data-aos="fade-left" data-aos-delay="50">
+                            <div class="p-5 rounded-lg shadow-xl event-card" data-time-start="12:30" data-time-end="14:30">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-pink-400 event-time">12:30 PM - 02:30 PM</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-white">Fashion Show: "Cybernetic Elegance"</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Main Auditorium</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">A dazzling display of futuristic fashion, creativity, and ramp walk prowess.</p>
+                                <span class="event-tag tag-cultural mt-2">Cultural</span> <span class="event-tag tag-flagship ml-1 mt-2">Flagship</span>
+                            </div>
+                        </div>
+                        <div class="timeline-event" data-aos="fade-left" data-aos-delay="100">
+                            <div class="p-5 rounded-lg shadow-xl event-card" data-time-start="15:00" data-time-end="17:00">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-pink-400 event-time">03:00 PM - 05:00 PM</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-white">Battle of Bands: Finals</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Open Air Stage</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">The top bands compete for the coveted title in a high-energy musical showdown.</p>
+                                <span class="event-tag tag-cultural mt-2">Cultural</span>
+                            </div>
+                        </div>
+                        <div class="timeline-event flagship-event" data-aos="fade-left" data-aos-delay="150">
+                            <div class="p-5 rounded-lg shadow-xl event-card flagship-event" data-time-start="17:30" data-time-end="18:30">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-pink-400 event-time">05:30 PM - 06:30 PM</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-yellow-300">Valedictory & Prize Distribution</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Main Auditorium</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">Celebrating the winners and concluding CEREBREXIA'25 with acknowledgements and future glimpses.</p>
+                                <span class="event-tag tag-flagship mt-2">Flagship</span>
+                            </div>
+                        </div>
+                         <div class="timeline-event pronite-event" data-aos="fade-left" data-aos-delay="200">
+                            <div class="p-5 rounded-lg shadow-xl event-card pronite-event" data-time-start="19:30" data-time-end="23:59">
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-sm text-purple-400 event-time">07:30 PM Onwards</p>
+                                    <span class="live-indicator hidden">LIVE</span>
+                                </div>
+                                <h4 class="text-xl lg:text-2xl font-bold my-1 text-pink-300">Grand Finale: Comedy Night & Closing Bash</h4>
+                                <p class="text-sm text-gray-400 mb-2">Venue: Main Grounds Stage</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">End the fest on a high note with a renowned stand-up comedian followed by a closing musical celebration.</p>
+                                <span class="event-tag tag-pronite mt-2">Pronite</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="my-12 p-6 text-center" data-aos="fade-up">
+                <a href="CEREBREXIA25_Full_Schedule.pdf" download
+                   class="inline-block bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50">
+                    Download Full Schedule (PDF)
+                </a>
+                <p class="text-xs text-gray-400 mt-2">(Note: PDF download link is a placeholder.)</p>
+            </section>
+
+        </main>
+    </div> <footer class="site-footer">
+        <div class="footer-diagram-feature" data-aos="fade-up">
+            <div class="footer-diagram-title-wrapper">
+                <div class="footer-diagram-title">
+                    <h3>CEREBREXIA VERSE</h3>
+                </div>
+            </div>
+            <div class="footer-diagram-area">
+                   <svg id="footer-tech-diagram-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <defs>
+                            <symbol id="icon-stethoscope" viewBox="0 0 24 24"><path d="M18 3H6c-1.1 0-2 .9-2 2v1H2.5C2.22 6 2 6.22 2 6.5S2.22 7 2.5 7H4v1c0 2.56 1.67 4.72 4 5.66V17H6.5c-.28 0-.5.22-.5.5s.22.5.5.5H8v1.5c0 .28.22.5.5.5s.5-.22.5-.5V18h1v-1.5c0-.98.46-1.85 1.2-2.42.4-.31.87-.58 1.4-.76.4-.14.78-.31 1.13-.51.4-.22.75-.48 1.06-.78.47-.47.81-1.04.99-1.65.04-.15.06-.3.06-.45V6c0-1.1-.9-2-2-2zm-2 3v.09c0 .43-.17.84-.47 1.15-.3.3-.7.46-1.12.46H9.59c-.42 0-.82-.16-1.12-.46-.3-.3-.47-.72-.47-1.15V6h8zm-3.5 10.5c-.28 0-.5.22-.5.5s.22.5.5.5h1.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5h-1.5zM6 9.22C5.07 8.7 4.42 7.77 4.16 6.69 4.06 6.28 4 5.87 4 5.46V5h12v.46c0 .41-.06.82-.16 1.23-.26 1.08-.91 2.01-1.84 2.53-.47.26-.88.6-1.21.99L12 11l-.79-.78c-.33-.39-.74-.73-1.21-.99z"/></symbol>
+                            <symbol id="icon-heart-pulse" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35zM7.5 5C5.52 5 4 6.52 4 8.5c0 2.72 2.65 5.2 6.55 8.58L12 18.17l1.45-1.09C17.35 13.7 20 11.22 20 8.5c0-1.98-1.52-3.5-3.5-3.5-1.74 0-3.41.81-4.5 2.09C10.91 5.81 9.24 5 7.5 5zm13.21-1.21L19.5 5l-1.71 1.71-1.21-1.21-1.21 1.21L14.17 5l-1.21 1.21-1.21-1.21-1.21 1.21-1.21-1.21L6.5 5 4.79 3.79 3.58 5l1.21 1.21 1.21-1.21L7.17 5l1.21 1.21 1.21-1.21 1.21 1.21 1.21-1.21L13.5 5l1.71 1.71 1.21-1.21 1.21 1.21 1.71-1.71z"/></symbol>
+                            <symbol id="icon-dna-helix" viewBox="0 0 24 24"><path d="M14.5 4c1.08 0 1.96.92 1.96 2.05 0 .2-.04.39-.09.58l-1.4 5.37h.01c.7-.62 1.12-1.51 1.12-2.5 0-1.77-1.31-3.22-3-3.46V4m-5 0v2.04c-1.69.24-3 1.69-3 3.46 0 .99.42 1.88 1.12 2.5h.01L6.63 6.63c-.05-.19-.09-.38-.09-.58C6.54 4.92 7.42 4 8.5 4M12 9c.83 0 1.5.67 1.5 1.5S12.83 12 12 12s-1.5-.67-1.5-1.5S11.17 9 12 9m2.5 6c-1.08 0-1.96-.92-1.96-2.05 0-.2.04-.39-.09-.58l1.4-5.37h-.01c-.7.62-1.12 1.51-1.12 2.5 0 1.77 1.31 3.22 3 3.46V15m-5 0v-2.04c1.69-.24 3-1.69 3-3.46 0-.99-.42-1.88-1.12-2.5h-.01l1.41 5.37c.05.19.09.38.09.58 0 1.13-.88 2.05-1.96 2.05M12 17c-.83 0-1.5-.67-1.5-1.5S11.17 14 12 14s1.5.67 1.5 1.5S12.83 17 12 17m0-10c.28 0 .5.22.5.5V9h-.02c-.93-.24-1.9-.24-2.96 0H9V7.5c0-.28.22-.5.5-.5h.58c.95 0 1.85-.14 2.67-.37l.08-.02c.05-.01.1-.01.16-.01zm0 8c-.28 0-.5-.22-.5-.5V15h.02c.93.24 1.9.24 2.96 0H15v1.5c0 .28-.22.5-.5.5h-.58c-.95 0-1.85.14-2.67.37l-.08.02c-.05.01-.1.01-.16-.01z"/></symbol>
+                            <symbol id="icon-microscope" viewBox="0 0 24 24"><path d="M16.5 6c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05H10V3H8v3H6.5c-1.13 0-2.05.92-2.05 2.05V10H3v2h1.45V10c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6H8v2h1V8.05c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6h1.05v1.95H13v-2h1.5c.64 0 1.22.21 1.69.6.47.39.76.96.76 1.6V12h1.45v-2H16.5V8.05C16.5 6.92 15.58 6 14.5 6h-2c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05S6.5 6.92 6.5 8.05V10H3v2h1.45V10A2.5 2.5 0 016.5 7.5H8v2h1V7.5A2.5 2.5 0 0111.5 5h1A2.5 2.5 0 0115 7.5V10h1.45v-2H16.5V8.05A2.5 2.5 0 0014.5 6M12 13c-1.93 0-3.5 1.57-3.5 3.5V21h7v-4.5c0-1.93-1.57-3.5-3.5-3.5zm0 1c1.38 0 2.5 1.12 2.5 2.5V20h-5v-3.5c0-1.38 1.12-2.5 2.5-2.5z"/></symbol>
+                            <symbol id="icon-rod-of-asclepius" viewBox="0 0 24 24"><path d="M13.82 5.32c-.93-.89-2.18-1.32-3.48-1.32s-2.55.43-3.48 1.32C6 6.21 5.61 7.42 5.61 8.77c0 1.35.39 2.56 1.28 3.45.93.89 2.18 1.32 3.48 1.32s2.55-.43 3.48-1.32c.89-.89 1.28-2.1 1.28-3.45 0-1.35-.39-2.56-1.28-3.45M10.34 12c-1.31 0-2.4-.48-3.17-1.29-.77-.81-1.17-1.85-1.17-3.04 0-1.19.4-2.23 1.17-3.04.77-.81 1.86-1.29 3.17-1.29 1.31 0 2.4.48 3.17 1.29.77.81 1.17 1.85 1.17 3.04 0 1.19-.4 2.23-1.17 3.04-.77.81-1.86 1.29-3.17 1.29m.16 1.5c.34 0 .67.03.99.08v.02c.69.1 1.35.31 1.95.61l.01.01c.29.15.57.32.83.51l.01.01c.22.16.43.34.62.53l.01.01c.14.14.27.29.39.45l.01.01c.09.12.17.24.24.37.2.35.35.73.43 1.13l.01.06v.01c.04.22.06.44.06.67v2.09c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-1.88c0-.47-.15-.92-.43-1.28-.1-.13-.21-.25-.33-.36-.18-.17-.38-.32-.6-.45-.29-.18-.6-.33-.93-.45-.48-.18-1-.29-1.53-.33h-.01c-.18-.01-.36-.02-.54-.02s-.36.01-.54.02h-.01c-.53.04-1.05.15-1.53.33-.33.12-.64.27-.93.45-.22.13-.42.28-.6.45-.12.11-.23.23-.33.36-.28.36-.43.81-.43 1.28v1.88c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-2.09c0-.23.02-.45.06-.67v-.01l.01-.06c.08-.4.23-.78.43-1.13.07-.13.15-.25.24-.37l.01-.01c.12-.16.25-.31.39-.45l.01-.01c.19-.19.4-.37.62-.53l.01-.01c.26-.19.54-.36.83-.51l.01-.01c.6-.3 1.26-.51 1.95-.61v-.02c.32-.05.65-.08.99-.08z"/></symbol>
+                            <symbol id="icon-brain" viewBox="0 0 24 24"><path d="M12 2C9.46 2 7.24 3.22 6 5.06c-1.01 1.52-1.59 3.29-1.59 5.11S4.99 13.67 6 15.2c.47.6 1.02 1.12 1.63 1.56.04.03.09.06.13.09C8.32 17.27 9 17.58 9 18.22V19c0 .94.44 1.79 1.15 2.36.05.04.1.08.15.12.72.54 1.79.62 2.7.62.91 0 1.98-.08 2.7-.62.05-.04.1-.08.15-.12.71-.57 1.15-1.42 1.15-2.36v-.78c0-.64.68-.95 1.24-1.37.04-.03.09-.06.13-.09.61-.44 1.16-.96 1.63-1.56 1.01-1.52 1.59-3.29 1.59-5.11S19.01 6.58 18 5.06C16.76 3.22 14.54 2 12 2m4.1 13.6c-.3.35-.65.66-1.02.93-.05.04-.1.07-.15.1-.73.53-1.13 1.28-1.13 2.15v.72c0 .41-.17.78-.45 1.04-.03.02-.06.04-.09.06-.37.28-.9.4-1.36.4s-.99-.12-1.36-.4c-.03-.02-.06-.04-.09-.06-.28-.26-.45-.63-.45-1.04v-.72c0-.87-.4-1.62-1.13-2.15-.05-.03-.1-.06-.15-.1-.37-.26-.72-.58-1.02-.93C7.21 14.07 7 12.87 7 11.63c0-1.29.28-2.55.82-3.66.44-.92 1.07-1.72 1.86-2.37.6-.48 1.29-.8 2.03-.95.73-.15 1.48-.15 2.21 0 .75.15 1.43.47 2.03.95.79.65 1.42 1.45 1.86 2.37.54 1.11.82 2.37.82 3.66 0 1.24-.21 2.44-.6 3.47m-2.1-5.1c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16m-4 0c0-.83-.67-1.5-1.5-1.5S9 9.67 9 10.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16z"/></symbol>
+                            <symbol id="icon-medical-plus" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></symbol>
+                            <symbol id="icon-atom" viewBox="0 0 24 24"><path d="M12 2c-2.36 0-4.48.77-6.23 2.11l1.01 1.74C8.04 4.79 9.92 4 12 4s3.96.79 5.22 1.85l1.01-1.74C16.48 2.77 14.36 2 12 2m0 16c-2.08 0-3.96-.79-5.22-1.85l-1.01 1.74c1.75 1.34 3.87 2.11 6.23 2.11s4.48-.77 6.23-2.11l-1.01-1.74c-1.26 1.06-3.14 1.85-5.22 1.85M5.92 7.32C4.79 8.58 4 10.27 4 12s.79 3.42 1.92 4.68l1.74-1.01C6.79 14.4 6 13.29 6 12s.79-2.4 1.66-3.67l-1.74-1.01M18.08 7.32l-1.74 1.01C17.21 9.6 18 10.71 18 12s-.79 2.4-1.66 3.67l1.74 1.01C19.21 15.42 20 13.73 20 12s-.79-3.42-1.92-4.68M12 7a5 5 0 100 10 5 5 0 000-10m0 2a3 3 0 110 6 3 3 0 010-6z"/></symbol>
+                            <symbol id="icon-test-tube" viewBox="0 0 24 24"><path d="M7 2v11.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V6h2v9.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V2H7zm10 0v2h-2V2h2zm-2 4h2v2h-2V6zm2 4h-2v2h2v-2zM6 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm8-13.22L12.78 7H14v1h-2.22L10.56 9H12v1h-2.44L8.34 11H10v1H8v1h1.78l1.22 1H18V2h-4v3.78zM16 11h-1.11l-.89-1H16v1zm0-2h-2.22l-.89-1H16v1zm0-2h-3.33l-.89-1H16v1z"/></symbol>
+                            <symbol id="icon-sparkle" viewBox="0 0 24 24"><path d="M12 2l1.5 4.5h4.5l-3.5 3 1.5 5-4.5-3.5-4.5 3.5 1.5-5-3.5-3h4.5L12 2z"/></symbol>
+                            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                <feMerge> <feMergeNode in="coloredBlur"/> <feMergeNode in="SourceGraphic"/> </feMerge>
+                            </filter>
+                        </defs>
+                        <line class="svg-line" x1="300" y1="200" x2="150" y2="80" /><line class="svg-line" x1="300" y1="200" x2="80" y2="200" /><line class="svg-line" x1="300" y1="200" x2="150" y2="320" /><line class="svg-line" x1="300" y1="200" x2="450" y2="80" /><line class="svg-line" x1="300" y1="200" x2="520" y2="200" /><line class="svg-line" x1="300" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="80" y2="200" /><line class="svg-line" x1="80" y1="200" x2="150" y2="320" /><line class="svg-line" x1="450" y1="80" x2="520" y2="200" /><line class="svg-line" x1="520" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="300" y2="50" /><line class="svg-line" x1="450" y1="80" x2="300" y2="50" /><line class="svg-line" x1="150" y1="320" x2="230" y2="360" /><line class="svg-line" x1="450" y1="320" x2="370" y2="360" />
+                        <circle class="svg-circle-bg" cx="300" cy="200" r="70"/><circle class="svg-circle-border" cx="300" cy="200" r="70" filter="url(#glow)"/><text class="svg-text-main" x="300" y="190" font-size="14px">CONNECTING</text><text class="svg-text-main" x="300" y="210" font-size="14px">MEDICS</text><text class="svg-text-arrows" x="300" y="155">⬆</text> <text class="svg-text-arrows" x="300" y="245">⬇</text><text class="svg-text-arrows" x="255" y="200">⬅</text> <text class="svg-text-arrows" x="345" y="200">➡</text><text class="svg-text-arrows" transform="translate(268 168) rotate(-45)" >↖</text><text class="svg-text-arrows" transform="translate(332 168) rotate(45)">↗</text><text class="svg-text-arrows" transform="translate(268 232) rotate(45)">↙</text><text class="svg-text-arrows" transform="translate(332 232) rotate(-45)">↘</text>
+                        <g transform="translate(150, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-stethoscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                        <g transform="translate(80, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-heart-pulse" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                        <g transform="translate(150, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-dna-helix" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
+                        <g transform="translate(450, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-microscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                        <g transform="translate(520, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-rod-of-asclepius" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
+                        <g transform="translate(450, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-brain" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                        <g transform="translate(300, 50)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-medical-plus" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                        <g transform="translate(230, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-atom" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                        <g transform="translate(370, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-test-tube" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                        <g transform="translate(80, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
+                        <g transform="translate(520, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
+                        <circle class="svg-node-dot" cx="300" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="300" cy="50" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="230" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="370" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="120" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="120" r="3" filter="url(#glow)"/>
+                    </svg>
+            </div>
+            <p class="footer-diagram-tagline">
+                Back again to make you guys vibe, Get stress free and enjoy the fest to its fullest
+            </p>
+            <a href="mailto:thecerebrexia17@gmail.com" class="footer-diagram-contact-button">CONTACT ORGANIZERS</a>
+        </div>
+
+        <div class="footer-container-new">
+          <div class="footer-section-new">
+            <h3 class="footer-heading-new">Connect</h3>
+            <div class="footer-social-icons-new">
+              <a href="https://facebook.com/cerebrexia" target="_blank" aria-label="Facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/igimsfest/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://twitter.com/cerebrexia" target="_blank" aria-label="Twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="https://linkedin.com/company/cerebrexia" target="_blank" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://www.youtube.com/@cerebrexia" target="_blank" aria-label="YouTube" title="YouTube"><i class="fab fa-youtube"></i></a>
+              <a href="https://whatsapp.com/channel/0029VbA0P20HbFV2ke5rlR2G" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Channel" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
+            </div>
+              <p style="margin-top: 15px; font-size: 1em; color: #b0b0c0;">Stay connected for live updates!</p>
+          </div>
+
+          <div class="footer-section-new">
+            <h3 class="footer-heading-new">Quick Links</h3>
+            <ul class="footer-quick-links-list">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="events.html">Events</a></li>
+              <li><a href="schedule.html">Schedule</a></li>
+              <li><a href="pronite.html">Pronites</a></li>
+              <li><a href="#team">Team</a></li>
+              <li><a href="accommodation.html">Accommodation</a></li>
+              <li><a href="register.html">Delegate Registration</a></li>
+              <li><a href="privacypolicy.html">Privacy Policy</a></li>
+              <li><a href="terms.html">Terms of Service</a></li>
+              <li><a href="codeofconduct.html">Code of Conduct</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section-new">
+            <h3 class="footer-heading-new">Contact</h3>
+            <div class="footer-contact-info">
+              <p>Email: <a href="mailto:info@cerebrexia25.com">info@cerebrexia25.com</a></p>
+              <p>Pankaj Kumar: <a href="tel:+919079956283">+91 90799 56283</a></p>
+              <p>Dhananjay Kumar: <a href="tel:+917425992291">+91 74259 92291</a></p>
+              <p style="margin-top:15px;">IGIMS Patna Campus,<br/>Sheikhpura, Patna, Bihar - 800014</p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom-new">
+          <p>© <span id="currentYear"></span> CEREBREXIA'25 - IGIMS Patna. All Rights Reserved. Designed with <i class="fas fa-heart" style="color: #ff00ff;"></i>.</p>
+        </div>
+    </footer>
+    <button class="scroll-top-btn" aria-label="Scroll to top">▲</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 700, once: false, mirror: true });
+
+        // --- Header Scroll Logic ---
+        let lastScrollTop = 0;
+        const siteHeader = document.querySelector('header'); /* Changed to querySelector('header') */
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (siteHeader) {
+                if (scrollTop > lastScrollTop && scrollTop > siteHeader.offsetHeight) {
+                    siteHeader.classList.add('hidden');
+                    siteHeader.classList.remove('visible');
+                } else {
+                    if(scrollTop + window.innerHeight < document.documentElement.scrollHeight || scrollTop === 0) {
+                       siteHeader.classList.remove('hidden');
+                       siteHeader.classList.add('visible');
+                    }
+                }
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        // --- Unified Menu Toggle Logic (from index.html) ---
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        const newMenuToggleButton = document.getElementById('newMenuToggleButton');
+        const fullScreenNav = document.getElementById('fullScreenNav');
+        const navCloseButton = document.getElementById('navCloseButton');
+        const bodyGlobal = document.body; // Using bodyGlobal to avoid conflict with 'body' in schedule script
+
+        if (newMenuToggleButton && fullScreenNav && navCloseButton) {
+            const toggleMenu = (force) => {
+                const isActive = typeof force === 'boolean' ? force : !fullScreenNav.classList.contains('active');
+                newMenuToggleButton.classList.toggle('open', isActive);
+                newMenuToggleButton.setAttribute('aria-expanded', String(isActive)); /* Added aria-expanded */
+                fullScreenNav.classList.toggle('active', isActive);
+                bodyGlobal.style.overflow = isActive ? 'hidden' : '';
+                if (siteHeader && isActive) {
+                     siteHeader.classList.remove('hidden'); siteHeader.classList.add('visible');
+                }
+            };
+            newMenuToggleButton.addEventListener('click', () => toggleMenu());
+            navCloseButton.addEventListener('click', () => toggleMenu(false));
+            fullScreenNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const currentPath = window.location.pathname.split('/').pop();
+                    const linkPath = link.getAttribute('href').split('/').pop();
+                    if (currentPath === linkPath && link.classList.contains('active-nav-link')) {
+                         if(fullScreenNav.classList.contains('active')) {
+                            toggleMenu(false);
+                         }
+                    } else {
+                        toggleMenu(false); // Allow navigation
+                    }
+                });
+            });
+            document.addEventListener('keydown', e => e.key === 'Escape' && fullScreenNav.classList.contains('active') && toggleMenu(false));
+        }
+
+        const scrollTopBtn = document.querySelector('.scroll-top-btn');
+        if (scrollTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > window.innerHeight / 2) { scrollTopBtn.classList.add('show'); }
+                else { scrollTopBtn.classList.remove('show'); }
+            });
+            scrollTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        }
+
+
+        // --- Schedule Tab Logic (Original from your code) ---
+        const tabButtons = document.querySelectorAll('.day-tabs button');
+        const scheduleContents = document.querySelectorAll('.schedule-content');
+
+        function activateTab(activeButton) {
+            tabButtons.forEach(btn => btn.classList.remove('active-tab'));
+            scheduleContents.forEach(content => content.classList.remove('active'));
+
+            activeButton.classList.add('active-tab');
+            const dayToShow = activeButton.getAttribute('data-day');
+            const contentToShow = document.getElementById(dayToShow);
+            if (contentToShow) {
+                contentToShow.classList.add('active');
+                updateLiveStatus(); // Update live status for the newly shown tab
+            }
+        }
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                activateTab(button);
+            });
+        });
+
+        // --- Live Event Highlighting Logic (Original from your code) ---
+        function parseEventDateTime(eventDateStr, timeStr) {
+            if (!eventDateStr || !timeStr) return null;
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            const dateParts = eventDateStr.split('-'); // YYYY-MM-DD
+
+            if (dateParts.length === 3 && !isNaN(hours) && !isNaN(minutes)) {
+                // Month is 0-indexed in JavaScript Date
+                return new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]), hours, minutes, 0);
+            }
+            return null;
+        }
+
+        function updateLiveStatus() {
+            let now = new Date();
+            // --- FOR TESTING "LIVE" FEATURE ---
+            // To test, uncomment the line below and set a specific date and time.
+            // For example, to test Day 1, 10:00 AM:
+            // now = new Date("2025-12-15T10:00:00");
+            // Or for Day 2, 02:00 PM:
+            // now = new Date("2025-12-16T14:00:00");
+            // --- END OF TEST CODE ---
+
+            const activeScheduleContent = document.querySelector('.schedule-content.active');
+            if (!activeScheduleContent) return;
+
+            const eventDateStr = activeScheduleContent.getAttribute('data-date');
+            const eventCards = activeScheduleContent.querySelectorAll('.event-card');
+
+            eventCards.forEach(card => {
+                const startTimeStr = card.getAttribute('data-time-start');
+                const endTimeStr = card.getAttribute('data-time-end');
+                const liveIndicator = card.querySelector('.live-indicator');
+
+                const eventStartDateTime = parseEventDateTime(eventDateStr, startTimeStr);
+                const eventEndDateTime = parseEventDateTime(eventDateStr, endTimeStr);
+
+                if (eventStartDateTime && eventEndDateTime && liveIndicator) {
+                    if (now >= eventStartDateTime && now < eventEndDateTime) {
+                        card.classList.add('event-live'); /* Corrected 'car' to 'card' */
+                        liveIndicator.classList.remove('hidden');
+                    } else {
+                        card.classList.remove('event-live');
+                        liveIndicator.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        // Initial calls and interval
+        updateLiveStatus(); // Initial check on page load for the default active tab
+        setInterval(updateLiveStatus, 60000); // Update every 60 seconds
+
+        // Activate Day 1 tab on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const initialTab = document.querySelector('.day-tabs button[data-day="day1"]');
+            if (initialTab) {
+                activateTab(initialTab);
+            }
+        });
+
+    </script>
+</body>
+</html>
