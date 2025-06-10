@@ -634,13 +634,13 @@
     AOS.init({ duration: 1000, once: false, mirror: true });
 
     const firebaseConfig = {
-     apiKey: "AIzaSyBOWumY95hdMt2uOvmJEk5WG0GhdqUHUNc",
-     authDomain: "cerebrexia-ee068.firebaseapp.com",
-     projectId: "cerebrexia-ee068",
-     storageBucket: "cerebrexia-ee068.appspot.com",
-     messagingSenderId: "328864114758",
-     appId: "1:328864114758:web:108968f6576b6967f14247",
-     measurementId: "G-6Z6EP1ZTEJ"
+      apiKey: "AIzaSyBOWumY95hdMt2uOvmJEk5WG0GhdqUHUNc",
+      authDomain: "cerebrexia-ee068.firebaseapp.com",
+      projectId: "cerebrexia-ee068",
+      storageBucket: "cerebrexia-ee068.appspot.com",
+      messagingSenderId: "328864114758",
+      appId: "1:328864114758:web:108968f6576b6967f14247",
+      measurementId: "G-6Z6EP1ZTEJ"
     };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
@@ -732,8 +732,8 @@
     }
     
     /**
-     * [FIXED] Renders input fields for additional group members.
-     * This function is now simplified and robust.
+     * Renders input fields for additional group members.
+     * This function correctly creates fields for Name and Email only.
      * @param {number} totalMembers - The total number of members in the group, including the leader.
      */
     function renderGroupMemberInputs(totalMembers) {
@@ -767,7 +767,7 @@
     }
     
     /**
-     * [FIXED] Toggles the visibility of group enrollment options.
+     * Toggles the visibility of group enrollment options.
      * Logic is simplified to correctly show/hide elements and trigger renders.
      */
     function toggleGroupEnrollment() {
@@ -899,19 +899,31 @@
         const isGroupEnrollment = formData.get('enrollmentType') === 'group';
         const numTotalMembers = isGroupEnrollment ? (parseInt(formData.get('numMembers')) || 1) : 1;
 
+        // *** MODIFICATION START ***
+        // This section is modified to handle group member data as requested.
         if (isGroupEnrollment && numTotalMembers > 1) {
+            const leaderPhone = phoneInput.value; // Get the phone number of the primary user.
+
             for (let i = 2; i <= numTotalMembers; i++) {
                 const memberName = formData.get(`memberName_${i}`);
                 const memberEmail = formData.get(`memberEmail_${i}`);
+                
                 if (!memberName || !memberEmail) {
                     submissionMessageDiv.textContent = `Please fill in all details for Member ${i}.`;
                     submissionMessageDiv.className = 'message-error';
                     formSubmitButton.disabled = false; formSubmitButton.innerHTML = '<i class="fas fa-credit-card"></i> Proceed to Payment';
                     return;
                 }
-                groupMembersData.push({ name: memberName, email: memberEmail });
+                
+                // Add the group member with the primary user's phone number.
+                groupMembersData.push({ 
+                    name: memberName, 
+                    email: memberEmail, 
+                    phone_number: leaderPhone // Assign leader's phone number to each member
+                });
             }
         }
+        // *** MODIFICATION END ***
 
         const registrationData = {
             userId: user.uid,
