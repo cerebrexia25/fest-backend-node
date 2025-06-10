@@ -1240,11 +1240,4 @@ function generateUserEntryConfirmationEmail(details) {
     return generateBaseEmailHTML(`CEREBREXIA'25 Entry Confirmed!`, "Your Entry is Confirmed!", contentHTML);
 }
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-    if (process.env.RAZORPAY_KEY_ID && process.env.EMAIL_SENDER && serviceAccount) {
-        console.log("All critical environment variables seem to be loaded.");
-    } else {
-        console.warn("WARNING: Some critical environment variables are missing. Payments, emails, or Firebase might not work correctly.");
-    }
 });
