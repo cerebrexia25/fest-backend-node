@@ -42,15 +42,17 @@
     }
     body, html {
         margin: 0; padding: 0; min-height: 100vh;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Changed to match index.html body font */
         color: var(--text-color);
         overflow-x: hidden;
     }
     body {
-        background-color: transparent;
-        position: relative;
+        background-color: transparent; /* Allow video background to show through */
+        position: relative; /* For stacking context if needed */
     }
 
+
+    /* Full Page Background Video Player (Optional - from index.html) */
     #page-background-video-player {
         position: fixed;
         top: 0;
@@ -58,18 +60,21 @@
         width: 100vw;
         height: 100vh;
         object-fit: cover;
-        z-index: -1;
-        filter: brightness(0.7);
+        z-index: -1; /* Behind all other content */
+        filter: brightness(0.7); /* Optional: darken video slightly for text readability */
     }
 
+    /* Wrapper for page content to sit above the video */
     .page-content-wrapper {
         position: relative;
-        z-index: 1;
-        background-color: transparent;
-        padding-top: 80px;
+        z-index: 1; /* Ensures this is above the z-index: -1 video */
+        background-color: transparent; /* Or set a page background if needed for sections that are not individually styled */
+        padding-top: 80px; /* Added to push content below fixed header */
     }
-    main.container { max-width: 800px; margin: 0 auto 60px; padding: 20px; }
+    main.container { max-width: 800px; margin: 0 auto 60px; padding: 20px; } /* Adjusted top margin due to wrapper padding */
 
+
+    /* ==== HEADER STYLES (Copied from index.html) ==== */
     header {
         position: fixed;
         top: 0;
@@ -109,8 +114,8 @@
     #fullScreenNav.active { opacity: 1; visibility: visible; transition: opacity 0.5s ease, visibility 0s linear 0s; }
     #fullScreenNav ul { list-style: none; padding: 0; margin: 0; text-align: center; }
     #fullScreenNav li { margin: 20px 0; }
-    #fullScreenNav a { font-family: 'Exo', sans-serif; font-weight: 400; font-size: clamp(2rem, 5vw, 3rem); color: #fff; text-decoration: none; padding: 10px 25px; display: inline-block; position: relative; transition: color 0.4s ease, transform 0.4s ease; letter-spacing: 1px; text-transform: uppercase; }
-    #fullScreenNav a.active-nav-link { color: #ffd700; transform: translateY(-5px) scale(1.05); }
+    #fullScreenNav a { font-family: 'Exo', sans-serif; font-weight: 400; font-size: clamp(2rem, 5vw, 3rem); /* Adjusted for consistency with index.html */ color: #fff; text-decoration: none; padding: 10px 25px; display: inline-block; position: relative; transition: color 0.4s ease, transform 0.4s ease; letter-spacing: 1px; text-transform: uppercase; }
+    #fullScreenNav a.active-nav-link { color: #ffd700; transform: translateY(-5px) scale(1.05); } /* Kept for active link styling */
     #fullScreenNav a::before, #fullScreenNav a::after { content: ''; position: absolute; width: 100%; height: 3px; background: linear-gradient(90deg, #ff00ff, #ffae00, #00ffff, #ff00ff); background-size: 300% 100%; left: 0; transition: transform 0.4s ease, opacity 0.4s ease; animation: borderFlow 8s linear infinite; }
     #fullScreenNav a::before { top: 0; transform: scaleX(0); transform-origin: left; }
     #fullScreenNav a::after { bottom: 0; transform: scaleX(0); transform-origin: right; }
@@ -121,42 +126,43 @@
     #fullScreenNav .nav-close-btn { position: absolute; top: 25px; right: 25px; background: transparent; color: #fff; border: none; font-size: 2.5rem; font-weight: bold; cursor: pointer; z-index: 1201; transition: color 0.3s ease, transform 0.3s ease; line-height: 1; }
     #fullScreenNav .nav-close-btn:hover { color: #ff00ff; transform: rotate(90deg) scale(1.1); }
 
-    h1.page-title {
+
+    h1.page-title { /* Consistent with profile page */
         font-family: 'Exo', sans-serif; font-weight: 900;
         font-size: clamp(2.2rem, 6vw, 3rem); color: #ffffff; text-align: center; margin-bottom: 40px;
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 0, 255, 0.4);
     }
 
+    /* Registration Form Styles (Original from your code) */
     .registration-form {
-        background: rgba(30, 10, 50, 0.8);
+        background: rgba(30, 10, 50, 0.8); /* Darker, more prominent */
         border: 1px solid rgba(255,0,255,0.4);
         border-radius: 15px;
         box-shadow: 0 0 25px rgba(255,0,255,0.3), inset 0 0 15px rgba(255,0,255,0.15);
-        padding: 30px 35px;
+        padding: 30px 35px; /* More padding */
         display: flex;
         flex-direction: column;
-        gap: 22px;
+        gap: 22px; /* Slightly more gap */
     }
 
     .form-group { margin-bottom: 18px; }
     .form-group label {
         display: block; margin-bottom: 10px; font-weight: 600;
-        color: #ffc4ff; font-size: 1.05rem;
+        color: #ffc4ff; font-size: 1.05rem; /* Slightly larger labels */
     }
     .form-group input[type="text"],
     .form-group input[type="email"],
     .form-group input[type="tel"],
     .form-group input[type="number"],
     .form-group select {
-        width: 100%; padding: 14px;
-        border: 1px solid rgba(255,0,255,0.5);
+        width: 100%; padding: 14px; /* More padding */
+        border: 1px solid rgba(255,0,255,0.5); /* More prominent border */
         border-radius: 8px;
-        background-color: rgba(10,0,20,0.6);
+        background-color: rgba(10,0,20,0.6); /* Darker input bg */
         color: #fff; font-size: 1rem;
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        box-sizing: border-box;
     }
-    .form-group input[readonly] {
+    .form-group input[readonly], .form-group select[readonly] {
         background-color: rgba(0,0,0,0.3); color: #aaa; cursor: not-allowed;
         border-color: rgba(255,255,255,0.2);
     }
@@ -167,11 +173,12 @@
     }
     .form-group select option { background-color: #1a052a; color: #fff; }
 
+
     .form-group input:focus, .form-group select:focus {
         border-color: #ff66ff; box-shadow: 0 0 12px rgba(255,102,255,0.6); outline: none;
     }
     .form-group.radio-group { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-top: 5px;}
-    .form-group.radio-group > label:first-of-type {
+    .form-group.radio-group > label:first-of-type { /* "Enrollment Type:" label */
         width: 100%; margin-bottom: 5px;
     }
     .form-group.radio-group input[type="radio"] { display: none; }
@@ -189,17 +196,14 @@
         border: 1px dashed rgba(255,0,255,0.4); padding: 20px; border-radius: 10px;
         margin-top: 10px; background-color: rgba(255,0,255,0.03);
     }
-    /* Style for the container of dynamically added inputs */
-    .group-member-input { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
-    /* Style for the inputs themselves to be flexible */
-    .group-member-input input { flex: 1; min-width: 0; }
-
+    .group-member-input { display: flex; gap: 15px; margin-bottom: 10px; }
+    .group-member-input input { flex: 1; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }
 
     .coupon-section { display: flex; gap: 10px; align-items: flex-end; }
     .coupon-section input { flex-grow: 1; }
     .coupon-section button {
-        background-color: #00e676; color: #0d001f; padding: 14px 22px;
+        background-color: #00e676; color: #0d001f; padding: 14px 22px; /* Matched input padding */
         border: none; border-radius: 8px; cursor: pointer; font-weight: bold;
         transition: background-color 0.3s ease, box-shadow 0.3s ease;
         box-shadow: 0 0 8px rgba(0,230,118,0.5);
@@ -210,11 +214,11 @@
     .coupon-error { color: #ff5252; font-weight: 500; }
 
     .total-amount {
-        text-align: center; margin-top: 30px; font-size: 2.2rem;
+        text-align: center; margin-top: 30px; font-size: 2.2rem; /* Larger */
         font-weight: bold; color: #ff00ff; font-family: 'Orbitron', sans-serif;
-        text-shadow: 0 0 12px #ff00ff, 0 0 25px #ff66ff, 0 0 5px #fff;
+        text-shadow: 0 0 12px #ff00ff, 0 0 25px #ff66ff, 0 0 5px #fff; /* Enhanced glow */
     }
-    .submit-button {
+    .submit-button { /* Consistent with profile buttons */
         background-color: #ff00ff; color: white; padding: 15px 30px;
         border: none; border-radius: 8px; cursor: pointer; font-size: 1.2rem;
         font-weight: bold; margin-top: 30px;
@@ -266,7 +270,7 @@
         content: '✔'; color: #00e676; position: absolute; left: 0; font-weight: bold;
     }
     .modal-buttons { display: flex; justify-content: space-around; margin-top: 30px; }
-    .modal-buttons button {
+    .modal-buttons button { /* Matched .btn style */
         padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer;
         font-size: 1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;
         transition: all 0.3s ease;
@@ -277,38 +281,110 @@
     .modal-buttons #declineTerms:hover { background-color: #ff1744; transform: translateY(-2px); box-shadow: 0 0 15px rgba(255,23,68,0.7); }
 
 
+    /* ==== FOOTER STYLES (Copied from index.html) ==== */
     .site-footer { background-color: #1a1a2e; color: #e0e0e0; padding: 30px 20px 30px; font-family: 'Kanit', sans-serif; margin-top: 60px; border-top: 3px solid #3a3a5e; box-shadow: 0 -5px 15px rgba(25, 25, 46, 0.5); }
     .footer-diagram-feature { padding: 40px 20px; margin-bottom: 30px; border-bottom: 1px solid #2a2a4e; text-align: center; }
+    .footer-diagram-title-wrapper { margin-bottom: 25px; display: inline-block; }
+    .footer-diagram-title { background-color: var(--title-box-bg); border: 2px solid var(--title-box-border); border-radius: 12px; padding: 8px 35px; box-shadow: 0 0 8px rgba(0,0,0,0.4), inset 0 0 4px rgba(255,255,255,0.1), 0 0 12px var(--primary-glow-color); display: inline-block; }
     .footer-diagram-title h3 { font-family: 'Orbitron', sans-serif; font-size: 2em; color: var(--text-color); margin: 0; font-weight: 700; text-shadow: 0 0 4px var(--text-color), 0 0 8px var(--primary-glow-color); }
+    .footer-diagram-area { width: 100%; max-width: 600px; margin: 0 auto 25px auto; position: relative; }
+    #footer-tech-diagram-svg { width: 100%; height: auto; filter: drop_shadow(0 0 8px var(--primary-glow-color)); }
+    .footer-diagram-tagline {
+        font-size: 1em; line-height: 1.6; color: #bbb; margin-bottom: 30px;
+        max-width: 450px; margin-left: auto; margin-right: auto;
+        text-shadow: 0 0 4px rgba(0,0,0,0.6);
+        word-wrap: break-word; /* Added for better text wrapping */
+        overflow-wrap: break-word; /* Added for better text wrapping */
+    }
+    .footer-diagram-contact-button { display: inline-block; background-color: var(--button-blue); color: var(--text-color); padding: 10px 30px; border-radius: 25px; text-decoration: none; font-size: 1.1em; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 0 8px var(--button-blue), 0 0 15px var(--button-blue); }
+    .footer-diagram-contact-button:hover { background-color: #0056b3; box-shadow: 0 0 12px var(--button-blue), 0 0 25px var(--button-blue), inset 0 0 4px rgba(255,255,255,0.2); transform: translateY(-2px); }
+    .svg-line { stroke: var(--primary-glow-color); stroke-width: 1.5; stroke-linecap: round; }
+    .svg-node-dot { fill: var(--secondary-glow-color); }
+    .svg-circle-bg { fill: #080c14e0; }
+    .svg-circle-border { stroke: var(--primary-glow-color); stroke-width: 2; fill: none; }
+    .svg-icon { fill: var(--medical-icon-color); filter: drop_shadow(0 0 3px var(--secondary-glow-color)); }
+    .svg-text-main { font-family: 'Roboto', sans-serif; fill: var(--text-color); font-weight: 700; text-anchor: middle; dominant-baseline: middle; filter: drop_shadow(0 0 5px var(--primary-glow-color)); }
+    .svg-text-arrows { fill: var(--secondary-glow-color); font-size: 1.5em; text-anchor: middle; dominant-baseline: middle; }
     .footer-container-new { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; }
     .footer-section-new { padding: 10px; }
     .footer-heading-new { font-size: 1.6em; font-weight: 600; color: #f9c74f; margin-bottom: 25px; position: relative; padding-left: 20px; font-family: 'Exo', sans-serif; }
+    .footer-heading-new::before { content: '●'; color: #f9c74f; position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 0.8em; }
     .footer-quick-links-list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; }
+    .footer-quick-links-list li { margin-right: 12px; margin-bottom: 12px; }
     .footer-quick-links-list li a { display: inline-block; background-color: #2a2a4e; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 25px; font-size: 1.1em; font-weight: 500; transition: background-color 0.3s ease, transform 0.2s ease; border: 1px solid #3a3a5e; }
     .footer-quick-links-list li a:hover, .footer-quick-links-list li a:focus { background-color: #f9c74f; color: #1a1a2e; transform: translateY(-2px); }
+    .footer-contact-info p {
+        font-size: 1.1em; margin-bottom: 12px; line-height: 1.7; color: #d0d0d0;
+        word-wrap: break-word; /* Added for better text wrapping */
+        overflow-wrap: break-word; /* Added for better text wrapping */
+    }
     .footer-contact-info p a { color: #a0cff0; text-decoration: none; transition: color 0.3s ease; }
     .footer-contact-info p a:hover { color: #f9c74f; text-decoration: underline; }
     .footer-social-icons-new { margin-top: 20px; display: flex; gap: 15px; }
     .footer-social-icons-new a { display: inline-block; color: #e0e0e0; font-size: 1.8rem; transition: transform 0.3s ease, color 0.3s ease; }
+    .footer-social-icons-new a:hover { transform: scale(1.15) translateY(-2px); color: #f9c74f; }
+    .footer-social-icons-new .fa-instagram:hover { color: #E1306C; } .footer-social-icons-new .fa-youtube:hover { color: #FF0000; } .footer-social-icons-new .fa-facebook-f:hover { color: #1877F2; } .footer-social-icons-new .fa-twitter:hover { color: #1DA1F2; } .footer-social-icons-new .fa-linkedin-in:hover { color: #0A66C2; } .footer-social-icons-new .fa-whatsapp:hover { color: #25D366; }
     .footer-bottom-new { text-align: center; margin-top: 40px; padding-top: 25px; border-top: 1px solid #3a3a5e; font-size: 0.95em; color: #a0a0a0; }
+    /* Scroll to top button (from index.html) */
     .scroll-top-btn { position: fixed; bottom: 20px; right: 20px; background: rgba(13,0,31,0.85); color: #fff; border: none; border-radius: 5px; padding: 10px 15px; cursor: pointer; opacity: 0; visibility: hidden; transition: opacity .3s ease,visibility .3s ease; z-index: 1000; }
     .scroll-top-btn.show { opacity: 1; visibility: visible; }
     .scroll-top-btn:hover { background: #ff00ff; }
 
+    /* Responsive Adjustments (from index.html with some existing from register.html) */
     @media (max-width: 768px) {
+        .container { margin-top: 70px; padding: 15px; } /* Adjusted from index.html .container */
+        section h2, .about-fest-content .center-reveal-title { font-size: 2rem; } /* Applied to new class name */
+        .about-fest-content .center-reveal-desc { font-size: 1rem; } /* Applied to new class name */
+        #matrix-countdown { gap: 15px; }
+        .circle { width: 90px; height: 90px; }
+        .count { font-size: 2rem; }
+        .label { font-size: 0.8rem; }
+        .matrix-caption { font-size: 1.1rem; }
+
+        /* Specific to register.html from your original */
         main.container { padding: 15px; }
+        h1.page-title { font-size: 2rem; }
         .registration-form { padding: 20px 25px; }
         .coupon-section { flex-direction: column; align-items: stretch; }
         .coupon-section button { margin-top: 10px; width: 100%; }
-        .group-member-input { flex-direction: column; }
+        .modal-content { padding: 20px; }
+        .modal-content h2 { font-size: 1.8rem; }
+
+        /* Footer responsive adjustments from index.html template */
+        .footer-diagram-title h3 {font-size: 1.8em;}
+        .footer-diagram-area { max-width: 90%; }
+        .footer-container-new { grid-template-columns: 1fr; text-align: center; }
+        .footer-heading-new { padding-left: 0; }
+        .footer-heading-new::before { left: 50%; transform: translateX(-50%) translateY(-50%); }
+        .footer-quick-links-list, .footer-social-icons-new { justify-content: center; }
     }
     @media (max-width: 600px) {
         .logo { font-size: 2.2rem; }
+        header { padding: 10px 15px;}
+        .container { margin-top: 60px; }
+        section h2, .about-fest-content .center-reveal-title { font-size: 1.8rem; } /* Applied to new class name */
+        #about-fest { height: auto; min-height: 60vh; } /* Adjusted video section on mobile */
+        .about-fest-content { width: 100%; padding: 20px 15px; } /* Applied to new class name */
+        .center-reveal-desc { font-size: 0.9rem; }
+        #matrix-countdown { gap: 10px; }
+        .circle { width: 70px; height: 70px; border-width: 2px; }
+        .count { font-size: 1.4rem; }
+        .label { font-size: 0.7rem; }
+        .matrix-caption { font-size: 1rem; width: 95vw; }
+
+        /* Specific to register.html from your original */
         h1.page-title { font-size: 1.8rem; }
+        .modal-content h2 { font-size: 1.5rem; }
         .modal-buttons { flex-direction: column; gap: 15px; }
         .modal-buttons button { width: 100%; }
         .total-amount { font-size: 1.8rem; }
         .submit-button { font-size: 1.1rem; }
+
+        /* Footer responsive adjustments from index.html template */
+        .footer-diagram-title h3 {font-size: 1.5em;}
+        .footer-diagram-tagline {font-size: 0.9em; max-width: 95%;} /* Ensure tagline fits */
+        .footer-diagram-contact-button {font-size: 1em; padding: 8px 25px;}
+        .footer-quick-links-list li a { font-size: 1em; padding: 10px 18px; }
     }
 
 </style>
@@ -349,6 +425,7 @@
         <p>Your profile is incomplete. Please fill in all your details before registering. <a href="profile.html" class="text-cyan-300 underline hover:text-cyan-100 font-bold">Go to Profile</a>.</p>
     </div>
 
+
     <form id="festRegistrationForm" class="registration-form" style="display: none;">
         <div class="form-group">
             <label for="fullName">Full Name:</label>
@@ -383,7 +460,7 @@
                 <option value="5">5</option> <option value="6">6</option> <option value="7">7</option>
                 <option value="8">8 (Pay for 7, 1 is FREE!)</option>
                 <option value="9">9 (Pay for 8)</option> <option value="10">10 (Pay for 9)</option>
-            </select>
+                </select>
         </div>
 
         <div id="groupMembersContainer" style="display: none;">
@@ -408,13 +485,101 @@
         <div id="submissionMessage" class="mt-4"></div>
     </form>
 </main>
-</div> 
+</div> <footer class="site-footer">
+    <div class="footer-diagram-feature" data-aos="fade-up">
+        <div class="footer-diagram-title-wrapper">
+            <div class="footer-diagram-title">
+                <h3>CEREBREXIA VERSE</h3>
+            </div>
+        </div>
+        <div class="footer-diagram-area">
+                 <svg id="footer-tech-diagram-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs>
+                        <symbol id="icon-stethoscope" viewBox="0 0 24 24"><path d="M18 3H6c-1.1 0-2 .9-2 2v1H2.5C2.22 6 2 6.22 2 6.5S2.22 7 2.5 7H4v1c0 2.56 1.67 4.72 4 5.66V17H6.5c-.28 0-.5.22-.5.5s.22.5.5.5H8v1.5c0 .28.22.5.5.5s.5-.22.5-.5V18h1v-1.5c0-.98.46-1.85 1.2-2.42.4-.31.87-.58 1.4-.76.4-.14.78-.31 1.13-.51.4-.22.75-.48 1.06-.78.47-.47.81-1.04.99-1.65.04-.15.06-.3.06-.45V6c0-1.1-.9-2-2-2zm-2 3v.09c0 .43-.17.84-.47 1.15-.3.3-.7.46-1.12.46H9.59c-.42 0-.82-.16-1.12-.46-.3-.3-.47-.72-.47-1.15V6h8zm-3.5 10.5c-.28 0-.5.22-.5.5s.22.5.5.5h1.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5h-1.5zM6 9.22C5.07 8.7 4.42 7.77 4.16 6.69 4.06 6.28 4 5.87 4 5.46V5h12v.46c0 .41-.06.82-.16 1.23-.26 1.08-.91 2.01-1.84 2.53-.47.26-.88.6-1.21.99L12 11l-.79-.78c-.33-.39-.74-.73-1.21-.99z"/></symbol>
+                        <symbol id="icon-heart-pulse" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35zM7.5 5C5.52 5 4 6.52 4 8.5c0 2.72 2.65 5.2 6.55 8.58L12 18.17l1.45-1.09C17.35 13.7 20 11.22 20 8.5c0-1.98-1.52-3.5-3.5-3.5-1.74 0-3.41.81-4.5 2.09C10.91 5.81 9.24 5 7.5 5zm13.21-1.21L19.5 5l-1.71 1.71-1.21-1.21-1.21 1.21L14.17 5l-1.21 1.21-1.21-1.21-1.21 1.21-1.21-1.21L6.5 5 4.79 3.79 3.58 5l1.21 1.21 1.21-1.21L7.17 5l1.21 1.21 1.21-1.21 1.21 1.21 1.21-1.21L13.5 5l1.71 1.71 1.21-1.21 1.21 1.21 1.71-1.71z"/></symbol>
+                        <symbol id="icon-dna-helix" viewBox="0 0 24 24"><path d="M14.5 4c1.08 0 1.96.92 1.96 2.05 0 .2-.04.39-.09.58l-1.4 5.37h.01c.7-.62 1.12-1.51 1.12-2.5 0-1.77-1.31-3.22-3-3.46V4m-5 0v2.04c-1.69.24-3 1.69-3 3.46 0 .99.42 1.88 1.12 2.5h.01L6.63 6.63c-.05-.19-.09-.38-.09-.58C6.54 4.92 7.42 4 8.5 4M12 9c.83 0 1.5.67 1.5 1.5S12.83 12 12 12s-1.5-.67-1.5-1.5S11.17 9 12 9m2.5 6c-1.08 0-1.96-.92-1.96-2.05 0-.2.04-.39.09-.58l1.4-5.37h-.01c-.7.62-1.12 1.51-1.12 2.5 0 1.77 1.31 3.22 3 3.46V15m-5 0v-2.04c1.69-.24 3-1.69 3-3.46 0-.99-.42-1.88-1.12-2.5h-.01l1.41 5.37c.05.19.09.38.09.58 0 1.13-.88 2.05-1.96 2.05M12 17c-.83 0-1.5-.67-1.5-1.5S11.17 14 12 14s1.5.67 1.5 1.5S12.83 17 12 17m0-10c.28 0 .5.22.5.5V9h-.02c-.93-.24-1.9-.24-2.96 0H9V7.5c0-.28.22-.5.5-.5h.58c.95 0 1.85-.14 2.67-.37l.08-.02c.05-.01.1-.01.16-.01zm0 8c-.28 0-.5-.22-.5-.5V15h.02c.93.24 1.9.24 2.96 0H15v1.5c0 .28-.22.5-.5.5h-.58c-.95 0-1.85.14-2.67.37l-.08.02c-.05.01-.1.01-.16-.01z"/></symbol>
+                        <symbol id="icon-microscope" viewBox="0 0 24 24"><path d="M16.5 6c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05H10V3H8v3H6.5c-1.13 0-2.05.92-2.05 2.05V10H3v2h1.45V10c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6H8v2h1V8.05c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6h1.05v1.95H13v-2h1.5c.64 0 1.22.21 1.69.6.47.39.76.96.76 1.6V12h1.45v-2H16.5V8.05C16.5 6.92 15.58 6 14.5 6h-2c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05S6.5 6.92 6.5 8.05V10H3v2h1.45V10A2.5 2.5 0 016.5 7.5H8v2h1V7.5A2.5 2.5 0 0111.5 5h1A2.5 2.5 0 0115 7.5V10h1.45v-2H16.5V8.05A2.5 2.5 0 0014.5 6M12 13c-1.93 0-3.5 1.57-3.5 3.5V21h7v-4.5c0-1.93-1.57-3.5-3.5-3.5zm0 1c1.38 0 2.5 1.12 2.5 2.5V20h-5v-3.5c0-1.38 1.12-2.5 2.5-2.5z"/></symbol>
+                        <symbol id="icon-rod-of-asclepius" viewBox="0 0 24 24"><path d="M13.82 5.32c-.93-.89-2.18-1.32-3.48-1.32s-2.55.43-3.48 1.32C6 6.21 5.61 7.42 5.61 8.77c0 1.35.39 2.56 1.28 3.45.93.89 2.18 1.32 3.48 1.32s2.55-.43 3.48-1.32c.89-.89 1.28-2.1 1.28-3.45 0-1.35-.39-2.56-1.28-3.45M10.34 12c-1.31 0-2.4-.48-3.17-1.29-.77-.81-1.17-1.85-1.17-3.04 0-1.19.4-2.23 1.17-3.04.77-.81 1.86-1.29 3.17-1.29 1.31 0 2.4.48 3.17 1.29.77.81 1.17 1.85 1.17 3.04 0 1.19-.4 2.23-1.17 3.04-.77.81-1.86 1.29-3.17 1.29m.16 1.5c.34 0 .67.03.99.08v.02c.69.1 1.35.31 1.95.61l.01.01c.29.15.57.32.83.51l.01.01c.22.16.43.34.62.53l.01.01c.14.14.27.29.39.45l.01.01c.09.12.17.24.24.37.2.35.35.73.43 1.13l.01.06v.01c.04.22.06.44.06.67v2.09c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-1.88c0-.47-.15-.92-.43-1.28-.1-.13-.21-.25-.33-.36-.18-.17-.38-.32-.6-.45-.29-.18-.6-.33-.93-.45-.48-.18-1-.29-1.53-.33h-.01c-.18-.01-.36-.02-.54-.02s-.36.01-.54.02h-.01c-.53.04-1.05.15-1.53.33-.33.12-.64.27-.93.45-.22.13-.42.28-.6.45-.12.11-.23.23-.33.36-.28.36-.43.81-.43 1.28v1.88c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-2.09c0-.23.02-.45.06-.67v-.01l.01-.06c.08-.4.23-.78.43-1.13.07-.13.15-.25.24-.37l.01-.01c.12-.16.25-.31.39-.45l.01-.01c.19-.19.4-.37.62-.53l.01-.01c.26-.19.54-.36.83-.51l.01-.01c.6-.3 1.26-.51 1.95-.61v-.02c.32-.05.65-.08.99-.08z"/></symbol>
+                        <symbol id="icon-brain" viewBox="0 0 24 24"><path d="M12 2C9.46 2 7.24 3.22 6 5.06c-1.01 1.52-1.59 3.29-1.59 5.11S4.99 13.67 6 15.2c.47.6 1.02 1.12 1.63 1.56.04.03.09.06.13.09C8.32 17.27 9 17.58 9 18.22V19c0 .94.44 1.79 1.15 2.36.05.04.1.08.15.12.72.54 1.79.62 2.7.62.91 0 1.98-.08 2.7-.62.05-.04.1-.08.15-.12.71-.57 1.15-1.42 1.15-2.36v-.78c0-.64.68-.95 1.24-1.37.04-.03.09-.06.13-.09.61-.44 1.16-.96 1.63-1.56 1.01-1.52 1.59-3.29 1.59-5.11S19.01 6.58 18 5.06C16.76 3.22 14.54 2 12 2m4.1 13.6c-.3.35-.65.66-1.02.93-.05.04-.1.07-.15.1-.73.53-1.13 1.28-1.13 2.15v.72c0 .41-.17.78-.45 1.04-.03.02-.06.04-.09.06-.37.28-.9.4-1.36.4s-.99-.12-1.36-.4c-.03-.02-.06-.04-.09-.06-.28-.26-.45-.63-.45-1.04v-.72c0-.87-.4-1.62-1.13-2.15-.05-.03-.1-.06-.15-.1-.37-.26-.72-.58-1.02-.93C7.21 14.07 7 12.87 7 11.63c0-1.29.28-2.55.82-3.66.44-.92 1.07-1.72 1.86-2.37.6-.48 1.29-.8 2.03-.95.73-.15 1.48-.15 2.21 0 .75.15 1.43.47 2.03.95.79.65 1.42 1.45 1.86 2.37.54 1.11.82 2.37.82 3.66 0 1.24-.21 2.44-.6 3.47m-2.1-5.1c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16m-4 0c0-.83-.67-1.5-1.5-1.5S9 9.67 9 10.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16z"/></symbol>
+                        <symbol id="icon-medical-plus" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></symbol>
+                        <symbol id="icon-atom" viewBox="0 0 24 24"><path d="M12 2c-2.36 0-4.48.77-6.23 2.11l1.01 1.74C8.04 4.79 9.92 4 12 4s3.96.79 5.22 1.85l1.01-1.74C16.48 2.77 14.36 2 12 2m0 16c-2.08 0-3.96-.79-5.22-1.85l-1.01 1.74c1.75 1.34 3.87 2.11 6.23 2.11s4.48-.77 6.23-2.11l-1.01-1.74c-1.26 1.06-3.14 1.85-5.22 1.85M5.92 7.32C4.79 8.58 4 10.27 4 12s.79 3.42 1.92 4.68l1.74-1.01C6.79 14.4 6 13.29 6 12s.79-2.4 1.66-3.67l-1.74-1.01M18.08 7.32l-1.74 1.01C17.21 9.6 18 10.71 18 12s-.79 2.4-1.66 3.67l1.74 1.01C19.21 15.42 20 13.73 20 12s-.79-3.42-1.92-4.68M12 7a5 5 0 100 10 5 5 0 000-10m0 2a3 3 0 110 6 3 3 0 010-6z"/></symbol>
+                        <symbol id="icon-test-tube" viewBox="0 0 24 24"><path d="M7 2v11.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V6h2v9.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V2H7zm10 0v2h-2V2h2zm-2 4h2v2h-2V6zm2 4h-2v2h2v-2zM6 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm8-13.22L12.78 7H14v1h-2.22L10.56 9H12v1h-2.44L8.34 11H10v1H8v1h1.78l1.22 1H18V2h-4v3.78zM16 11h-1.11l-.89-1H16v1zm0-2h-2.22l-.89-1H16v1zm0-2h-3.33l-.89-1H16v1z"/></symbol>
+                        <symbol id="icon-sparkle" viewBox="0 0 24 24"><path d="M12 2l1.5 4.5h4.5l-3.5 3 1.5 5-4.5-3.5-4.5 3.5 1.5-5-3.5-3h4.5L12 2z"/></symbol>
+                        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feMerge> <feMergeNode in="coloredBlur"/> <feMergeNode in="SourceGraphic"/> </feMerge>
+                        </filter>
+                    </defs>
+                    <line class="svg-line" x1="300" y1="200" x2="150" y2="80" /><line class="svg-line" x1="300" y1="200" x2="80" y2="200" /><line class="svg-line" x1="300" y1="200" x2="150" y2="320" /><line class="svg-line" x1="300" y1="200" x2="450" y2="80" /><line class="svg-line" x1="300" y1="200" x2="520" y2="200" /><line class="svg-line" x1="300" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="80" y2="200" /><line class="svg-line" x1="80" y1="200" x2="150" y2="320" /><line class="svg-line" x1="450" y1="80" x2="520" y2="200" /><line class="svg-line" x1="520" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="300" y2="50" /><line class="svg-line" x1="450" y1="80" x2="300" y2="50" /><line class="svg-line" x1="150" y1="320" x2="230" y2="360" /><line class="svg-line" x1="450" y1="320" x2="370" y2="360" />
+                    <circle class="svg-circle-bg" cx="300" cy="200" r="70"/><circle class="svg-circle-border" cx="300" cy="200" r="70" filter="url(#glow)"/><text class="svg-text-main" x="300" y="190" font-size="14px">CONNECTING</text><text class="svg-text-main" x="300" y="210" font-size="14px">MEDICS</text><text class="svg-text-arrows" x="300" y="155">⬆</text> <text class="svg-text-arrows" x="300" y="245">⬇</text><text class="svg-text-arrows" x="255" y="200">⬅</text> <text class="svg-text-arrows" x="345" y="200">➡</text><text class="svg-text-arrows" transform="translate(268 168) rotate(-45)" >↖</text><text class="svg-text-arrows" transform="translate(332 168) rotate(45)">↗</text><text class="svg-text-arrows" transform="translate(268 232) rotate(45)">↙</text><text class="svg-text-arrows" transform="translate(332 232) rotate(-45)">↘</text>
+                    <g transform="translate(150, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-stethoscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(80, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-heart-pulse" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(150, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-dna-helix" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
+                    <g transform="translate(450, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-microscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(520, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-rod-of-asclepius" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
+                    <g transform="translate(450, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-brain" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
+                    <g transform="translate(300, 50)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-medical-plus" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(230, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-atom" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(370, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-test-tube" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
+                    <g transform="translate(80, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
+                    <g transform="translate(520, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
+                    <circle class="svg-node-dot" cx="300" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="300" cy="50" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="230" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="370" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="120" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="120" r="3" filter="url(#glow)"/>
+                </svg>
+        </div>
+        <p class="footer-diagram-tagline">
+            Back again to make you guys vibe, Get stress free and enjoy the fest to its fullest
+        </p>
+        <a href="mailto:thecerebrexia17@gmail.com" class="footer-diagram-contact-button">CONTACT ORGANIZERS</a>
+    </div>
 
-<footer class="site-footer">
-    </footer>
+    <div class="footer-container-new">
+      <div class="footer-section-new">
+        <h3 class="footer-heading-new">Connect</h3>
+        <div class="footer-social-icons-new">
+          <a href="https://facebook.com/cerebrexia" target="_blank" aria-label="Facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/igimsfest/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://twitter.com/cerebrexia" target="_blank" aria-label="Twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://linkedin.com/company/cerebrexia" target="_blank" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://youtube.com/" target="_blank" aria-label="YouTube" title="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://whatsapp.com/channel/0029VbA0P20HbFV2ke5rlR2G" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Channel" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
+        </div>
+          <p style="margin-top: 15px; font-size: 1em; color: #b0b0c0;">Stay connected for live updates!</p>
+      </div>
+
+      <div class="footer-section-new">
+        <h3 class="footer-heading-new">Quick Links</h3>
+        <ul class="footer-quick-links-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="events.html">EVENTS</a></li>
+          <li><a href="schedule.html">SCHEDULE</a></li>
+          <li><a href="pronite.html">PRONITES</a></li>
+          <li><a href="index.html#team">Team</a></li>
+          <li><a href="accommodation.html">ACCOMMODATION</a></li>
+          <li><a href="register.html">DELEGATE REGISTRATION</a></li>
+          <li><a href="privacypolicy.html">PRIVACY POLICY</a></li>
+          <li><a href="terms.html">TERMS OF SERVICE</a></li>
+          <li><a href="codeofconduct.html">CODE OF CONDUCT</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section-new">
+        <h3 class="footer-heading-new">Contact</h3>
+        <div class="footer-contact-info">
+          <p>Email: <a href="mailto:info@cerebrexia25.com">info@cerebrexia25.com</a></p>
+          <p>Pankaj Kumar: <a href="tel:+919079956283">+91 90799 56283</a></p>
+          <p>Dhananjay Kumar: <a href="tel:+917425992291">+91 74259 92291</a></p>
+          <p style="margin-top:15px;">IGIMS Patna Campus,<br/>Sheikhpura, Patna, Bihar - 800014</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom-new">
+      <p>© <span id="currentYear"></span> CEREBREXIA'25 - IGIMS Patna. All Rights Reserved. Designed with <i class="fas fa-heart" style="color: #ff00ff;"></i>.</p>
+    </div>
+</footer>
+<button class="scroll-top-btn" aria-label="Scroll to top">▲</button>
 
 <div class="modal-overlay" id="termsModal">
-     <div class="modal-content">
+    <div class="modal-content">
         <h2>Terms & Conditions for Fest Registration</h2>
         <p>Welcome to CEREBREXIA'25 Fest Registration! Please read the following terms and conditions carefully before proceeding. By clicking 'Accept & Proceed', you agree to be bound by these terms.</p>
         <h3>What Your Fest Pass Includes:</h3>
@@ -481,6 +646,7 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
     const analytics = firebase.analytics();
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
 
     const BASE_PRICE_PER_PERSON = 1600;
     const COUPONS = {
@@ -493,14 +659,15 @@
     let activeCouponDetails = null;
     let currentUserProfile = null;
 
-    // --- DOM Element References ---
     const registrationFormEl = document.getElementById('festRegistrationForm');
     const authPromptDiv = document.getElementById('authPrompt');
     const profileCompletionPromptDiv = document.getElementById('profileCompletionPrompt');
+    
     const fullNameInput = document.getElementById('fullName');
     const emailInput = document.getElementById('email');
     const phoneInput = document.getElementById('phone');
     const collegeInput = document.getElementById('college');
+
     const enrollmentTypeRadios = document.querySelectorAll('input[name="enrollmentType"]');
     const numMembersGroupDiv = document.getElementById('numMembersGroup');
     const numMembersSelect = document.getElementById('numMembers');
@@ -511,10 +678,30 @@
     const displayAmountSpan = document.getElementById('displayAmount');
     const formSubmitButton = document.getElementById('formSubmitButton');
     const submissionMessageDiv = document.getElementById('submissionMessage');
+
     const termsModal = document.getElementById('termsModal');
     const acceptTermsBtn = document.getElementById('acceptTerms');
     const declineTermsBtn = document.getElementById('declineTerms');
     const bodyGlobal = document.body;
+
+    function showMainContent(show) {
+        if (show) {
+            registrationFormEl.style.display = 'flex';
+            authPromptDiv.style.display = 'none';
+            profileCompletionPromptDiv.style.display = 'none';
+        } else {
+            registrationFormEl.style.display = 'none';
+        }
+    }
+
+    function showAuthPrompt() {
+        showMainContent(false);
+        authPromptDiv.style.display = 'block';
+    }
+    function showProfileCompletionPrompt() {
+        showMainContent(false);
+        profileCompletionPromptDiv.style.display = 'block';
+    }
 
     function calculateAmount() {
         let numPeopleForPricing = 1;
@@ -543,58 +730,93 @@
         currentAmount = calculatedAmount;
         displayAmountSpan.textContent = `₹${currentAmount.toLocaleString('en-IN')}`;
     }
-
+    
     /**
-     * [FIXED] Renders input fields for additional group members, now including phone number.
+     * [FIXED] Renders input fields for additional group members.
+     * This function is now simplified and robust.
+     * @param {number} totalMembers - The total number of members in the group, including the leader.
      */
     function renderGroupMemberInputs(totalMembers) {
-        groupMembersContainer.innerHTML = ''; 
+        groupMembersContainer.innerHTML = ''; // Always clear previous inputs first
         
         if (isNaN(totalMembers) || totalMembers <= 1) {
-            return; 
+            return; // Exit if not a valid group size for additional members
         }
 
         const membersToAdd = totalMembers - 1;
 
         if (membersToAdd > 0) {
             const headerLabel = document.createElement('label');
-            headerLabel.textContent = 'Additional Group Members Details:';
-            headerLabel.style.cssText = "display: block; margin-bottom: 15px; font-weight: 600; color: #ff99ff;";
+            headerLabel.textContent = 'Additional Group Members Details (Name & Email):';
+            headerLabel.style.cssText = "display: block; margin-bottom: 10px; font-weight: 600; color: #ff99ff;";
             groupMembersContainer.appendChild(headerLabel);
         }
 
         for (let i = 1; i <= membersToAdd; i++) {
-            const memberIndex = i + 1;
+            const memberIndex = i + 1; // Members are numbered 2, 3, 4...
             const div = document.createElement('div');
             div.className = 'form-group group-member-input';
-            
-            // --- UPDATED to include phone number field ---
             div.innerHTML = `
                 <label for="memberName_${memberIndex}" class="sr-only">Member ${memberIndex} Name</label>
                 <input type="text" id="memberName_${memberIndex}" name="memberName_${memberIndex}" placeholder="Member ${memberIndex} Name" required>
-                
                 <label for="memberEmail_${memberIndex}" class="sr-only">Member ${memberIndex} Email</label>
                 <input type="email" id="memberEmail_${memberIndex}" name="memberEmail_${memberIndex}" placeholder="Member ${memberIndex} Email" required>
-                
-                <label for="memberPhone_${memberIndex}" class="sr-only">Member ${memberIndex} Phone</label>
-                <input type="tel" id="memberPhone_${memberIndex}" name="memberPhone_${memberIndex}" placeholder="Member ${memberIndex} Phone" required pattern="[0-9]{10}" title="10-digit phone number">
             `;
             groupMembersContainer.appendChild(div);
         }
     }
     
+    /**
+     * [FIXED] Toggles the visibility of group enrollment options.
+     * Logic is simplified to correctly show/hide elements and trigger renders.
+     */
     function toggleGroupEnrollment() {
         const isGroup = document.getElementById('enrollGroup').checked;
         numMembersGroupDiv.style.display = isGroup ? 'block' : 'none';
         groupMembersContainer.style.display = isGroup ? 'block' : 'none';
 
         if (isGroup) {
+            // If switching to group, ensure a value is selected and render inputs. Default to 2.
             if (!numMembersSelect.value) {
                 numMembersSelect.value = "2";
             }
             renderGroupMemberInputs(parseInt(numMembersSelect.value));
         } else {
+            // If switching to individual, clear the dynamic inputs.
             groupMembersContainer.innerHTML = '';
+        }
+        calculateAmount(); // Recalculate amount in either case.
+    }
+
+    function applyCouponLogic() {
+        const code = couponCodeInput.value.trim().toUpperCase();
+        activeCouponDetails = null;
+        couponMessageDiv.className = ''; couponMessageDiv.textContent = '';
+
+        if (code === '') {
+            calculateAmount();
+            return;
+        }
+
+        const coupon = COUPONS[code];
+        if (coupon) {
+            if (coupon.collegeSpecific) {
+                if (currentUserProfile && currentUserProfile.college === coupon.collegeSpecific) {
+                    activeCouponDetails = { code, ...coupon };
+                    couponMessageDiv.textContent = coupon.message;
+                    couponMessageDiv.classList.add('coupon-success');
+                } else {
+                    couponMessageDiv.textContent = `Coupon '${code}' is only for ${coupon.collegeSpecific} students.`;
+                    couponMessageDiv.classList.add('coupon-error');
+                }
+            } else {
+                activeCouponDetails = { code, ...coupon };
+                couponMessageDiv.textContent = coupon.message;
+                couponMessageDiv.classList.add('coupon-success');
+            }
+        } else {
+            couponMessageDiv.textContent = 'Invalid coupon code.';
+            couponMessageDiv.classList.add('coupon-error');
         }
         calculateAmount();
     }
@@ -606,33 +828,35 @@
 
             if (doc.exists) {
                 currentUserProfile = doc.data();
+                // Check if profile is complete
                 if (!currentUserProfile.name || !currentUserProfile.phone || !currentUserProfile.college) {
-                    profileCompletionPromptDiv.style.display = 'block';
-                    registrationFormEl.style.display = 'none';
+                    showProfileCompletionPrompt();
                     return;
                 }
+
                 fullNameInput.value = currentUserProfile.name || '';
                 emailInput.value = user.email || currentUserProfile.email || '';
                 phoneInput.value = currentUserProfile.phone || '';
                 collegeInput.value = currentUserProfile.college || '';
-                registrationFormEl.style.display = 'flex';
-                profileCompletionPromptDiv.style.display = 'none';
-                authPromptDiv.style.display = 'none';
+
+                [fullNameInput, emailInput, phoneInput, collegeInput].forEach(input => input.readOnly = true);
+
+                showMainContent(true);
                 calculateAmount();
-                toggleGroupEnrollment();
+                toggleGroupEnrollment(); // Run once to set initial state correctly
             } else {
-                profileCompletionPromptDiv.style.display = 'block';
-                registrationFormEl.style.display = 'none';
+                showProfileCompletionPrompt();
             }
         } catch (error) {
-            console.error("Error fetching user profile:", error);
-            submissionMessageDiv.textContent = 'Error loading details. Please refresh.';
+            console.error("Error fetching user profile for prefill:", error);
+            submissionMessageDiv.textContent = 'Error loading your details. Please try refreshing.';
             submissionMessageDiv.className = 'message-error';
-            authPromptDiv.style.display = 'block';
+            showAuthPrompt();
         }
     }
 
-    // --- Event Listeners ---
+    // --- Event Listeners Setup ---
+
     enrollmentTypeRadios.forEach(radio => radio.addEventListener('change', toggleGroupEnrollment));
 
     if (numMembersSelect) {
@@ -643,26 +867,16 @@
         });
     }
 
-    if (applyCouponBtn) {
-        applyCouponBtn.addEventListener('click', () => {
-            const code = couponCodeInput.value.trim().toUpperCase();
-            activeCouponDetails = null;
-            couponMessageDiv.className = ''; couponMessageDiv.textContent = '';
-            const coupon = COUPONS[code];
-            if (coupon) {
-                if (coupon.collegeSpecific && (!currentUserProfile || currentUserProfile.college !== coupon.collegeSpecific)) {
-                    couponMessageDiv.textContent = `Coupon valid only for ${coupon.collegeSpecific} students.`;
-                    couponMessageDiv.className = 'coupon-error';
-                } else {
-                    activeCouponDetails = { code, ...coupon };
-                    couponMessageDiv.textContent = coupon.message;
-                    couponMessageDiv.className = 'coupon-success';
-                }
-            } else if (code !== '') {
-                couponMessageDiv.textContent = 'Invalid coupon code.';
-                couponMessageDiv.className = 'coupon-error';
+    if (applyCouponBtn) applyCouponBtn.addEventListener('click', applyCouponLogic);
+    
+    if (couponCodeInput) {
+        couponCodeInput.addEventListener('input', () => {
+            if (activeCouponDetails) {
+                activeCouponDetails = null;
+                couponMessageDiv.textContent = '';
+                couponMessageDiv.className = '';
+                calculateAmount();
             }
-            calculateAmount();
         });
     }
 
@@ -670,12 +884,10 @@
         e.preventDefault();
         formSubmitButton.disabled = true;
         formSubmitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-        submissionMessageDiv.textContent = '';
-        submissionMessageDiv.className = '';
+        submissionMessageDiv.textContent = ''; submissionMessageDiv.className = '';
 
         const user = auth.currentUser;
         if (!user) {
-            // This case should ideally not happen due to prior checks, but as a safeguard:
             submissionMessageDiv.textContent = "User not signed in. Please sign in again.";
             submissionMessageDiv.className = 'message-error';
             formSubmitButton.disabled = false; formSubmitButton.innerHTML = '<i class="fas fa-credit-card"></i> Proceed to Payment';
@@ -691,18 +903,13 @@
             for (let i = 2; i <= numTotalMembers; i++) {
                 const memberName = formData.get(`memberName_${i}`);
                 const memberEmail = formData.get(`memberEmail_${i}`);
-                // --- UPDATED to get phone number ---
-                const memberPhone = formData.get(`memberPhone_${i}`);
-                
-                // --- UPDATED validation check ---
-                if (!memberName || !memberEmail || !memberPhone) {
-                    submissionMessageDiv.textContent = `Please fill all details (Name, Email, Phone) for Member ${i}.`;
+                if (!memberName || !memberEmail) {
+                    submissionMessageDiv.textContent = `Please fill in all details for Member ${i}.`;
                     submissionMessageDiv.className = 'message-error';
                     formSubmitButton.disabled = false; formSubmitButton.innerHTML = '<i class="fas fa-credit-card"></i> Proceed to Payment';
                     return;
                 }
-                // --- UPDATED to push phone_number ---
-                groupMembersData.push({ name: memberName, email: memberEmail, phone_number: memberPhone });
+                groupMembersData.push({ name: memberName, email: memberEmail });
             }
         }
 
@@ -720,8 +927,10 @@
             eventName: "CEREBREXIA'25 Fest Pass"
         };
 
-        // --- Payment processing logic (remains the same) ---
         try {
+            submissionMessageDiv.textContent = 'Initiating registration... Please wait.';
+            submissionMessageDiv.className = 'message-info';
+
             const response = await fetch('https://fest-backend-node.onrender.com/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${await user.getIdToken()}` },
@@ -729,11 +938,14 @@
             });
             const result = await response.json();
 
-            if (response.ok && result.orderId) {
+            if (response.ok && result.orderId && result.dbRegistrationId) {
+                submissionMessageDiv.textContent = 'Redirecting to payment...';
+                const dbRegId = result.dbRegistrationId;
+
                 const options = {
                     key: result.razorpayKey,
                     amount: result.amount,
-                    currency: "INR",
+                    currency: result.currency || "INR",
                     name: "CEREBREXIA'25 Fest",
                     description: "Fest Pass Registration",
                     image: "https://www.igims.org/wp-content/uploads/2017/10/logo_igims.png",
@@ -741,35 +953,48 @@
                     handler: async function (paymentResponse) {
                         submissionMessageDiv.textContent = 'Payment successful! Verifying...';
                         submissionMessageDiv.className = 'message-info';
-                        const callbackResponse = await fetch('https://fest-backend-node.onrender.com/api/payment/callback', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${await user.getIdToken()}` },
-                            body: JSON.stringify({
-                                ...paymentResponse,
-                                registration_type: 'festPass',
-                                dbRegistrationId: result.dbRegistrationId
-                            })
-                        });
-                        const callbackResult = await callbackResponse.json();
-                        if (callbackResponse.ok && callbackResult.status === "success") {
-                            submissionMessageDiv.textContent = 'Payment confirmed! Your Fest Pass is active. QR code sent to email.';
-                            submissionMessageDiv.className = 'message-success';
-                            registrationFormEl.reset();
-                            toggleGroupEnrollment();
-                            calculateAmount();
-                        } else {
-                            submissionMessageDiv.textContent = `Verification Error: ${callbackResult.message || 'Unknown error'}. Contact support.`;
+                        try {
+                            const callbackResponse = await fetch('https://fest-backend-node.onrender.com/api/payment/callback', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${await user.getIdToken()}`},
+                                body: JSON.stringify({
+                                    razorpay_order_id: paymentResponse.razorpay_order_id,
+                                    razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                                    razorpay_signature: paymentResponse.razorpay_signature,
+                                    registration_type: 'festPass',
+                                    dbRegistrationId: dbRegId
+                                })
+                            });
+                            const callbackResult = await callbackResponse.json();
+                            if (callbackResponse.ok && callbackResult.status === "success") {
+                                submissionMessageDiv.textContent = 'Payment confirmed! Your Fest Pass is active. A QR code has been sent to your email.';
+                                submissionMessageDiv.className = 'message-success';
+                                registrationFormEl.reset();
+                                toggleGroupEnrollment();
+                                calculateAmount();
+                                activeCouponDetails = null; couponCodeInput.value = ''; couponMessageDiv.textContent = ''; couponMessageDiv.className = '';
+                            } else {
+                                submissionMessageDiv.textContent = `Verification Error: ${callbackResult.message || 'Unknown error'}. Please contact support with your payment ID.`;
+                                submissionMessageDiv.className = 'message-error';
+                            }
+                        } catch (callbackError) {
+                            console.error('Error during payment verification callback:', callbackError);
+                            submissionMessageDiv.textContent = 'Critical error verifying payment. Please contact support immediately.';
                             submissionMessageDiv.className = 'message-error';
                         }
                         formSubmitButton.disabled = false; formSubmitButton.innerHTML = '<i class="fas fa-credit-card"></i> Proceed to Payment';
                     },
                     prefill: { name: registrationData.name, email: registrationData.email, contact: registrationData.phone_number },
+                    notes: { fest_registration_id: dbRegId },
                     theme: { color: '#ff00ff' }
                 };
                 const rzp1 = new Razorpay(options);
-                rzp1.on('payment.failed', function (rzpErrorResponse) {
-                    submissionMessageDiv.textContent = `Payment failed: ${rzpErrorResponse.error.description || 'Please try again'}.`;
+                rzp1.on('payment.failed', function (rzpErrorResponse){
+                    console.error('Payment failed:', rzpErrorResponse.error);
+                    submissionMessageDiv.textContent = `Payment failed: ${rzpErrorResponse.error.description || rzpErrorResponse.error.reason || 'Please try again'}.`;
                     submissionMessageDiv.className = 'message-error';
+                    db.collection('festRegistrations').doc(dbRegId).update({ paymentStatus: 'failed', errorReason: rzpErrorResponse.error })
+                        .catch(err => console.error("Error updating payment status to failed:", err));
                     formSubmitButton.disabled = false; formSubmitButton.innerHTML = '<i class="fas fa-credit-card"></i> Proceed to Payment';
                 });
                 rzp1.open();
@@ -779,33 +1004,97 @@
                 formSubmitButton.disabled = false; formSubmitButton.innerHTML = '<i class="fas fa-credit-card"></i> Proceed to Payment';
             }
         } catch (error) {
-            submissionMessageDiv.textContent = 'A network error occurred. Please try again.';
+            console.error('Network or server error during registration initiation:', error);
+            submissionMessageDiv.textContent = 'An unexpected network error occurred. Please check your connection and try again.';
             submissionMessageDiv.className = 'message-error';
             formSubmitButton.disabled = false; formSubmitButton.innerHTML = '<i class="fas fa-credit-card"></i> Proceed to Payment';
         }
     });
 
-    // --- Modal and Page Load ---
-    if(acceptTermsBtn) acceptTermsBtn.addEventListener('click', () => {
-        termsModal.classList.remove('active');
+    // --- Modal and Auth Flow ---
+
+    function showTermsModal() {
+        if(termsModal) termsModal.classList.add('active');
+        bodyGlobal.style.overflow = 'hidden';
+    }
+    function hideTermsModal() {
+        if(termsModal) termsModal.classList.remove('active');
         bodyGlobal.style.overflow = '';
+    }
+
+    if(acceptTermsBtn) acceptTermsBtn.addEventListener('click', () => {
+        hideTermsModal();
+        // Now check authentication status
         auth.onAuthStateChanged(user => {
             if (user) {
                 prefillAndSetupForm(user);
             } else {
-                authPromptDiv.style.display = 'block';
+                showAuthPrompt();
             }
         });
     });
 
     if(declineTermsBtn) declineTermsBtn.addEventListener('click', () => {
-        window.location.href = "index.html";
+        hideTermsModal();
+        authPromptDiv.style.display = 'none';
+        profileCompletionPromptDiv.style.display = 'none';
+        registrationFormEl.style.display = 'none';
+        submissionMessageDiv.innerHTML = "You must accept the Terms & Conditions to register. Redirecting to the homepage...";
+        submissionMessageDiv.className = 'message-error';
+        submissionMessageDiv.style.display = 'block';
+        setTimeout(() => { window.location.href = "index.html"; }, 3000);
     });
 
+    // --- General Page Scripts (Header, Scroll Top, etc.) ---
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    const newMenuToggleButton = document.getElementById('newMenuToggleButton');
+    const fullScreenNav = document.getElementById('fullScreenNav');
+    const navCloseButton = document.getElementById('navCloseButton');
+    let headerScrollLastTop = 0;
+    const siteHeader = document.querySelector('header');
+
+    if (siteHeader) {
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > headerScrollLastTop && scrollTop > siteHeader.offsetHeight) {
+                siteHeader.classList.add('hidden'); siteHeader.classList.remove('visible');
+            } else {
+                siteHeader.classList.remove('hidden'); siteHeader.classList.add('visible');
+            }
+            headerScrollLastTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+    }
+
+    if (newMenuToggleButton && fullScreenNav && navCloseButton) {
+        const toggleMenu = (force) => {
+            const isActive = typeof force === 'boolean' ? force : !fullScreenNav.classList.contains('active');
+            newMenuToggleButton.classList.toggle('open', isActive);
+            fullScreenNav.classList.toggle('active', isActive);
+            bodyGlobal.style.overflow = isActive ? 'hidden' : '';
+            if (siteHeader && isActive) {
+                siteHeader.classList.remove('hidden'); siteHeader.classList.add('visible');
+            }
+        };
+        newMenuToggleButton.addEventListener('click', () => toggleMenu());
+        navCloseButton.addEventListener('click', () => toggleMenu(false));
+        document.addEventListener('keydown', e => e.key === 'Escape' && fullScreenNav.classList.contains('active') && toggleMenu(false));
+    }
+
+    const scrollTopBtn = document.querySelector('.scroll-top-btn');
+    if (scrollTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > window.innerHeight / 2) { scrollTopBtn.classList.add('show'); }
+            else { scrollTopBtn.classList.remove('show'); }
+        });
+        scrollTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
-        termsModal.classList.add('active');
-        bodyGlobal.style.overflow = 'hidden';
+        showTermsModal(); // Start by showing the terms and conditions
+        if (siteHeader) siteHeader.classList.add('visible');
     });
+
+    // --- End of Corrected and Improved Script ---
 </script>
 </body>
 </html>
