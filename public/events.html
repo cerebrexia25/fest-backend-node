@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -21,8 +21,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
-
-
+   
 <style>
     /* Base and Reset */
     :root {
@@ -380,7 +379,9 @@
         .modal-title { font-size: 1.5rem; }
     }
 
-</style>
+</style>	
+		
+	
 </head>
 <body>
 
@@ -389,7 +390,7 @@
         <symbol id="icon-stethoscope" viewBox="0 0 24 24"><path d="M18 3H6c-1.1 0-2 .9-2 2v1H2.5C2.22 6 2 6.22 2 6.5S2.22 7 2.5 7H4v1c0 2.56 1.67 4.72 4 5.66V17H6.5c-.28 0-.5.22-.5.5s.22.5.5.5H8v1.5c0 .28.22.5.5.5s.5-.22.5-.5V18h1v-1.5c0-.98.46-1.85 1.2-2.42.4-.31.87-.58 1.4-.76.4-.14.78-.31 1.13-.51.4-.22.75-.48 1.06-.78.47-.47.81-1.04.99-1.65.04-.15.06-.3.06-.45V6c0-1.1-.9-2-2-2zm-2 3v.09c0 .43-.17.84-.47 1.15-.3.3-.7.46-1.12.46H9.59c-.42 0-.82-.16-1.12-.46-.3-.3-.47-.72-.47-1.15V6h8zm-3.5 10.5c-.28 0-.5.22-.5.5s.22.5.5.5h1.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5h-1.5zM6 9.22C5.07 8.7 4.42 7.77 4.16 6.69 4.06 6.28 4 5.87 4 5.46V5h12v.46c0 .41-.06.82-.16 1.23-.26 1.08-.91 2.01-1.84 2.53-.47.26-.88.6-1.21.99L12 11l-.79-.78c-.33-.39-.74-.73-1.21-.99z"/></symbol>
         <symbol id="icon-heart-pulse" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35zM7.5 5C5.52 5 4 6.52 4 8.5c0 2.72 2.65 5.2 6.55 8.58L12 18.17l1.45-1.09C17.35 13.7 20 11.22 20 8.5c0-1.98-1.52-3.5-3.5-3.5-1.74 0-3.41.81-4.5 2.09C10.91 5.81 9.24 5 7.5 5zm13.21-1.21L19.5 5l-1.71 1.71-1.21-1.21-1.21 1.21L14.17 5l-1.21 1.21-1.21-1.21-1.21 1.21-1.21-1.21L6.5 5 4.79 3.79 3.58 5l1.21 1.21 1.21-1.21L7.17 5l1.21 1.21 1.21-1.21 1.21 1.21 1.21-1.21L13.5 5l1.71 1.71 1.21-1.21 1.21 1.21 1.71-1.71z"/></symbol>
         <symbol id="icon-dna-helix" viewBox="0 0 24 24"><path d="M14.5 4c1.08 0 1.96.92 1.96 2.05 0 .2-.04.39-.09.58l-1.4 5.37h.01c.7-.62 1.12-1.51 1.12-2.5 0-1.77-1.31-3.22-3-3.46V4m-5 0v2.04c-1.69.24-3 1.69-3 3.46 0 .99.42 1.88 1.12 2.5h.01L6.63 6.63c-.05-.19-.09-.38-.09-.58C6.54 4.92 7.42 4 8.5 4M12 9c.83 0 1.5.67 1.5 1.5S12.83 12 12 12s-1.5-.67-1.5-1.5S11.17 9 12 9m2.5 6c-1.08 0-1.96-.92-1.96-2.05 0-.2.04-.39.09-.58l1.4-5.37h-.01c-.7.62-1.12 1.51-1.12 2.5 0 1.77 1.31 3.22 3 3.46V15m-5 0v-2.04c1.69-.24 3-1.69 3-3.46 0-.99-.42-1.88-1.12-2.5h-.01l1.41 5.37c.05.19.09.38.09.58 0 1.13-.88 2.05-1.96 2.05M12 17c-.83 0-1.5-.67-1.5-1.5S11.17 14 12 14s1.5.67 1.5 1.5S12.83 17 12 17m0-10c.28 0 .5.22.5.5V9h-.02c-.93-.24-1.9-.24-2.96 0H9V7.5c0-.28.22-.5.5-.5h.58c.95 0 1.85-.14 2.67-.37l.08-.02c.05-.01.1-.01.16-.01zm0 8c-.28 0-.5-.22-.5-.5V15h.02c.93.24 1.9.24 2.96 0H15v1.5c0 .28-.22.5-.5.5h-.58c-.95 0-1.85.14-2.67.37l-.08.02c-.05.01-.1.01-.16-.01z"/></symbol>
-        <symbol id="icon-microscope" viewBox="0 0 24 24"><path d="M16.5 6c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05H10V3H8v3H6.5c-1.13 0-2.05.92-2.05 2.05V10H3v2h1.45V10c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6H8v2h1V8.05c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6h1.05v1.95H13v-2h1.5c.64 0 1.22.21 1.69.6.47.39.76.96.76 1.6V12h1.45v-2H16.5V8.05C16.5 6.92 15.58 6 14.5 6h-2c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05S6.5 6.92 6.5 8.05V10H3v2h1.45V10A2.5 2.5 0 016.5 7.5H8v2h1V7.5A2.5 2.5 0 0111.5 5h1A2.5 2.5 0 0115 7.5V10h1.45v-2H16.5V8.05A2.5 2.5 0 0014.5 6M12 13c-1.93 0-3.5 1.57-3.5 3.5V21h7v-4.5c0-1.93-1.57-3.5-3.5-3.5zm0 1c1.38 0 2.5 1.12 2.5 2.5V20h-5v-3.5c0-1.38 1.12-2.5 2.5-2.5z"/></symbol>
+        <symbol id="icon-microscope" viewBox="0 0 24 24"><path d="M16.5 6c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05H10V3H8v3H6.5c-1.13 0-2.05.92-2.05 2.05V10H3v2h1.45V10c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6H8v2h1V8.05c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6h1.05v1.95H13v-2h1.5c.64 0 1.22.21 1.69.6.47.39.76.96.76 1.6V12h1.45v-2H16.5V8.05A2.5 2.5 0 0014.5 6M12 13c-1.93 0-3.5 1.57-3.5 3.5V21h7v-4.5c0-1.93-1.57-3.5-3.5-3.5zm0 1c1.38 0 2.5 1.12 2.5 2.5V20h-5v-3.5c0-1.38 1.12-2.5 2.5-2.5z"/></symbol>
         <symbol id="icon-rod-of-asclepius" viewBox="0 0 24 24"><path d="M13.82 5.32c-.93-.89-2.18-1.32-3.48-1.32s-2.55.43-3.48 1.32C6 6.21 5.61 7.42 5.61 8.77c0 1.35.39 2.56 1.28 3.45.93.89 2.18 1.32 3.48 1.32s2.55-.43 3.48-1.32c.89-.89 1.28-2.1 1.28-3.45 0-1.35-.39-2.56-1.28-3.45M10.34 12c-1.31 0-2.4-.48-3.17-1.29-.77-.81-1.17-1.85-1.17-3.04 0-1.19.4-2.23 1.17-3.04.77-.81 1.86-1.29 3.17-1.29 1.31 0 2.4.48 3.17 1.29.77.81 1.17 1.85 1.17 3.04 0 1.19-.4 2.23-1.17 3.04-.77.81-1.86 1.29-3.17 1.29m.16 1.5c.34 0 .67.03.99.08v.02c.69.1 1.35.31 1.95.61l.01.01c.29.15.57.32.83.51l.01.01c.22.16.43.34.62.53l.01.01c.14.14.27.29.39.45l.01.01c.09.12.17.24.24.37.2.35.35.73.43 1.13l.01.06v.01c.04.22.06.44.06.67v2.09c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-1.88c0-.47-.15-.92-.43-1.28-.1-.13-.21-.25-.33-.36-.18-.17-.38-.32-.6-.45-.29-.18-.6-.33-.93-.45-.48-.18-1-.29-1.53-.33h-.01c-.18-.01-.36-.02-.54-.02s-.36.01-.54.02h-.01c-.53.04-1.05.15-1.53.33-.33.12-.64.27-.93.45-.22.13-.42.28-.6.45-.12.11-.23.23-.33.36-.28.36-.43.81-.43 1.28v1.88c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-2.09c0-.23.02-.45.06-.67v-.01l.01-.06c.08-.4.23-.78.43-1.13.07-.13.15-.25.24-.37l.01-.01c.12-.16.25-.31.39-.45l.01-.01c.19-.19.4-.37.62-.53l.01-.01c.26-.19.54-.36.83-.51l.01-.01c.6-.3 1.26-.51 1.95-.61v-.02c.32-.05.65-.08.99-.08z"/></symbol>
         <symbol id="icon-brain" viewBox="0 0 24 24"><path d="M12 2C9.46 2 7.24 3.22 6 5.06c-1.01 1.52-1.59 3.29-1.59 5.11S4.99 13.67 6 15.2c.47.6 1.02 1.12 1.63 1.56.04.03.09.06.13.09C8.32 17.27 9 17.58 9 18.22V19c0 .94.44 1.79 1.15 2.36.05.04.1.08.15.12.72.54 1.79.62 2.7.62.91 0 1.98-.08 2.7-.62.05-.04.1-.08.15-.12.71-.57 1.15-1.42 1.15-2.36v-.78c0-.64.68-.95 1.24-1.37.04-.03.09-.06.13-.09.61-.44 1.16-.96 1.63-1.56 1.01-1.52 1.59-3.29 1.59-5.11S19.01 6.58 18 5.06C16.76 3.22 14.54 2 12 2m4.1 13.6c-.3.35-.65.66-1.02.93-.05.04-.1.07-.15.1-.73.53-1.13 1.28-1.13 2.15v.72c0 .41-.17.78-.45 1.04-.03.02-.06.04-.09.06-.37.28-.9.4-1.36.4s-.99-.12-1.36-.4c-.03-.02-.06-.04-.09-.06-.28-.26-.45-.63-.45-1.04v-.72c0-.87-.4-1.62-1.13-2.15-.05-.03-.1-.06-.15-.1-.37-.26-.72-.58-1.02-.93C7.21 14.07 7 12.87 7 11.63c0-1.29.28-2.55.82-3.66.44-.92 1.07-1.72 1.86-2.37.6-.48 1.29-.8 2.03-.95.73-.15 1.48-.15 2.21 0 .75.15 1.43.47 2.03.95.79.65 1.42 1.45 1.86 2.37.54 1.11.82 2.37.82 3.66 0 1.24-.21 2.44-.6 3.47m-2.1-5.1c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16m-4 0c0-.83-.67-1.5-1.5-1.5S9 9.67 9 10.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16z"/></symbol>
         <symbol id="icon-medical-plus" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></symbol>
@@ -598,7 +599,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
-<script>
+ <script>
     // --- Firebase Configuration ---
     const firebaseConfig = {
         apiKey: "AIzaSyBOWumY95hdMt2uOvmJEk5WG0GhdqUHUNc",
@@ -613,7 +614,7 @@
     const auth = firebase.auth(); // Initialize Auth for user context
     const db = firebase.firestore();
 
-    // --- Event Data (यह आपके इवेंट्स का डेटा है - अब 70+ इवेंट्स हैं) ---
+    // --- Event Data (Complete List) ---
     const eventsData = [
         // Pro-Events (from original list, keeping for consistency as category is present)
         {
@@ -2156,33 +2157,23 @@
     const regFullName = document.getElementById('regFullName');
     const regEmail = document.getElementById('regEmail');
     const regPhone = document.getElementById('regPhone');
-    // Removed references to regCollegeName and regYearOfStudy as they are removed from HTML/logic.
-    // const regCollegeName = document.getElementById('regCollegeName');
-    // const regYearOfStudy = document.getElementById('regYearOfStudy');
 
-    // Add references to filter buttons containers
     const categoryFiltersContainer = document.getElementById('categoryFilters');
     const subCategoryFiltersContainer = document.getElementById('subCategoryFilters');
 
     let currentEvent = null; // To store the event object when modal is open
     let currentUser = null; // To store Firebase authenticated user
-    // userProfileLoaded flag is no longer needed as pre-filling is removed.
-    // let userProfileLoaded = false; 
     let currentCategory = 'All'; // Initial filter state
     let currentSubCategory = 'All'; // Initial filter state
 
 
     // --- Firebase Auth State Listener ---
-    // This listener is now simplified as it no longer needs to pre-fill form fields.
-    // It will still set currentUser, which is used for userId and userEmail in form submission.
     firebase.auth().onAuthStateChanged(async (user) => {
         currentUser = user;
         if (user) {
             console.log("Firebase user detected:", user.uid);
-            // No longer fetching user profile to prefill form or disable fields.
-            // User will manually enter details in the registration form.
         } else {
-            console.log("No Firebase user. User will manually enter details.");
+            console.log("No Firebase user. User will need to sign in to register.");
             currentUser = null;
         }
     });
@@ -2218,11 +2209,10 @@
             eventCard.className = 'event-card';
             eventCard.setAttribute('data-aos', 'fade-up');
             eventCard.setAttribute('data-event-id', event.id);
-            eventCard.setAttribute('tabindex', '0'); // Make card focusable for keyboard navigation
-            eventCard.setAttribute('role', 'button'); // Indicate it's a clickable element
+            eventCard.setAttribute('tabindex', '0');
+            eventCard.setAttribute('role', 'button');
             eventCard.setAttribute('aria-label', `Register for ${event.title}`);
 
-            // Generate rules list HTML
             const rulesHtml = event.rules.map(rule => `<li>- ${rule}</li>`).join('');
 
             eventCard.innerHTML = `
@@ -2248,7 +2238,6 @@
             `;
             eventsGrid.appendChild(eventCard);
 
-            // Add listener to accordion header (prevents modal from opening when details are expanded)
             const accordionHeader = eventCard.querySelector('.accordion-header');
             if (accordionHeader) {
                 accordionHeader.addEventListener('click', toggleAccordion);
@@ -2260,14 +2249,11 @@
                 });
             }
 
-            // Add listener to the whole card *excluding* the accordion header to open modal
             eventCard.addEventListener('click', (e) => {
-                // Only open modal if the click target or its parent is NOT the accordion header
                 if (!e.target.closest('.accordion-header')) {
                     openRegistrationModal(event.id);
                 }
             });
-            // For keyboard navigation on the whole card (to open modal)
             eventCard.addEventListener('keydown', (e) => {
                 if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('.accordion-header')) {
                     e.preventDefault();
@@ -2276,12 +2262,11 @@
             });
         });
 
-        AOS.refresh(); // Refresh AOS animations for new elements
+        AOS.refresh();
     }
 
     function renderSubCategoryFilters() {
-        // Clear existing sub-category filters first
-        subCategoryFiltersContainer.innerHTML = '<label class="text-pink-300 font-semibold mr-2">Sub-Category:</label><button class="filter-button active" data-subcategory="All">All</button>';
+        subCategoryFiltersContainer.innerHTML = '<label>Sub-Category:</label><button class="filter-button active" data-subcategory="All">All</button>';
         const relevantSubCategories = new Set();
         eventsData.forEach(event => {
             if (currentCategory === 'All' || event.category === currentCategory) {
@@ -2297,7 +2282,6 @@
             subCategoryFiltersContainer.appendChild(button);
         });
 
-        // Add event listeners for new sub-category buttons
         subCategoryFiltersContainer.querySelectorAll('.filter-button').forEach(button => {
             button.addEventListener('click', (e) => {
                 subCategoryFiltersContainer.querySelectorAll('.filter-button').forEach(btn => btn.classList.remove('active'));
@@ -2309,12 +2293,11 @@
     }
 
     function toggleAccordion(e) {
-        e.stopPropagation(); // Prevents the card click listener from firing
+        e.stopPropagation();
         const header = e.currentTarget;
         const content = header.nextElementSibling;
         const isActive = header.classList.contains('active');
 
-        // Close all other open accordions in the grid
         document.querySelectorAll('.accordion-header.active').forEach(openHeader => {
             if (openHeader !== header) {
                 openHeader.classList.remove('active');
@@ -2327,15 +2310,15 @@
         content.classList.toggle('open', !isActive);
 
         if (content.classList.contains('open')) {
-            content.style.maxHeight = content.scrollHeight + "px"; // Set to actual scroll height
+            content.style.maxHeight = content.scrollHeight + "px";
         } else {
-            content.style.maxHeight = "0"; // Collapse
+            content.style.maxHeight = "0";
         }
     }
 
     function generateTeamMemberInputs(count, teamSizeMin = 1) {
         groupMemberDetailsContainer.innerHTML = '';
-        const additionalMembers = Math.max(0, count - 1); // Exclude the team leader (who fills the main form)
+        const additionalMembers = Math.max(0, count - 1);
 
         if (additionalMembers > 0) {
             for (let i = 0; i < additionalMembers; i++) {
@@ -2344,11 +2327,11 @@
                 memberDiv.innerHTML = `
                     <div class="form-group">
                         <label for="teamMemberName${i+1}">Member ${i+2} Name: <span class="text-red-500">*</span></label>
-                        <input type="text" id="teamMemberName${i+1}" name="teamMemberName${i+1}" placeholder="Member ${i+2} Full Name" class="input-sm" required>
+                        <input type="text" id="teamMemberName${i+1}" name="teamMemberName${i+1}" placeholder="Member ${i+2} Full Name" required>
                     </div>
                     <div class="form-group">
                         <label for="teamMemberEmail${i+1}">Member ${i+2} Email: <span class="text-red-500">*</span></label>
-                        <input type="email" id="teamMemberEmail${i+1}" name="teamMemberEmail${i+1}" placeholder="Member ${i+2} Email" class="input-sm" required>
+                        <input type="email" id="teamMemberEmail${i+1}" name="teamMemberEmail${i+1}" placeholder="Member ${i+2} Email" required>
                     </div>
                 `;
                 groupMemberDetailsContainer.appendChild(memberDiv);
@@ -2363,22 +2346,15 @@
             console.error("Event data not found for ID:", eventId);
             return;
         }
-        // Basic check for essential elements before proceeding
-        if (!modal || !modalEventTitle || !modalEventFee || !formEventIdInput || !formEventNameInput || !formEventFeeValueInput || !formCoordinatorEmailInput || !formIsTeamEventInput || !teamFieldsContainer || !submissionLinkContainer) {
-            console.error("Modal or essential form elements not found. Check your HTML IDs.");
-            return;
-        }
 
         modalEventTitle.textContent = `Register for: ${currentEvent.title}`;
         modalEventFee.textContent = `Registration Fee: ${currentEvent.regFee}`;
 
-        eventRegForm.reset(); // Always reset form for new event
+        eventRegForm.reset();
 
-        // IMPORTANT: Removed pre-filling logic. User must input manually.
         regFullName.readOnly = false;
         regEmail.readOnly = false;
         regPhone.readOnly = false;
-        // regCollegeName and regYearOfStudy are removed from HTML
 
         formEventIdInput.value = currentEvent.id;
         formEventNameInput.value = currentEvent.title;
@@ -2388,37 +2364,37 @@
 
         if (currentEvent.isTeamEvent) {
             teamFieldsContainer.classList.remove('hidden-field');
-            if(regTeamNameInput) regTeamNameInput.required = true;
-            if(regTeamMembersCountInput) {
+            if (regTeamNameInput) regTeamNameInput.required = true;
+            if (regTeamMembersCountInput) {
                 regTeamMembersCountInput.required = true;
                 const minSize = currentEvent.teamSize?.min || 1;
                 const maxSize = currentEvent.teamSize?.max || 10;
                 regTeamMembersCountInput.min = minSize;
                 regTeamMembersCountInput.max = maxSize;
-                regTeamMembersCountInput.value = minSize; // Default to min team size
+                regTeamMembersCountInput.value = minSize;
                 generateTeamMemberInputs(minSize, minSize);
             }
         } else {
             teamFieldsContainer.classList.add('hidden-field');
-            if(regTeamNameInput) regTeamNameInput.required = false;
-            if(regTeamMembersCountInput) {
+            if (regTeamNameInput) regTeamNameInput.required = false;
+            if (regTeamMembersCountInput) {
                 regTeamMembersCountInput.required = false;
                 regTeamMembersCountInput.value = '';
             }
-            groupMemberDetailsContainer.innerHTML = ''; // Clear team member inputs
+            groupMemberDetailsContainer.innerHTML = '';
         }
 
         if (regTeamMembersCountInput) {
-            regTeamMembersCountInput.removeEventListener('input', handleTeamMemberCountChange); // Prevent multiple listeners
+            regTeamMembersCountInput.removeEventListener('input', handleTeamMemberCountChange);
             regTeamMembersCountInput.addEventListener('input', handleTeamMemberCountChange);
         }
 
         if (currentEvent.requiresSubmission) {
             submissionLinkContainer.classList.remove('hidden-field');
-            if(regSubmissionLinkInput) regSubmissionLinkInput.required = true;
+            if (regSubmissionLinkInput) regSubmissionLinkInput.required = true;
         } else {
             submissionLinkContainer.classList.add('hidden-field');
-            if(regSubmissionLinkInput) regSubmissionLinkInput.required = false;
+            if (regSubmissionLinkInput) regSubmissionLinkInput.required = false;
         }
 
         formResponseMessage.classList.add('hidden');
@@ -2428,7 +2404,7 @@
 
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
-        AOS.refreshHard(); // Refresh AOS to ensure modal animation (if any)
+        AOS.refreshHard();
     }
 
     function handleTeamMemberCountChange(e) {
@@ -2446,7 +2422,7 @@
                 count = maxSize;
                 e.target.value = count;
             }
-        } else if (isNaN(count) || count < 1) { // Fallback for individual events or if teamSize is not set
+        } else if (isNaN(count) || count < 1) {
             count = 1;
             e.target.value = count;
         }
@@ -2458,13 +2434,13 @@
         closeModalButton.onclick = function() {
             modal.style.display = "none";
             document.body.style.overflow = 'auto';
-            eventRegForm.reset(); // Reset form on close
-            teamFieldsContainer.classList.add('hidden-field'); // Hide team fields
-            submissionLinkContainer.classList.add('hidden-field'); // Hide submission fields
-            groupMemberDetailsContainer.innerHTML = ''; // Clear generated inputs
+            eventRegForm.reset();
+            teamFieldsContainer.classList.add('hidden-field');
+            submissionLinkContainer.classList.add('hidden-field');
+            groupMemberDetailsContainer.innerHTML = '';
             modalSubmitButton.disabled = false;
             modalSubmitButton.textContent = 'Submit Entry';
-            formResponseMessage.classList.add('hidden'); // Hide message
+            formResponseMessage.classList.add('hidden');
         }
     }
 
@@ -2503,39 +2479,26 @@
             formResponseMessage.classList.add('hidden');
             formResponseMessage.textContent = '';
 
-            // This check for currentUser remains, as userId is needed for Firebase/backend.
-            // But now, the form fields are not pre-filled.
             if (!currentUser) {
-                formResponseMessage.textContent = "Please sign in (via Profile page) to register for events.";
+                formResponseMessage.textContent = "Please sign in to register for events. Go to the Profile page to sign in/up.";
                 formResponseMessage.className = 'error p-3 rounded-md';
-                modalSubmitButton.disabled = false; modalSubmitButton.textContent = 'Submit Entry';
+                modalSubmitButton.disabled = false;
+                modalSubmitButton.textContent = 'Submit Entry';
                 formResponseMessage.classList.remove('hidden');
                 return;
             }
-
-            // Simplified validation: only check required fields (fullName, email, phone)
-            // College and Year of Study are no longer mandatory from this form.
-            if (!regFullName.value || !regEmail.value || !regPhone.value) {
-                formResponseMessage.textContent = "Please fill in all required details: Full Name, Email, and Contact Number.";
-                formResponseMessage.className = 'error p-3 rounded-md';
-                modalSubmitButton.disabled = false; modalSubmitButton.textContent = 'Submit Entry';
-                formResponseMessage.classList.remove('hidden');
-                return;
-            }
-
 
             const formData = new FormData(eventRegForm);
             const data = Object.fromEntries(formData.entries());
 
-            data.userId = currentUser.uid; // Add Firebase User ID
-            data.userEmail = currentUser.email; // Add Firebase user email for consistency
+            data.userId = currentUser.uid;
+            data.userEmail = currentUser.email;
 
             data.teamDetails = [];
             const isTeamEventFromForm = data.isTeamEvent === 'true';
-            const teamMembersCount = parseInt(data.teamMembersCount) || 0;
+            const teamMembersCount = parseInt(data.teamMembersCount, 10) || 0;
 
             if (isTeamEventFromForm && teamMembersCount > 1) {
-                // Team leader is member 1, so additional members are count - 1
                 const additionalMembers = teamMembersCount - 1;
                 for (let i = 0; i < additionalMembers; i++) {
                     const memberName = formData.get(`teamMemberName${i + 1}`);
@@ -2554,7 +2517,7 @@
             formResponseMessage.classList.remove('hidden');
 
             try {
-                const response = await fetch('https://fest-backend-node.onrender.com/api/register-event', { // Target new backend endpoint
+                const response = await fetch('https://fest-backend-node.onrender.com/api/register-event', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
@@ -2562,94 +2525,96 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    if (numericFee > 0 && result.orderId) { // Paid event, proceed to Razorpay
+                    if (numericFee > 0 && result.orderId) {
                         formResponseMessage.textContent = 'Registration initiated. Redirecting to payment...';
                         const razorpayOptions = {
-                            key: result.razorpayKey, amount: result.amount, currency: result.currency,
-                            name: "CEREBREXIA'25 Event", description: `Registration for ${result.eventName}`,
+                            key: result.razorpayKey,
+                            amount: result.amount,
+                            currency: result.currency,
+                            name: "CEREBREXIA'25 Event",
+                            description: `Registration for ${result.eventName}`,
                             image: 'https://www.igims.org/wp-content/uploads/2017/10/logo_igims.png',
                             order_id: result.orderId,
-                            handler: async function (paymentResponse) {
+                            handler: async function(paymentResponse) {
                                 formResponseMessage.textContent = 'Payment successful! Verifying with server...';
                                 try {
-                                    const verifyResponse = await fetch('https://fest-backend-node.onrender.com/api/payment/callback', { // Callback for event payments
-                                        method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                    const verifyResponse = await fetch('https://fest-backend-node.onrender.com/api/payment/callback', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
                                         body: JSON.stringify({
                                             razorpay_order_id: paymentResponse.razorpay_order_id,
                                             razorpay_payment_id: paymentResponse.razorpay_payment_id,
                                             razorpay_signature: paymentResponse.razorpay_signature,
-                                            registration_type: 'event', // Important: specify 'event' type
-                                            dbRegistrationId: result.dbRegistrationId // Pass db registration ID
+                                            registration_type: 'event',
+                                            dbRegistrationId: result.dbRegistrationId
                                         })
                                     });
                                     const verifyResult = await verifyResponse.json();
                                     if (verifyResponse.ok && verifyResult.status === "success") {
                                         formResponseMessage.textContent = 'Payment confirmed! Your entry is submitted. Check your email for details.';
                                         formResponseMessage.className = 'success p-3 rounded-md';
-                                        eventRegForm.reset();
-                                        if (formIsTeamEventInput) formIsTeamEventInput.value = 'false';
-                                        teamFieldsContainer.classList.add('hidden-field');
-                                        submissionLinkContainer.classList.add('hidden-field');
-                                        groupMemberDetailsContainer.innerHTML = '';
-                                        setTimeout(() => { if(modal) modal.style.display = "none"; document.body.style.overflow = 'auto';}, 4500);
+                                        setTimeout(() => {
+                                            if (modal) modal.style.display = "none";
+                                            document.body.style.overflow = 'auto';
+                                        }, 4500);
                                     } else {
                                         formResponseMessage.textContent = `Payment verification failed: ${verifyResult.message || 'Unknown error'}. Please contact support.`;
                                         formResponseMessage.className = 'error p-3 rounded-md';
-                                        modalSubmitButton.disabled = false; modalSubmitButton.textContent = 'Submit Entry';
+                                        modalSubmitButton.disabled = false;
+                                        modalSubmitButton.textContent = 'Submit Entry';
                                     }
                                 } catch (verifyError) {
                                     console.error("Payment verification fetch error:", verifyError);
                                     formResponseMessage.textContent = 'Error verifying payment: ' + verifyError.message;
                                     formResponseMessage.className = 'error p-3 rounded-md';
-                                    modalSubmitButton.disabled = false; modalSubmitButton.textContent = 'Submit Entry';
+                                    modalSubmitButton.disabled = false;
+                                    modalSubmitButton.textContent = 'Submit Entry';
                                 }
-                                formResponseMessage.classList.remove('hidden');
                             },
                             prefill: { name: data.fullName, email: data.email, contact: data.phone },
                             notes: { event_registration_id: result.dbRegistrationId },
                             theme: { color: '#ff00ff' }
                         };
                         const rzp = new Razorpay(razorpayOptions);
-                        rzp.on('payment.failed', function (rzpResponse) {
+                        rzp.on('payment.failed', function(rzpResponse) {
                             console.error('Razorpay payment failed:', rzpResponse.error);
                             formResponseMessage.textContent = `Payment Failed: ${rzpResponse.error.description || rzpResponse.error.reason || 'Unknown Error'}. Please try again or contact support.`;
                             formResponseMessage.className = 'error p-3 rounded-md';
-                            formResponseMessage.classList.remove('hidden');
-                            modalSubmitButton.disabled = false; modalSubmitButton.textContent = 'Submit Entry';
-                            // Optional: Update Firestore to mark payment as failed
-                            // db.collection('eventRegistrations').doc(result.dbRegistrationId).update({ paymentStatus: 'failed', errorDetails: rzpResponse.error });
+                            modalSubmitButton.disabled = false;
+                            modalSubmitButton.textContent = 'Submit Entry';
                         });
                         rzp.open();
-                    } else if (numericFee === 0) { // Free event successfully submitted to backend
+                    } else if (numericFee === 0) {
                         formResponseMessage.textContent = result.message || 'Successfully registered for free event! Check your email.';
                         formResponseMessage.className = 'success p-3 rounded-md';
-                        eventRegForm.reset();
-                        if (formIsTeamEventInput) formIsTeamEventInput.value = 'false';
-                        teamFieldsContainer.classList.add('hidden-field');
-                        submissionLinkContainer.classList.add('hidden-field');
-                        groupMemberDetailsContainer.innerHTML = '';
-                        setTimeout(() => { if(modal) modal.style.display = "none"; document.body.style.overflow = 'auto'; }, 3500);
-                    } else { // Paid event but no orderId, or other issue from backend
+                        setTimeout(() => {
+                            if (modal) modal.style.display = "none";
+                            document.body.style.overflow = 'auto';
+                        }, 3500);
+                    } else {
                         formResponseMessage.textContent = `Error: ${result.message || 'Could not initiate registration. Please try again.'}`;
                         formResponseMessage.className = 'error p-3 rounded-md';
-                        modalSubmitButton.disabled = false; modalSubmitButton.textContent = 'Submit Entry';
+                        modalSubmitButton.disabled = false;
+                        modalSubmitButton.textContent = 'Submit Entry';
                     }
-                } else { // Response not OK from /api/register-event
+                } else {
                     formResponseMessage.textContent = `Error: ${result.message || 'Could not submit your entry. Please try again.'}`;
                     formResponseMessage.className = 'error p-3 rounded-md';
-                    modalSubmitButton.disabled = false; modalSubmitButton.textContent = 'Submit Entry';
+                    modalSubmitButton.disabled = false;
+                    modalSubmitButton.textContent = 'Submit Entry';
                 }
             } catch (fetchError) {
                 console.error("Registration fetch error:", fetchError);
                 formResponseMessage.textContent = 'Network error or server issue: ' + fetchError.message;
                 formResponseMessage.className = 'error p-3 rounded-md';
-                modalSubmitButton.disabled = false; modalSubmitButton.textContent = 'Submit Entry';
+                modalSubmitButton.disabled = false;
+                modalSubmitButton.textContent = 'Submit Entry';
             }
             formResponseMessage.classList.remove('hidden');
         });
     }
 
-    // Header Menu Toggle Logic (from index.html)
+    // Header Menu Toggle Logic
     const newMenuToggleButton = document.getElementById('newMenuToggleButton');
     const fullScreenNav = document.getElementById('fullScreenNav');
     const navCloseButton = document.getElementById('navCloseButton');
@@ -2663,110 +2628,112 @@
             document.body.style.overflow = fullScreenNav.classList.contains('active') ? 'hidden' : '';
         });
         navCloseButton.addEventListener('click', () => {
-            newMenuToggleButton.setAttribute('aria-expanded', 'false'); newMenuToggleButton.classList.remove('open');
-            fullScreenNav.classList.remove('active'); document.body.style.overflow = '';
+            newMenuToggleButton.setAttribute('aria-expanded', 'false');
+            newMenuToggleButton.classList.remove('open');
+            fullScreenNav.classList.remove('active');
+            document.body.style.overflow = '';
         });
         fullScreenNav.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', (e) => {
                 const currentPath = window.location.pathname.split('/').pop();
                 const linkPath = link.getAttribute('href').split('/').pop();
-                if (currentPath === linkPath && link.classList.contains('active-nav-link')) {
-                    if (fullScreenNav.classList.contains('active')) {
-                        newMenuToggleButton.setAttribute('aria-expanded', 'false'); newMenuToggleButton.classList.remove('open');
-                        fullScreenNav.classList.remove('active'); document.body.style.overflow = '';
-                    }
-                } else {
-                    // Standard navigation, close menu
-                    newMenuToggleButton.setAttribute('aria-expanded', 'false'); newMenuToggleButton.classList.remove('open');
-                    fullScreenNav.classList.remove('active'); document.body.style.overflow = '';
+                if (currentPath !== linkPath || !link.hash) {
+                    newMenuToggleButton.setAttribute('aria-expanded', 'false');
+                    newMenuToggleButton.classList.remove('open');
+                    fullScreenNav.classList.remove('active');
+                    document.body.style.overflow = '';
                 }
             });
         });
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape' && fullScreenNav.classList.contains('active')) {
-                newMenuToggleButton.setAttribute('aria-expanded', 'false'); newMenuToggleButton.classList.remove('open');
-                fullScreenNav.classList.remove('active'); document.body.style.overflow = '';
+                newMenuToggleButton.setAttribute('aria-expanded', 'false');
+                newMenuToggleButton.classList.remove('open');
+                fullScreenNav.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
     }
 
-    // Scroll Top Button (from index.html)
-    // Check if button exists or create it dynamically
+    // Scroll Top Button Logic
     let scrollTopBtn = document.querySelector('.scroll-top-btn');
     if (!scrollTopBtn) {
         const tempScrollTopBtn = document.createElement('button');
         tempScrollTopBtn.className = 'scroll-top-btn';
         tempScrollTopBtn.setAttribute('aria-label', 'Scroll to top');
-        tempScrollTopBtn.textContent = '▲';
+        tempScrollTopBtn.innerHTML = '&#9650;'; // Up arrow
         document.body.appendChild(tempScrollTopBtn);
-        // Add minimal styles for dynamic button
         const style = document.createElement('style');
         style.innerHTML = `
             .scroll-top-btn {
                 position: fixed; bottom: 20px; right: 20px; background: rgba(13,0,31,0.85); color: #fff;
-                border: none; border-radius: 5px; padding: 10px 15px; cursor: pointer;
-                opacity: 0; visibility: hidden; transition: opacity .3s ease,visibility .3s ease; z-index: 1000;
+                border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 24px;
+                cursor: pointer; opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility .3s ease, transform .3s ease;
+                z-index: 1000; display: flex; align-items: center; justify-content: center;
             }
             .scroll-top-btn.show { opacity: 1; visibility: visible; }
-            .scroll-top-btn:hover { background: #ff00ff; }
+            .scroll-top-btn:hover { background: #ff00ff; transform: scale(1.1); }
         `;
         document.head.appendChild(style);
-        scrollTopBtn = document.querySelector('.scroll-top-btn'); // Re-select after adding
+        scrollTopBtn = document.querySelector('.scroll-top-btn');
     }
 
-    // Attach listeners to the scroll-to-top button
     if (scrollTopBtn) {
         window.addEventListener('scroll', () => {
-            if (window.scrollY > window.innerHeight / 2) { scrollTopBtn.classList.add('show'); }
-            else { scrollTopBtn.classList.remove('show'); }
+            if (window.scrollY > window.innerHeight / 2) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
         });
-        scrollTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     }
 
-
-    // Header hide/show on scroll logic (from index.html)
+    // Header hide/show on scroll logic
     let lastScrollTop = 0;
     const header = document.querySelector('header');
-    if(header){
+    if (header) {
         window.addEventListener('scroll', () => {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             if (scrollTop > lastScrollTop && scrollTop > header.offsetHeight) {
-                header.classList.add('hidden'); header.classList.remove('visible');
+                header.classList.add('hidden');
+                header.classList.remove('visible');
             } else {
-                header.classList.remove('hidden'); header.classList.add('visible');
+                header.classList.remove('hidden');
+                header.classList.add('visible');
             }
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
         });
     }
 
-
-    // Initial render - Ensure all DOM elements are loaded before running these scripts
+    // Initial render
     document.addEventListener('DOMContentLoaded', () => {
-        // Initialize AOS here, after all content is potentially in place
         AOS.init({
-            once: true, // Only animate once on scroll down
-            mirror: false // Do not repeat animation on scroll up/down
+            once: true,
+            mirror: false
         });
 
-        // Attach event listeners for category filter buttons
         if (categoryFiltersContainer) {
             categoryFiltersContainer.querySelectorAll('.filter-button').forEach(button => {
                 button.addEventListener('click', (e) => {
                     categoryFiltersContainer.querySelectorAll('.filter-button').forEach(btn => btn.classList.remove('active'));
                     e.target.classList.add('active');
                     currentCategory = e.target.getAttribute('data-category');
-                    currentSubCategory = 'All'; // Reset sub-category when category changes
-                    renderSubCategoryFilters(); // Re-render sub-category buttons
+                    currentSubCategory = 'All';
+                    renderSubCategoryFilters();
                     const allSubCatButton = subCategoryFiltersContainer.querySelector('.filter-button[data-subcategory="All"]');
-                    if (allSubCatButton) allSubCatButton.classList.add('active'); // Activate "All" sub-category button
-                    renderEvents(); // Re-render events based on new filters
+                    if (allSubCatButton) allSubCatButton.classList.add('active');
+                    renderEvents();
                 });
             });
         }
 
-        renderSubCategoryFilters(); // Initialize sub-category filters on first load
-        renderEvents(); // Render initial events on first load
+        renderSubCategoryFilters();
+        renderEvents();
     });
 </script>
-</body>
-</html>
+	
+	</body>
+</html> 
