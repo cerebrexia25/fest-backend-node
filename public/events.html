@@ -162,15 +162,15 @@
     .notification-item small { display: block; color: #aaa; font-size: 0.75rem; margin-top: 4px; }
     #no-notifications { text-align: center; padding: 20px; color: #aaa; }
 
-
-    main.container { max-width: 1200px; margin: 120px auto 60px; padding: 20px; }
+    /* FIX: Reduced top margin to decrease space above title */
+    main.container { max-width: 1200px; margin: 100px auto 60px; padding: 20px; }
     
     h1.page-title {
         font-size: 3rem; color: #ffffff; text-align: center; margin-bottom: 40px;
         user-select: none; 
         font-family: 'Orbitron', sans-serif; font-weight: 700; letter-spacing: 2px;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.5), 0 0 15px rgba(0, 255, 255, 0.4); /* Added some glow back for visibility */
-        margin-top: 100px; /* Adjusted margin since the header image container is gone */
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5), 0 0 15px rgba(0, 255, 255, 0.4);
+        /* FIX: Removed margin-top from here as it's now controlled by main.container */
     }
 
     /* Filter Buttons - IMPROVED for mobile */
@@ -690,8 +690,8 @@
 
     /* Responsive Adjustments */
     @media (max-width: 768px) {
-        main.container { margin: 40px auto 60px; padding: 15px; }
-        h1.page-title { font-size: 2.5rem; margin-top: 80px; }
+        main.container { margin: 100px auto 60px; padding: 15px; }
+        h1.page-title { font-size: 2.5rem; }
         .leaderboard-title { font-size: 2rem; }
         .footer-container-new { text-align: left; }
         .footer-section-new h3::after { left: 0; transform: none; }
@@ -701,8 +701,8 @@
     @media (max-width: 600px) {
         .logo { height: 70px; }
         header { padding: 10px 15px;}
-        main.container { margin-top: 20px; }
-        h1.page-title { font-size: 2rem; margin-top: 70px; }
+        main.container { margin-top: 80px; }
+        h1.page-title { font-size: 2rem; }
         .leaderboard-title { font-size: 1.8rem; }
         .event-title { font-size: 1.4rem; }
         .modal-title { font-size: 1.5rem; }
@@ -748,7 +748,6 @@
     </ul>
 </div>
 
-<!-- FIX: Removed the large header image container. The h1 is now directly in the main container. -->
 <main class="container">
     <h1 class="page-title" data-aos="fade-up" data-aos-delay="200">EVENTS AT CEREBREXIA'25</h1>
 
@@ -1712,13 +1711,10 @@
         }, 3000);
     }
 
-    // --- FIX: Patched Instagram Share ---
-    // Uses a fallback method for wider browser/iframe compatibility.
     function fallbackCopyTextToClipboard(text) {
         const textArea = document.createElement("textarea");
         textArea.value = text;
         
-        // Avoid scrolling to bottom
         textArea.style.top = "0";
         textArea.style.left = "0";
         textArea.style.position = "fixed";
@@ -1890,8 +1886,6 @@
         });
     }
 
-    // --- FIX: Added initLeaderboard function ---
-    // This function was being called but was not defined. It adds the necessary event listener.
     function initLeaderboard() {
         if (leaderboardSelect) {
             leaderboardSelect.addEventListener('change', (e) => {
@@ -2162,10 +2156,10 @@
 
         renderSubCategoryFilters();
         renderEvents();
-        initLeaderboard(); // This function is now defined
+        initLeaderboard();
         initNotifications();
 
-        // Modal Logic (Policy and Team) - From user's provided code
+        // Modal Logic (Policy and Team)
         const policyModal = document.getElementById('policyModal');
         const teamModal = document.getElementById('teamModal');
         const modalTitle = document.getElementById('modalTitle');
@@ -2174,22 +2168,23 @@
         const teamModalCloseBtn = document.getElementById('teamModalCloseBtn');
         const mainBody = document.body;
 
+        // FIX: Restored full content for policy modals
         const policyContent = {
             privacy: {
                 title: "Privacy Policy",
-                body: `<h3>Welcome to CEREBREXIA'25 Privacy Policy!</h3><p>At CEREBREXIA'25, we are committed to protecting your privacy...</p>` // Content truncated for brevity
+                body: `<h3>Data Collection</h3><p>We collect information you provide directly to us, such as when you register for an event, subscribe to our newsletter, or otherwise communicate with us. This information may include your name, email address, phone number, and college name.</p><h3>Data Usage</h3><p>We use the information we collect to:</p><ul><li>Operate and maintain the CEREBREXIA'25 fest.</li><li>Process your registrations and participation in events.</li><li>Communicate with you about the event, including updates, and promotional materials.</li><li>Respond to your comments, questions, and requests.</li></ul><h3>Data Sharing</h3><p>We do not share your personal information with third parties without your consent, except to comply with laws or to protect our rights.</p>`
             },
             terms: {
                 title: "Terms & Conditions",
-                body: `<h3>Welcome to CEREBREXIA'25 Terms & Conditions!</h3><p>These terms govern your use of the CEREBREXIA'25 website...</p>`
+                body: `<h3>General</h3><p>By accessing our website and registering for CEREBREXIA'25, you agree to be bound by these terms and conditions, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws.</p><h3>Registration</h3><p>All participants must register through the official website. Registration fees are non-refundable unless otherwise specified. The organizers reserve the right to refuse admission to any participant.</p><h3>Conduct</h3><p>All attendees are expected to behave professionally. Harassment and other exclusionary behavior are not acceptable and may result in being expelled from the event without a refund.</p>`
             },
             code: {
                 title: "Code of Conduct",
-                body: `<h3>CEREBREXIA'25 Code of Conduct</h3><p>CEREBREXIA'25 is dedicated to providing a safe, inclusive, and welcoming experience for everyone...</p>`
+                body: `<h3>Our Pledge</h3><p>We are dedicated to providing a harassment-free experience for everyone, regardless of gender, gender identity and expression, sexual orientation, disability, physical appearance, body size, race, or religion. We do not tolerate harassment of participants in any form.</p><h3>Expected Behavior</h3><ul><li>Be considerate, respectful, and collaborative.</li><li>Refrain from demeaning, discriminatory, or harassing behavior and speech.</li><li>Be mindful of your surroundings and of your fellow participants.</li></ul><h3>Consequences of Unacceptable Behavior</h3><p>Anyone asked to stop unacceptable behavior is expected to comply immediately. The organizers may take any action they deem appropriate, including warning the offender or expulsion from the conference with no refund.</p>`
             },
             refund: {
                 title: "Refund Policy",
-                body: `<h3>CEREBREXIA'25 Refund Policy</h3><p>We strive to provide a transparent and fair policy regarding refunds...</p>`
+                body: `<h3>General Policy</h3><p>All registration fees for events at CEREBREXIA'25 are non-refundable. We encourage you to be certain of your participation before registering.</p><h3>Event Cancellation</h3><p>In the unlikely scenario that an event is cancelled by the organizers, a full refund of the registration fee for that specific event will be processed. The mode of refund will be communicated to the registered participants via email.</p><h3>Exceptions</h3><p>Exceptions to the no-refund policy may be considered on a case-by-case basis under extraordinary circumstances. Such requests must be submitted in writing to our official email address and will be at the sole discretion of the organizing committee.</p>`
             }
         };
 
@@ -2252,4 +2247,3 @@
 
 </body>
 </html>
-
