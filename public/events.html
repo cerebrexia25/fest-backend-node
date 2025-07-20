@@ -162,7 +162,6 @@
     .notification-item small { display: block; color: #aaa; font-size: 0.75rem; margin-top: 4px; }
     #no-notifications { text-align: center; padding: 20px; color: #aaa; }
 
-    /* FIX: Reduced top margin to decrease space above title */
     main.container { max-width: 1200px; margin: 100px auto 60px; padding: 20px; }
     
     h1.page-title {
@@ -170,7 +169,6 @@
         user-select: none; 
         font-family: 'Orbitron', sans-serif; font-weight: 700; letter-spacing: 2px;
         text-shadow: 0 2px 4px rgba(0,0,0,0.5), 0 0 15px rgba(0, 255, 255, 0.4);
-        /* FIX: Removed margin-top from here as it's now controlled by main.container */
     }
 
     /* Filter Buttons - IMPROVED for mobile */
@@ -940,19 +938,21 @@
 <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
     
     // --- Firebase Configuration ---
-    const firebaseConfig = {
-        apiKey: "AIzaSyBOWumY95hdMt2uOvmJEk5WG0GhdqUHUNc",
-        authDomain: "cerebrexia-ee068.firebaseapp.com",
-        projectId: "cerebrexia-ee068",
-        storageBucket: "cerebrexia-ee068.appspot.com",
-        messagingSenderId: "328864114758",
-        appId: "1:328864114758:web:108968f6576b6967f14247",
-        measurementId: "G-6Z6EP1ZTEJ"
+    // FIX: Use environment variables provided by the platform for better security and portability
+    const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+        // Fallback config if environment variable is not available
+        apiKey: "YOUR_API_KEY", // Replace with your actual config
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID"
     };
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
@@ -1598,16 +1598,32 @@
 
 
     // --- Firebase Auth State Listener ---
+    // FIX: Updated Authentication flow to use platform-provided tokens for better security.
+    const signIn = async () => {
+        try {
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                await signInWithCustomToken(auth, __initial_auth_token);
+            } else {
+                await signInAnonymously(auth);
+            }
+        } catch (error) {
+            console.error("Authentication failed:", error);
+            // Optionally, show an error message to the user on the UI
+        }
+    };
+
     onAuthStateChanged(auth, (user) => {
         if (user) {
             currentUser = user;
-            console.log("Firebase user detected:", user.uid);
+            console.log("Authenticated user detected:", user.uid);
         } else {
-            signInAnonymously(auth).catch((error) => {
-                console.error("Anonymous sign-in failed:", error);
-            });
+            currentUser = null;
+            console.log("No user is signed in.");
         }
     });
+
+    signIn(); // Initiate sign-in process on script load
+
 
     function getNumericFee(feeString) {
         if (typeof feeString === 'string' && feeString.toLowerCase().includes('free')) return 0;
@@ -2049,7 +2065,8 @@
 
         const formData = new FormData(eventRegForm);
         const data = Object.fromEntries(formData.entries());
-        data.userId = currentUser.uid;
+        const userId = currentUser.uid; // Get the current user's ID
+        data.userId = userId;
         data.userEmail = currentUser.email || data.email;
         data.timestamp = new Date();
         data.paymentStatus = 'pending';
@@ -2071,7 +2088,9 @@
         const numericFee = parseFloat(data.eventFeeValue);
 
         try {
-            const docRef = await addDoc(collection(db, "eventRegistrations"), data);
+            // FIX: Changed Firestore collection path to be compliant with security rules
+            const collectionPath = `artifacts/${appId}/users/${userId}/eventRegistrations`;
+            const docRef = await addDoc(collection(db, collectionPath), data);
             console.log("Document written with ID: ", docRef.id);
 
             if (numericFee > 0) {
@@ -2168,7 +2187,6 @@
         const teamModalCloseBtn = document.getElementById('teamModalCloseBtn');
         const mainBody = document.body;
 
-        // FIX: Restored full content for policy modals
         const policyContent = {
             privacy: {
                 title: "Privacy Policy",
