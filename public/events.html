@@ -942,10 +942,8 @@
     import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
     
     // --- Firebase Configuration ---
-    // FIX: Use environment variables provided by the platform for better security and portability
     const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-        // Fallback config if environment variable is not available
-        apiKey: "YOUR_API_KEY", // Replace with your actual config
+        apiKey: "YOUR_API_KEY", 
         authDomain: "YOUR_AUTH_DOMAIN",
         projectId: "YOUR_PROJECT_ID",
         storageBucket: "YOUR_STORAGE_BUCKET",
@@ -1598,7 +1596,6 @@
 
 
     // --- Firebase Auth State Listener ---
-    // FIX: Updated Authentication flow to use platform-provided tokens for better security.
     const signIn = async () => {
         try {
             if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -1608,7 +1605,6 @@
             }
         } catch (error) {
             console.error("Authentication failed:", error);
-            // Optionally, show an error message to the user on the UI
         }
     };
 
@@ -1760,24 +1756,26 @@
     }
 
     // --- Social Media Sharing ---
+    // FIX: Updated to generate unique event URLs
     function handleShare(platform, event) {
-        const festUrl = window.location.href;
+        const baseUrl = window.location.origin + window.location.pathname;
+        const eventUrl = `${baseUrl}?event=${event.id}`; // Unique URL for the event
         const text = `Check out this awesome event at CEREBREXIA'25: *${event.title}*! Find out more here:`;
         
         let shareUrl;
 
         switch(platform) {
             case 'whatsapp': 
-                shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}%20${encodeURIComponent(festUrl)}`; 
+                shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}%20${encodeURIComponent(eventUrl)}`; 
                 break;
             case 'telegram': 
-                shareUrl = `https://t.me/share/url?url=${encodeURIComponent(festUrl)}&text=${encodeURIComponent(text)}`; 
+                shareUrl = `https://t.me/share/url?url=${encodeURIComponent(eventUrl)}&text=${encodeURIComponent(text)}`; 
                 break;
             case 'facebook': 
-                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(festUrl)}&quote=${encodeURIComponent(text)}`; 
+                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(eventUrl)}&quote=${encodeURIComponent(text)}`; 
                 break;
             case 'instagram':
-                const copyText = `Check out "${event.title}" at CEREBREXIA'25! ${festUrl}`;
+                const copyText = `Check out "${event.title}" at CEREBREXIA'25! ${eventUrl}`;
                 copyTextToClipboard(copyText).then(() => {
                     showToast('Event details copied! Paste in your story or chat.');
                 }).catch(err => {
@@ -2088,7 +2086,6 @@
         const numericFee = parseFloat(data.eventFeeValue);
 
         try {
-            // FIX: Changed Firestore collection path to be compliant with security rules
             const collectionPath = `artifacts/${appId}/users/${userId}/eventRegistrations`;
             const docRef = await addDoc(collection(db, collectionPath), data);
             console.log("Document written with ID: ", docRef.id);
@@ -2112,6 +2109,37 @@
             modalSubmitButton.textContent = 'Submit Entry';
         }
     });
+
+    // --- NEW: Function to handle incoming links with event parameter ---
+    function handleDirectEventLink() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventId = urlParams.get('event');
+
+        if (eventId) {
+            const eventCard = document.querySelector(`.event-card[data-event-id='${eventId}']`);
+
+            if (eventCard) {
+                // Scroll to the card
+                eventCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // Highlight the card temporarily
+                eventCard.style.transition = 'box-shadow 0.5s ease-in-out';
+                eventCard.style.boxShadow = '0 0 40px rgba(0, 255, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.6)';
+
+                // Open the accordion
+                const accordionHeader = eventCard.querySelector('.accordion-header');
+                if (accordionHeader && !accordionHeader.classList.contains('active')) {
+                    accordionHeader.classList.add('active');
+                    accordionHeader.nextElementSibling.classList.add('open');
+                }
+
+                // Remove the highlight after a few seconds
+                setTimeout(() => {
+                    eventCard.style.boxShadow = ''; // Reverts to the CSS-defined shadow
+                }, 3000);
+            }
+        }
+    }
 
     // --- Initial Setup on DOM Load ---
     document.addEventListener('DOMContentLoaded', () => {
@@ -2175,6 +2203,7 @@
 
         renderSubCategoryFilters();
         renderEvents();
+        handleDirectEventLink(); // Call the new function to check for event links
         initLeaderboard();
         initNotifications();
 
