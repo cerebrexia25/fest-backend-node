@@ -771,7 +771,6 @@
         </div>
     </div>
     
-    <!-- Leaderboard Section -->
     <section id="leaderboard-section" data-aos="fade-up">
         <h2 class="leaderboard-title">Live Leaderboards</h2>
         <div class="leaderboard-controls">
@@ -790,16 +789,14 @@
                     </tr>
                 </thead>
                 <tbody id="leaderboard-body">
-                    <!-- Leaderboard data will be dynamically inserted here -->
-                </tbody>
+                    </tbody>
             </table>
             <p id="leaderboard-message">Select a competition to view the leaderboard.</p>
         </div>
     </section>
 
     <div class="events-grid">
-        <!-- Event cards will be dynamically inserted here -->
-    </div>
+        </div>
 
 </main>
 
@@ -844,7 +841,7 @@
                     </div>
                 </div>
                 <div id="groupMemberDetailsContainer" class="mt-3">
-                    </div>
+                </div>
             </div>
 
             <div id="submissionLinkContainer" class="form-group hidden-field">
@@ -934,7 +931,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
-<!-- UPDATED Firebase SDKs (v11+) -->
 <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -1608,13 +1604,26 @@
         }
     };
 
+    // ✅ UPDATED onAuthStateChanged Listener
     onAuthStateChanged(auth, (user) => {
         if (user) {
             currentUser = user;
             console.log("Authenticated user detected:", user.uid);
+
+            // ✨ NEW CODE to enable the button if the modal is already open
+            if (modal.style.display === 'block') {
+                modalSubmitButton.disabled = false;
+                modalSubmitButton.textContent = 'Submit Entry';
+            }
         } else {
             currentUser = null;
             console.log("No user is signed in.");
+            
+            // Optional: Handle the case where auth fails completely
+            if (modal.style.display === 'block') {
+                modalSubmitButton.disabled = true;
+                modalSubmitButton.textContent = 'Authentication Failed. Please Refresh.';
+            }
         }
     });
 
@@ -1966,6 +1975,7 @@
         }
     }
 
+    // ✅ UPDATED openRegistrationModal Function
     function openRegistrationModal(eventId) {
         currentEvent = eventsData.find(e => e.id === eventId);
         if (!currentEvent) return;
@@ -2008,9 +2018,16 @@
             regSubmissionLinkInput.required = false;
         }
 
+        // ✨ NEW CODE to check auth status
+        if (currentUser) {
+            modalSubmitButton.disabled = false;
+            modalSubmitButton.textContent = 'Submit Entry';
+        } else {
+            modalSubmitButton.disabled = true;
+            modalSubmitButton.textContent = 'Authenticating... Please wait.';
+        }
+
         formResponseMessage.classList.add('hidden');
-        modalSubmitButton.disabled = false;
-        modalSubmitButton.textContent = 'Submit Entry';
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
