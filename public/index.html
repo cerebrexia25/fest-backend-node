@@ -8,16 +8,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <link rel="preload" href="https://fonts.gstatic.com/s/savate/v1/EjpE_F5L_GgT6R3-L0D5.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="https://fonts.gstatic.com/s/exo/v17/MwQzb4t50Yc5A_0bH-2J.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="https://fonts.gstatic.com/s/kanit/v17/nKKZ-GoOwkFfI-kKxLGD.woff2" as="font" type="font/woff2" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Savate:wght@518&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Exo:wght@700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">	
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">	
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">	
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -46,41 +43,37 @@ html {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text-color);
     overflow-x: hidden;
+    background-color: #0d001f;
 }
 body {
     background-color: transparent;
     position: relative;
 }
-#galaxy-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    /* This canvas will be used by three.js for the 3D background */
-}
 .page-content-wrapper {
     position: relative;
     z-index: 1;
     background-color: transparent;
-    padding-top: 80px;
 }
+
+/* --- HEADER STYLES --- */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(13, 0, 31, 0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: transparent;
     z-index: 1000;
-    transition: transform 0.3s ease;
-    padding: 15px 20px;
+    transition: background-color 0.4s ease, backdrop-filter 0.4s ease, transform 0.3s ease;
+    padding: 10px 15px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+}
+header.scrolled {
+    background: rgba(13, 0, 31, 0.75);	
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 header.hidden {
     transform: translateY(-100%);
@@ -89,14 +82,18 @@ header.visible {
     transform: translateY(0);
 }
 .logo {
-    font-family: 'Savate', sans-serif;
-    font-size: 3rem;
-    font-weight: 518;
-    color: yellow;
+    height: 80px;
     user-select: none;
     text-decoration: none;
     z-index: 1001;
+    display: flex;
+    align-items: center;
 }
+.logo img {
+    height: 100%;
+    width: auto;
+}
+
 .new-menu-toggle-button {
     background: transparent;
     border: none;
@@ -107,12 +104,12 @@ header.visible {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 1101;
+    z-index: 1202;
     transition: transform 0.3s ease;
     margin-left: auto;
     margin-right: 10px;
 }
-	.new-menu-toggle-button .icon-bar {
+.new-menu-toggle-button .icon-bar {
     display: block;
     width: 30px;
     height: 3px;
@@ -142,7 +139,7 @@ header.visible {
     background: rgba(13, 0, 31, 0.97);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    z-index: 1100;
+    z-index: 1200;	
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -217,12 +214,8 @@ header.visible {
     transform-origin: left;
 }
 @keyframes borderFlow {
-    0% {
-        background-position: 0% 50%;
-    }
-    100% {
-        background-position: 300% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
 }
 #fullScreenNav .nav-close-btn {
     position: absolute;
@@ -242,33 +235,397 @@ header.visible {
     color: #ff00ff;
     transform: rotate(90deg) scale(1.1);
 }
-.container {
-    max-width: 960px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: rgba(13, 0, 31, 0.7);
-    border-radius: 10px;
+
+/* --- HERO SECTION STYLES --- */
+#hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    color: #fff;
+    background: url('https://storage.googleapis.com/cerebrexia/pexels-sebastian-ervi-866902-1763067.jpg') no-repeat center center/cover;
+    overflow: hidden;
 }
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 0, 31, 0.6);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+}
+
+#hero-section h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.5rem, 9vw, 5rem);
+    color: #ffffff;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.hero-subtitle {
+    font-family: 'Kanit', sans-serif;
+    font-size: clamp(0.9rem, 2.5vw, 1.5rem);
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 20px 0 40px;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.hero-btn {
+    display: inline-block;
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-family: 'Kanit', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.hero-btn.primary {
+    background: linear-gradient(90deg, #ff00ff, #ffae00);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.7), 0 0 25px rgba(255, 174, 0, 0.7);
+}
+
+.hero-btn.primary:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 0, 255, 1), 0 0 40px rgba(255, 174, 0, 1);
+}
+
+.hero-btn.secondary {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: #ff00ff;
+    backdrop-filter: blur(5px);
+}
+
+.hero-btn.secondary:hover {
+    background-color: #ff00ff;
+    color: #fff;
+    border-color: #ff00ff;
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+.container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 section h2 {
     font-family: 'Exo', sans-serif;
     font-weight: 700;
     font-size: 2.5rem;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     color: #fff;
     user-select: none;
     text-align: center;
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 .content-section {
-    margin-bottom: 40px;
-    padding: 40px 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
-    background-color: rgba(13, 0, 31, 0.7);
+    padding-top: 60px;
+    padding-bottom: 60px;
+    position: relative;
+    overflow: hidden;
 }
+
+/* --- FULL-WIDTH ABOUT SECTIONS --- */
+.static-about-section {
+    position: relative;
+    padding: 80px 0;
+    text-align: center;
+    margin-bottom: 0;	
+    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.static-about-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    transform: scale(1.1);
+    transition: transform 5s ease-out;
+}
+.static-about-section:hover .static-about-bg {
+    transform: scale(1);
+}
+.static-about-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(13, 0, 31, 0.85) 10%, rgba(13, 0, 31, 0.4) 50%, transparent 100%);
+    z-index: -1;
+}
+.static-about-content {
+    padding: 0 20px;
+}
+.static-about-content h2 {
+    font-family: 'Exo', sans-serif;
+    font-weight: 900;
+    font-size: 2.8rem;
+    color: #fff;
+    text-shadow: 0 2px 15px rgba(0,0,0,0.7);
+    margin-bottom: 25px;
+}
+.about-subtitle {
+    font-family: 'Kanit', sans-serif;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    line-height: 1.6;
+    font-weight: 600;
+    max-width: 900px;
+    margin: 0 auto;
+    color: #e8e8e8;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+    background: rgba(0, 0, 0, 0.4);
+    padding: 25px;
+    border-radius: 10px;
+    backdrop-filter: blur(3px);
+}
+
+
+/* --- FULL-WIDTH COUNTDOWN SECTION (FIXED) --- */
+#new-countdown-section {
+    padding: 40px 20px 60px;
+    margin: 0;
+    background: linear-gradient(180deg, rgba(13, 0, 31, 0.95) 0%, #0a0e1a 50%, rgba(13, 0, 31, 0.95) 100%);
+}
+#new-countdown-section h2 {
+    color: #1bff2b;
+    text-shadow: 0 0 8px #1bff2b, 0 0 16px #1bff2b44;
+}
+.countdown-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: nowrap;
+}
+.time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at center, #184d1a 0%, #081408 70%);
+    border: 3px solid #1bff2b;
+    border-radius: 50%;
+    width: clamp(65px, 20vw, 100px);
+    aspect-ratio: 1 / 1;
+    box-shadow: 0 0 15px #1bff2b, inset 0 0 10px #1bff2b33;
+    animation: pulse 2.5s infinite alternate;
+    transition: all 0.3s ease;
+}
+.time-unit .count {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.2rem, 5vw, 2rem);
+    font-weight: 700;
+    color: #afffba;
+    text-shadow: 0 0 8px #1bff2b, 0 0 15px #1bff2b;
+}
+.time-unit .label {
+    font-family: 'Exo', sans-serif;
+    font-size: clamp(0.6rem, 2vw, 0.8rem);
+    color: #8aff99;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 3px;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 15px #1bff2b, inset 0 0 5px #1bff2b33;
+        border-color: #1bff2b;
+        transform: scale(1);
+    }
+    100% {
+        box-shadow: 0 0 25px #3eff45, inset 0 0 15px #1bff2b55;
+        border-color: #5eff5e;
+        transform: scale(1.02);
+    }
+}
+
+/* --- MAJOR EVENTS (TABBED LAYOUT) --- */
+.events-section {
+    padding: 60px 0;
+    background-color: #0a0e1a;
+}
+.event-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+.filter-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #ff00ff;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Kanit', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+.filter-btn:hover {
+    background-color: #ff00ff;
+    box-shadow: 0 0 15px #ff00ff;
+}
+.filter-btn.active {
+    background: linear-gradient(90deg, #ff00ff, #ffae00);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
+}
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+.event-card-new {
+    background-color: #1f0a33;
+    border-radius: 15px;
+    overflow: hidden;
+    text-decoration: none;
+    color: white;
+    border: 1px solid rgba(255, 102, 255, 0.3);
+    box-shadow: 0 0 15px rgba(255, 102, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease, height 0.4s ease, margin 0.4s ease, padding 0.4s ease;
+    opacity: 1;
+    transform: scale(1);
+    display: flex;
+    flex-direction: column;
+}
+.event-card-new.hidden {
+    transform: scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+    flex-basis: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    overflow: hidden;
+}
+.event-card-new:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(255, 102, 255, 0.4);
+}
+.event-card-new .card-img-container {
+    height: 250px;
+    overflow: hidden;
+}
+.event-card-new img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.event-card-new:hover img {
+    transform: scale(1.1);
+}
+.event-card-new .card-content {
+    padding: 25px;
+}
+.event-card-new .card-title {
+    font-family: 'Exo', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 0 5px #ff66ff;
+}
+.event-card-new .card-link {
+    display: inline-block;
+    margin-top: 15px;
+    font-family: 'Kanit', sans-serif;
+    font-weight: 500;
+    color: #f9c74f;
+    text-decoration: none;
+    transition: color 0.3s ease, letter-spacing 0.3s ease;
+}
+.event-card-new .card-link:hover {
+    color: #fff;
+    letter-spacing: 1px;
+}
+.event-card-new .card-link i {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+.event-card-new:hover .card-link i {
+    transform: translateX(5px);
+}
+
+/* --- SPONSORS SECTION --- */
 #sponsors {
-    background: rgba(255, 0, 255, 0.1);
-    box-shadow: 0 0 20px #ff00ff88;
+    background-color: transparent;
+    box-shadow: none;
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    border-radius: 15px;
+    position: relative;
+    padding: 40px 20px;
+}
+.sponsor-bg-animated {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(at 20% 25%, hsla(269, 70%, 20%, 1) 0px, transparent 50%), 
+                radial-gradient(at 75% 30%, hsla(303, 75%, 35%, 1) 0px, transparent 50%),
+                radial-gradient(at 20% 80%, hsla(288, 70%, 25%, 1) 0px, transparent 50%),
+                radial-gradient(at 80% 85%, hsla(300, 80%, 28%, 1) 0px, transparent 50%);
+    background-color: #1f0a33;
+    animation: bg-pan 25s linear infinite;
+    border-radius: 15px;
+}
+@keyframes bg-pan {
+  0% { background-position: 0% 0%; }
+  25% { background-position: 20% 50%; }
+  50% { background-position: 0% 100%; }
+  75% { background-position: -20% 50%; }
+  100% { background-position: 0% 0%; }
 }
 #sponsors h3 {
     font-family: 'Exo', sans-serif;
@@ -299,6 +656,8 @@ section h2 {
     border-radius: 10px;
     cursor: pointer;
     transition: transform 0.3s ease, filter 0.3s ease;
+    background: rgba(255,255,255,0.1);
+    padding: 5px;
 }
 .sponsor-tier a img {
     max-height: 100px;
@@ -315,446 +674,313 @@ section h2 {
 .partner-tier a img {
     max-height: 80px;
 }
-#gallery {
-    background: rgba(255, 0, 255, 0.1);
-    box-shadow: 0 0 20px #ff00ff88;
-}
-#gallery h2 {
-    color: #ff66ff;
-}
-.swiper {
-    width: 100%;
-    padding-bottom: 40px;
-}
-.swiper-slide {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 0 8px #ff00ff88, 0 0 15px #ff66ff88;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    background-color: #2a0f3e;
-}
-.swiper-slide img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    display: block;
-}
-.swiper-slide:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px #ff00ffcc, 0 0 30px #ff66ffcc;
-}
-.swiper-button-next,
-.swiper-button-prev {
-    color: #ff00ff;
-    filter: drop-shadow(0 0 5px #ff00ff);
-}
-.swiper-button-next:after,
-.swiper-button-prev:after {
-    font-size: 24px !important;
-}
-.swiper-pagination-bullet {
-    background: #ff66ff !important;
-    opacity: 0.7 !important;
-}
-.swiper-pagination-bullet-active {
-    background: #ff00ff !important;
-    opacity: 1 !important;
-}
-.horizontal-scroll-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 20px;
-    margin-top: 20px;
-    scrollbar-width: none;  
-    -ms-overflow-style: none;
-}
-.horizontal-scroll-container::-webkit-scrollbar {
-    display: none;
-}
-.horizontal-scroll-wrapper {
-    display: flex;
-    gap: 20px;
-    padding: 0 20px;
-}
-.event-card {
+
+
+/* --- CHAIRMAN'S TESTIMONIAL SECTION --- */
+#testimonial-section {
+    padding: 80px 0;
     position: relative;
-    overflow: hidden;
-    border-radius: 14px;
-    box-shadow: 0 0 14px #ff66ff44;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    min-width: 250px;
-    max-width: 300px;
-    background-color: #1f0a33;
+    background-image: linear-gradient(rgba(13, 0, 31, 0.9), rgba(13, 0, 31, 0.9)), url('https://picsum.photos/seed/office/1920/1080');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
-.event-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    display: block;
+.testimonial-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
 }
-.event-title {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(0deg, #ff00ffdd 40%, transparent 100%);
-    color: #fff;
-    padding: 16px 12px 8px 16px;
+.testimonial-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #f9c74f;
+    box-shadow: 0 0 25px rgba(249, 199, 79, 0.7);
+}
+.testimonial-text {
+    max-width: 800px;
+}
+.testimonial-text p {
+    font-family: 'Kanit', sans-serif;
     font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-align: center;
+    line-height: 1.8;
+    font-style: italic;
+    color: #e0e0e0;
+    margin-bottom: 20px;
 }
-.pronite-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 14px;
-    box-shadow: 0 5px 20px rgba(255, 0, 255, 0.3);
-    min-width: 280px;
-    max-width: 350px;
-    transition: transform 0.4s ease-in-out;
-    background-color: #1f0a33;
+.testimonial-author {
+    font-family: 'Exo', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #fff;
 }
-.pronite-card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
+.testimonial-author span {
     display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #f9c74f;
+    margin-top: 5px;
 }
-.pronite-title {
+
+/* --- JOURNEY OF CEREBREXIA (NEURAL NETWORK DESIGN) --- */
+#journey-section {
+    background-image: linear-gradient(rgba(10, 14, 26, 0.98), rgba(10, 14, 26, 0.98)), url('https://storage.googleapis.com/cerebrexia/neural-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 80px 0;
+}
+.journey-constellation {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    height: 600px; /* Fixed height for positioning */
+    margin: 0 auto;
+}
+.journey-constellation-bg {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    padding: 15px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+    height: 100%;
+    z-index: 1;
 }
-.pronite-card:hover .pronite-title {
-    opacity: 1;
-}
-.event-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
-.view-details {
+.journey-node {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-.event-card:hover .view-details {
-    opacity: 1;
-}
-.faq-item {
-    perspective: 1000px;
-    margin-bottom: 10px;
-}
-.faq-question {
-    background: #2a2a4e;
-    color: #fff;
-    border: 1px solid #4a4a7e;
-    padding: 15px 20px;
-    width: 100%;
-    text-align: left;
-    font-weight: 600;
-    font-size: 1.1rem;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background .3s ease, transform .3s ease;
-    position: relative;
-    z-index: 2;
-}
-.faq-question:hover {
-    background: #3a3a6e;
-}
-.faq-question.active {
-    background: #f9c74f;
-    color: #1a1a2e;
-    border-radius: 10px 10px 0 0;
-}
-.faq-answer {
-    background: #1a1a2e;
-    color: #e0e0e0;
-    padding: 0 20px;
-    max-height: 0;
-    overflow: hidden;
-    border-radius: 0 0 10px 10px;
-    border: 1px solid #4a4a7e;
-    border-top: none;
-    opacity: 0;
-    transform: rotateX(-90deg);
-    transform-origin: top;
-    transition: max-height 0.6s ease, transform 0.6s ease, opacity 0.4s ease-in, padding 0.5s ease;
-}
-.faq-answer.open {
-    padding: 20px;
-    max-height: 500px;
-    opacity: 1;
-    transform: rotateX(0deg);
-}
-#matrix-countdown-section {
-    margin: 50px auto;
+    z-index: 10;
+    width: 250px; /* Width of the content box */
     text-align: center;
-    padding: 20px;
-    background-color: rgba(10, 30, 10, 0.2);
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(30, 255, 30, 0.4);
 }
-#matrix-countdown {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 18px;
-    flex-wrap: wrap;
-}
-.circle {
+.journey-node-core {
     width: 100px;
     height: 100px;
-    background: radial-gradient(ellipse at center, #184d1a 0%, #081408 70%);
+    background: radial-gradient(circle, #1f0a33 0%, rgba(31,10,51,0) 70%);
+    border: 3px solid #f9c74f;
     border-radius: 50%;
-    box-shadow: 0 0 15px #1bff2b, 0 0 30px #1bff2b66, inset 0 0 10px #1bff2b33;
+    margin: 0 auto 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 0 15px rgba(249, 199, 79, 0.5), inset 0 0 10px rgba(249, 199, 79, 0.3);
+}
+.journey-node:hover .journey-node-core {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px #f9c74f, inset 0 0 15px rgba(249, 199, 79, 0.5);
+    border-color: #ffdd57;
+}
+.journey-node-year {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #f9c74f;
+    transition: color 0.3s ease;
+}
+.journey-node:hover .journey-node-year {
+    color: #fff;
+}
+.journey-node-icon {
+    font-size: 1.5rem;
+    color: #f9c74f;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+.journey-node:hover .journey-node-icon {
+    opacity: 1;
+    transform: scale(1.2);
+}
+.journey-node-content {
+    color: #ddd;
+    line-height: 1.6;
+    font-family: 'Kanit', sans-serif;
+}
+.journey-node-content h3 {
+    font-family: 'Exo', sans-serif;
+    color: #ff00ff;
+    font-size: 1.5rem;
+    margin: 0 0 5px 0;
+}
+/* Node Positions */
+#node-2017 { top: 5%; left: 10%; }
+#node-2023 { top: 55%; left: 25%; }
+#node-2024 { top: 15%; left: 65%; }
+#node-2025 { top: 60%; left: 80%; transform: translateX(-50%);}
+
+/* Responsive Journey - Vertical Layout */
+@media screen and (max-width: 900px) {
+    .journey-constellation {
+        height: auto; /* Auto height for vertical stacking */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+    .journey-constellation-bg {
+        display: none; /* Hide SVG on mobile */
+    }
+    .journey-node {
+        position: static; /* Remove absolute positioning */
+        transform: none !important;
+        width: 90%;
+        max-width: 400px;
+    }
+}
+
+
+/* --- STATS SECTION (IMPROVED & FIXED) --- */
+#stats-section {
+    padding: 80px 0;
     position: relative;
-    font-family: 'Share Tech Mono', monospace;
-    border: 3px solid #1bff2b;
-    animation: pulse 2.5s infinite alternate;
-    transition: transform 0.3s ease;
+    background-image: linear-gradient(rgba(13, 0, 31, 0.9), rgba(13, 0, 31, 0.9)), url('https://picsum.photos/seed/crowd/1920/1080');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
-.circle:hover {
-    transform: scale(1.05);
-}
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 15px #1bff2b, 0 0 30px #1bff2b66, inset 0 0 5px #1bff2b33;
-        border-color: #1bff2b;
-    }
-    100% {
-        box-shadow: 0 0 25px #3eff45, 0 0 50px #2bff3277, inset 0 0 15px #1bff2b55;
-        border-color: #5eff5e;
-    }
-}
-.count {
-    font-size: 2.2rem;
-    color: #afffba;
-    text-shadow: 0 0 8px #1bff2b, 0 0 15px #1bff2b;
-    letter-spacing: 1px;
-    margin-bottom: 2px;
-    font-weight: bold;
-}
-.label {
-    font-size: 0.85rem;
-    color: #8aff99;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    text-shadow: 0 0 3px #1bff2b;
-}
-.matrix-caption {
-    margin-top: 18px;
-    font-size: 1.4rem;
-    color: #1bff2b;
-    letter-spacing: 4px;
-    font-family: 'Share Tech Mono', monospace;
-    text-shadow: 0 0 8px #1bff2b, 0 0 16px #1bff2b44;
-    background: rgba(10, 30, 10, 0.4);
-    border-radius: 10px;
-    padding: 10px 0 5px;
-    width: 370px;
-    max-width: 90vw;
-    margin-left: auto;
-    margin-right: auto;
-}
-.footer-diagram-feature {
-    padding: 40px 20px;
-    margin-bottom: 30px;
-    border-bottom: 1px solid #2a2a4e;
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
     text-align: center;
 }
-.footer-diagram-title-wrapper {
-    margin-bottom: 25px;
-    display: inline-block;
+.stat-item {
+    background: rgba(0,0,0,0.3);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #00ffff;
+    backdrop-filter: blur(5px);
 }
-.footer-diagram-title {
-    background-color: var(--title-box-bg);
-    border: 2px solid var(--title-box-border);
-    border-radius: 12px;
-    padding: 8px 35px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4), inset 0 0 4px rgba(255, 255, 255, 0.1), 0 0 12px var(--primary-glow-color);
-    display: inline-block;
+.stat-icon {
+    font-size: 2rem;
+    color: #00ffff;
+    margin-bottom: 10px;
 }
-.footer-diagram-title h3 {
+.stat-number {
     font-family: 'Orbitron', sans-serif;
-    font-size: 2em;
-    color: var(--text-color);
-    margin: 0;
-    font-weight: 700;
-    text-shadow: 0 0 4px var(--text-color), 0 0 8px var(--primary-glow-color);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #00ffff;
+    text-shadow: 0 0 15px #00ffff;
 }
-.footer-diagram-area {
+.stat-label {
+    font-family: 'Kanit', sans-serif;
+    font-size: 1rem;
+    color: #fff;
+    margin-top: 5px;
+}
+
+
+/* --- FAQ SECTION --- */
+#faqs-new {
+    background-image: linear-gradient(rgba(13, 0, 31, 0.95), rgba(13, 0, 31, 0.95)), url('https://images.unsplash.com/photo-1519120543448-9160511a42BC?q=80&w=2070');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 80px 0;
+    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.faq-entry {
+    border-left: 3px solid rgba(249, 199, 79, 0.5);
+    margin-bottom: 25px;
+    transition: border-color 0.4s ease;
+}
+.faq-entry.active {
+    border-left-color: #f9c74f;
+}
+.faq-question {
+    background: transparent;
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
     width: 100%;
-    max-width: 600px;
-    margin: 0 auto 25px auto;
+    text-align: left;
+    font-family: 'Kanit', sans-serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    cursor: pointer;
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.3s ease;
 }
-#footer-tech-diagram-svg {
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 0 8px var(--primary-glow-color));
+.faq-question:hover {
+    color: #f9c74f;
 }
-.footer-diagram-tagline {
-    font-size: 1em;
-    line-height: 1.6;
-    color: #bbb;
-    margin-bottom: 30px;
-    max-width: 450px;
-    margin-left: auto;
-    margin-right: auto;
-    text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+.faq-question.active {
+    color: #f9c74f;
 }
-.footer-diagram-contact-button {
-    display: inline-block;
-    background-color: var(--button-blue);
-    color: var(--text-color);
-    padding: 10px 30px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-size: 1.1em;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 8px var(--button-blue), 0 0 15px var(--button-blue);
+.faq-icon {
+    font-size: 1.5rem;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.footer-diagram-contact-button:hover {
-    background-color: #0056b3;
-    box-shadow: 0 0 12px var(--button-blue), 0 0 25px var(--button-blue), inset 0 0 4px rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+.faq-question.active .faq-icon {
+    transform: rotate(135deg);
 }
-.svg-line {
-    stroke: var(--primary-glow-color);
-    stroke-width: 1.5;
-    stroke-linecap: round;
+.faq-answer {
+    color: #d0d0d0;
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, padding 0.5s ease-out, opacity 0.5s ease-out;
+    opacity: 0;
 }
-.svg-node-dot {
-    fill: var(--secondary-glow-color);
+.faq-answer p {
+    margin: 0;
+    padding-bottom: 20px;
+    line-height: 1.8;
+    font-size: 1.1rem;
 }
-.svg-circle-bg {
-    fill: #080c14e0;
+.faq-entry.active .faq-answer {
+    max-height: 500px;
+    opacity: 1;
+    padding-top: 10px;
 }
-.svg-circle-border {
-    stroke: var(--primary-glow-color);
-    stroke-width: 2;
-    fill: none;
-}
-.svg-icon {
-    fill: var(--medical-icon-color);
-    filter: drop-shadow(0 0 3px var(--secondary-glow-color));
-}
-.svg-text-main {
-    font-family: 'Roboto', sans-serif;
-    fill: var(--text-color);
-    font-weight: 700;
-    text-anchor: middle;
-    dominant-baseline: middle;
-    filter: drop-shadow(0 0 5px var(--primary-glow-color));
-}
-.svg-text-arrows {
-    fill: var(--secondary-glow-color);
-    font-size: 1.5em;
-    text-anchor: middle;
-    dominant-baseline: middle;
-}
+
+
+/* --- FOOTER --- */
 .site-footer {
-    background-color: #1a1a2e;
-    color: #e0e0e0;
-    padding: 30px 20px 30px;
+    background-color: #0A0E1A;
+    color: #b0b0b0;
+    padding: 60px 20px 30px;
     font-family: 'Kanit', sans-serif;
     margin-top: 60px;
-    border-top: 3px solid #3a3a5e;
-    box-shadow: 0 -5px 15px rgba(25, 25, 46, 0.5);
+    border-top: 4px solid #3a3a5e;
 }
 .footer-container-new {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 35px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 45px;
+    text-align: left;
 }
-.footer-section-new {
-    padding: 10px;
-}
-.footer-heading-new {
-    font-size: 1.6em;
+.footer-section-new h3 {
+    font-family: 'Exo', sans-serif;
+    font-size: 1.7em;
     font-weight: 600;
     color: #f9c74f;
     margin-bottom: 25px;
     position: relative;
-    padding-left: 0;
-    font-family: 'Exo', sans-serif;
-    text-align: center;
+    padding-bottom: 10px;
 }
-.footer-quick-links-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.footer-quick-links-list li {
-    margin-right: 12px;
-    margin-bottom: 12px;
-}
-.footer-quick-links-list li a {
-    display: inline-block;
-    background-color: #2a2a4e;
-    color: #ffffff;
-    padding: 12px 22px;
-    text-decoration: none;
-    border-radius: 25px;
-    font-size: 1.1em;
-    font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    border: 1px solid #3a3a5e;
-}
-.footer-quick-links-list li a:hover,
-.footer-quick-links-list li a:focus {
+.footer-section-new h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
     background-color: #f9c74f;
-    color: #1a1a2e;
-    transform: translateY(-2px);
 }
-.footer-contact-info p {
-    font-size: 1.1em;
-    margin-bottom: 12px;
-    line-height: 1.7;
-    color: #d0d0d0;
-    text-align: center;
-}
-.footer-contact-info p a {
-    color: #a0cff0;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-.footer-contact-info p a:hover {
-    color: #f9c74f;
-    text-decoration: underline;
+.footer-about p {
+    line-height: 1.8;
+    font-size: 1.05rem;
 }
 .footer-social-icons-new {
     margin-top: 20px;
@@ -762,45 +988,84 @@ section h2 {
     gap: 15px;
     list-style: none;
     padding: 0;
-    justify-content: center;
-}
-.footer-social-icons-new li {
-    margin: 0;
+    justify-content: flex-start;
 }
 .footer-social-icons-new a {
-    display: inline-block;
-    color: #e0e0e0;
-    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 1.7rem;
     transition: transform 0.3s ease, color 0.3s ease;
+    text-decoration: none;
 }
 .footer-social-icons-new a:hover {
-    transform: scale(1.15) translateY(-2px);
+    transform: scale(1.15) translateY(-4px);
+}
+.footer-social-icons-new .fa-instagram { color: #E1306C; }
+.footer-social-icons-new .fa-instagram:hover { color: #fff; background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+.footer-social-icons-new .fa-whatsapp { color: #25D366; }
+.footer-social-icons-new .fa-whatsapp:hover { color: #fff; background-color: #25D366; }
+.footer-social-icons-new .fa-youtube { color: #FF0000; }
+.footer-social-icons-new .fa-youtube:hover { color: #fff; background-color: #FF0000; }
+
+.footer-links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-links-list li {
+    margin-bottom: 14px;
+}
+.footer-links-list li a {
+    color: #b0b0b0;
+    text-decoration: none;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+    position: relative;
+    font-size: 1.05rem;
+}
+.footer-links-list li a::before {
+    content: '»';
+    margin-right: 10px;
     color: #f9c74f;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
-.footer-social-icons-new .fa-instagram:hover {
-    color: #E1306C;
+.footer-links-list li a:hover {
+    color: #f9c74f;
+    padding-left: 15px;
 }
-.footer-social-icons-new .fa-youtube:hover {
-    color: #FF0000;
+.footer-links-list li a:hover::before {
+    opacity: 1;
 }
-.footer-social-icons-new .fa-facebook-f:hover {
-    color: #1877F2;
+.footer-contact-info p {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    font-size: 1.05rem;
 }
-.footer-social-icons-new .fa-twitter:hover {
-    color: #1DA1F2;
+.footer-contact-info p i {
+    color: #f9c74f;
+    margin-right: 15px;
+    font-size: 1.2rem;
+    width: 20px;
 }
-.footer-social-icons-new .fa-linkedin-in:hover {
-    color: #0A66C2;
+.footer-contact-info p a {
+    color: #b0b0b0;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
-.footer-social-icons-new .fa-whatsapp:hover {
-    color: #25D366;
+.footer-contact-info p a:hover {
+    color: #f9c74f;
 }
 .footer-bottom-new {
     text-align: center;
     margin-top: 40px;
     padding-top: 25px;
     border-top: 1px solid #3a3a5e;
-    font-size: 0.95em;
+    font-size: 1rem;
     color: #a0a0a0;
 }
 .scroll-top-btn {
@@ -848,6 +1113,8 @@ section h2 {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+    padding: 20px;
+    box-sizing: border-box;
 }
 #policyModal.active,
 #teamModal.active {
@@ -858,9 +1125,9 @@ section h2 {
 .modal-content {
     padding: 30px;
     border-radius: 15px;
-    max-width: 700px;
-    width: 90%;
-    max-height: 80vh;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
     overflow-y: auto;
     position: relative;
     transform: scale(0.9);
@@ -994,155 +1261,15 @@ section h2 {
 .team-member-social a:hover {
     color: #00ffff;
 }
-#about-fest,
-#about-igims {
-    padding: 0;
-    box-shadow: none;
-    background: transparent;
-}
-.flip-card-container {
-    perspective: 1500px;
-    padding: 20px 0;
-}
-.flip-card {
-    width: 100%;
-    height: 380px;
-    background-color: transparent;
-    cursor: pointer;
-}
-.flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    transform-style: preserve-3d;
-}
-.flip-card.is-flipped .flip-card-inner {
-    transform: rotateY(180deg);
-}
-.flip-card-front,
-.flip-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    border-radius: 15px;
-    display: flex;
-    box-shadow: 0 0 25px rgba(255, 0, 255, 0.5);
-    border: 1px solid rgba(255, 0, 255, 0.6);
-    overflow: hidden;
-}
-.flip-card-back {
-    transform: rotateY(180deg);
-}
-.card-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: 1;
-}
-.card-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(10, 5, 20, 0.6);
-    z-index: 2;
-}
-.card-content {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    padding: 25px;
-    box-sizing: border-box;
-}
-.card-content h2 {
-    font-size: 2.5rem;
-    color: #f0c4ff;
-    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff88;
-}
-.tap-prompt {
-    margin-top: 15px;
-    font-family: 'Kanit', sans-serif;
-    color: #ddd;
-    font-size: 1.1rem;
-    background: rgba(0, 0, 0, 0.4);
-    padding: 5px 15px;
-    border-radius: 20px;
-}
-.flip-card-back .card-content h3 {
-    font-family: 'Exo', sans-serif;
-    font-weight: 700;
-    font-size: 2.2rem;
-    color: #ffc300;
-    margin-top: 0;
-    margin-bottom: 15px;
-    text-shadow: 0 0 8px #ffc300;
-}
-.flip-card-back .card-content p {
-    font-family: 'Kanit', sans-serif;
-    font-size: 1.25rem;
-    line-height: 1.7;
-    max-width: 90%;
-    font-weight: 400;
-    color: #e0e0e0;
-}
-.card-back-button {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    z-index: 4;
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    color: white;
-    font-size: 1.5rem;
-    line-height: 40px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-.card-back-button:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-    transform: scale(1.1);
-}
-.event-card,
-.pronite-card {
-    transform-style: preserve-3d;
-}
-.event-title,
-.pronite-title,
-.view-details {
-    transform: translateZ(25px);
-}
 @media (max-width: 768px) {
     .container {
-        margin-top: 20px;
-        padding: 15px;
-    }
-    .page-content-wrapper {
-        padding-top: 70px;
+        padding-left: 15px;
+        padding-right: 15px;
     }
     section h2 {
         font-size: 2rem;
     }
     .modal-content {
-        width: 95%;
         padding: 20px;
     }
     .modal-title {
@@ -1155,64 +1282,56 @@ section h2 {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         gap: 15px;
     }
-    .flip-card {
-        height: 400px;
+    .static-about-content h2 { font-size: 2.2rem; }
+    .about-subtitle { font-size: 1.3rem; padding: 20px; }
+    .footer-container-new { text-align: left; }
+    .footer-section-new h3::after { left: 0; transform: translateX(0); }
+    .footer-social-icons-new { justify-content: flex-start; }
+    
+    /* Stats Section Fix for Mobile */
+    .stats-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 15px;
     }
-    .card-content h2 {
-        font-size: 2rem;
+    .stat-item {
+        padding: 15px 10px;
     }
-    .flip-card-back .card-content h3 {
+    .stat-icon {
         font-size: 1.8rem;
     }
-    .flip-card-back .card-content p {
-        font-size: 1.15rem;
-        line-height: 1.8;
+    .stat-number {
+        font-size: 2rem;
+    }
+    .stat-label {
+        font-size: 0.9rem;
     }
 }
 @media (max-width: 600px) {
     .logo {
-        font-size: 2.2rem;
+        height: 70px;
     }
     header {
         padding: 10px 15px;
     }
-    .page-content-wrapper {
-        padding-top: 60px;
-    }
-    .modal-title {
-        font-size: 1.5rem;
-    }
-    .modal-body {
-        font-size: 0.9rem;
-    }
-    .team-grid {
-        grid-template-columns: 1fr;
-    }
-    .flip-card {
-        height: 450px;
-    }
-    .card-content h2 {
-        font-size: 1.8rem;
-        text-align: center;
-    }
-    .flip-card-back .card-content h3 {
-        font-size: 1.6rem;
-    }
-    .flip-card-back .card-content p {
-        font-size: 1.1rem;
-        max-width: 95%;
-    }
+    .modal-title { font-size: 1.5rem; }
+    .modal-body { font-size: 0.9rem; }
+    .team-grid { grid-template-columns: 1fr; }
+    .static-about-content h2 { font-size: 2rem; }
+    .about-subtitle { font-size: 1.2rem; }	
+    .events-grid { grid-template-columns: 1fr; }	
+    .faq-question { font-size: 1.1rem; }
+    .faq-answer p { font-size: 1rem; }
 }
 	
 </style>
 	
 </head>
-	<body>
-
-<canvas id="galaxy-bg"></canvas>
+<body>
 
 <header class="visible">
-    <a href="index.html" class="logo">CEREBREXIA</a>
+    <a href="index.html" class="logo">
+        <img src="https://storage.googleapis.com/cerebrexia/WEBSITE%20LOGO.png" alt="Cerebrexia Logo">
+    </a>
     <button class="new-menu-toggle-button" id="newMenuToggleButton" aria-label="Open navigation menu" aria-expanded="false">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -1221,7 +1340,7 @@ section h2 {
 </header>
 
 <div id="fullScreenNav">
-    <button class="nav-close-btn" id="navCloseButton" aria-label="Close navigation menu">&times;</button>
+    <button class="nav-close-btn" id="navCloseButton" aria-label="Close navigation menu">×</button>
     <ul>
         <li><a href="index.html">HOME</a></li>
         <li><a href="events.html">EVENTS</a></li>
@@ -1230,100 +1349,146 @@ section h2 {
         <li><a href="merch.html">MERCHANDISE</a></li>
         <li><a href="accomodation.html">ACCOMMODATION</a></li>
         <li><a href="schedule.html">SCHEDULE</a></li>
-        <li><a href="#gallery">GALLERY</a></li>
         <li><a href="profile.html">PROFILE</a></li>
     </ul>
 </div>
 
+<section id="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 data-aos="fade-down">CEREBREXIA'25</h1>
+        <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">IGIMS PATNA'S ANNUAL SOCIO-CULTURAL FEST</p>
+        <div class="button-container" data-aos="fade-up" data-aos-delay="400">
+            <a href="register.html" class="hero-btn primary">Delegate Registration</a>
+            <a href="events.html" class="hero-btn secondary">Explore Events</a>
+        </div>
+    </div>
+</section>
+
 <div class="page-content-wrapper">
+    
+    <section id="about-fest" class="static-about-section">
+        <img src="https://storage.googleapis.com/cerebrexia/photo-1459749411175-04bf5292ceea.jpg" alt="Abstract glowing waves" class="static-about-bg">
+        <div class="static-about-overlay"></div>
+        <div class="container">
+            <div class="static-about-content">
+                <h2 data-aos="fade-down">What is CEREBREXIA?</h2>
+                <h3 class="about-subtitle" data-aos="fade-up" data-aos-delay="200">
+                    IGIMS Patna's electrifying annual fest! Unleash your talent in academic, sports, cultural, arts, and literary clashes. Experience star-studded nights and vibrant cultural showcases. Don't just hear about it, be part of the unforgettable energy!
+                </h3>
+            </div>
+        </div>
+    </section>
+
+    <section id="new-countdown-section" class="content-section" data-aos="fade-up">
+        <div class="container">
+            <h2>Countdown to Ignition</h2>	
+            <div class="countdown-wrapper">
+                <div class="time-unit"><span class="count" id="cd-days">00</span><span class="label">Days</span></div>
+                <div class="time-unit"><span class="count" id="cd-hours">00</span><span class="label">Hours</span></div>
+                <div class="time-unit"><span class="count" id="cd-minutes">00</span><span class="label">Minutes</span></div>
+                <div class="time-unit"><span class="count" id="cd-seconds">00</span><span class="label">Seconds</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about-igims" class="static-about-section">
+        <img src="https://storage.googleapis.com/cerebrexia/hd-medical-woaib193g5o6sx5g.jpg" alt="Modern technology theme" class="static-about-bg">
+        <div class="static-about-overlay"></div>
+        <div class="container">
+            <div class="static-about-content">
+                <h2 data-aos="fade-down">About IGIMS Patna</h2>
+                <h3 class="about-subtitle" data-aos="fade-up" data-aos-delay="200">
+                    Indira Gandhi Institute of Medical Sciences (IGIMS) Patna is a premier medical institute known for excellence in education, research, and healthcare services in Bihar and beyond.
+                </h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- NEW TABBED EVENTS SECTION --- -->
+    <section id="major-events" class="events-section" data-aos="fade-up">
+        <div class="container">
+            <h2>Glimpse of Major Events</h2>
+            <div class="event-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="cultural">Cultural</button>
+                <button class="filter-btn" data-filter="literary">Literary</button>
+                <button class="filter-btn" data-filter="sports">Sports</button>
+                <button class="filter-btn" data-filter="academic">Academic</button>
+            </div>
+            <div class="events-grid">
+                <a href="events.html" class="event-card-new" data-category="cultural">
+                    <div class="card-img-container"><img src="https://picsum.photos/seed/band/800/600" alt="Rock band performing on stage at a concert"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Battle of Bands</h3>
+                        <span class="card-link">View Details <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="events.html" class="event-card-new" data-category="cultural">
+                    <div class="card-img-container"><img src="https://picsum.photos/seed/fashion/800/600" alt="Models walking on a fashion runway"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Fashion Show</h3>
+                        <span class="card-link">View Details <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="events.html" class="event-card-new" data-category="cultural">
+                    <div class="card-img-container"><img src="https://picsum.photos/seed/dance/800/600" alt="A group of dancers performing energetically on stage"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Group Dance</h3>
+                        <span class="card-link">View Details <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                 <a href="events.html" class="event-card-new" data-category="cultural">
+                    <div class="card-img-container"><img src="https://picsum.photos/seed/singing/800/600" alt="A solo singer performing with a microphone on a dark stage"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Solo Singing</h3>
+                        <span class="card-link">View Details <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="events.html" class="event-card-new" data-category="sports">
+                    <div class="card-img-container"><img src="https://picsum.photos/seed/cricket/800/600" alt="A cricket match in progress"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Cricket</h3>
+                        <span class="card-link">View Details <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="events.html" class="event-card-new" data-category="sports">
+                    <div class="card-img-container"><img src="https://picsum.photos/seed/football/800/600" alt="A football match in a stadium"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Football</h3>
+                        <span class="card-link">View Details <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="events.html" class="event-card-new" data-category="academic">
+                    <div class="card-img-container"><img src="https://picsum.photos/seed/quiz/800/600" alt="People participating in a quiz event with buzzers"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Quiz Mania</h3>
+                        <span class="card-link">View Details <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="events.html" class="event-card-new" data-category="literary">
+                    <div class="card-img-container"><img src="https://picsum.photos/seed/debate/800/600" alt="Students participating in a debate competition"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Debate</h3>
+                        <span class="card-link">View Details <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <div class="container">
-        
-        <section id="about-fest" class="content-section" data-aos="fade-up">
-    <div class="flip-card-container">
-        <div class="flip-card" id="cerebrexia-card">
-            <div class="flip-card-inner">
-                <div class="flip-card-front">
-                    <video class="card-video" autoplay loop muted playsinline poster="https://storage.cloud.google.com/cerebrexiagallery/images/what%20is%20cerebrexia.png">
-                        <source src="https://storage.cloud.google.com/cerebrexiagallery/images/bg1.mp4" type="video/mp4">
-                    </video>
-                    <div class="card-overlay"></div>
-                    <div class="card-content">
-                        <h2>What is CEREBREXIA?</h2>
-                        <p class="tap-prompt">(Tap or Hover to Reveal)</p>
-                    </div>
-                </div>
-                <div class="flip-card-back">
-                    <button class="card-back-button" aria-label="Go back">&times;</button>
-                    <video class="card-video" autoplay loop muted playsinline poster="https://i.imgur.com/3jLPB46.jpg">
-                        <source src="https://storage.cloud.google.com/cerebrexiagallery/images/bgmain.mp4" type="video/mp4">
-                    </video>
-                    <div class="card-overlay"></div>
-                    <div class="card-content">
-                        <h3>The Electrifying Fest!</h3>
-                        <p>IGIMS Patna's electrifying annual fest! Unleash your talent in academic, sports, cultural, arts, and literary clashes. Experience star-studded nights and vibrant cultural showcases. Don't just hear about it, be part of the unforgettable energy!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="matrix-countdown-section" data-aos="fade-up">
-            <span class="corner-border corner-tl"></span>
-            <span class="corner-border corner-tr"></span>
-            <h2>Countdown to CEREBREXIA'25</h2>	
-            <div id="matrix-countdown">
-                <div class="circle"><span class="count" id="cd-days">00</span><span class="label">DAYS</span></div>
-                <div class="circle"><span class="count" id="cd-hours">00</span><span class="label">HOURS</span></div>
-                <div class="circle"><span class="count" id="cd-minutes">00</span><span class="label">MINUTES</span></div>
-                <div class="circle"><span class="count" id="cd-seconds">00</span><span class="label">SECONDS</span></div>
-            </div>
-            <div class="matrix-caption">UNTIL THE IGNITION!</div>	
-            <span class="corner-border corner-bl"></span>
-            <span class="corner-border corner-br"></span>
-        </section>
-
-
-
-       <section id="about-igims" class="content-section" data-aos="fade-up">
-    <div class="flip-card-container">
-        <div class="flip-card" id="igims-card">
-            <div class="flip-card-inner">
-                <div class="flip-card-front">
-                        <video class="card-video" autoplay loop muted playsinline poster="https://i.imgur.com/0Z8Y0pM.jpg">
-                        </video>
-                    <div class="card-overlay"></div>
-                    <div class="card-content">
-                        <h2>About IGIMS Patna</h2>
-                        <p class="tap-prompt">(Tap or Hover to Reveal)</p>
-                    </div>
-                </div>
-                <div class="flip-card-back">
-                    <button class="card-back-button" aria-label="Go back">&times;</button>
-                    <video class="card-video" autoplay loop muted playsinline poster="https://i.imgur.com/3GvwNBf.jpg">
-                        <source src="https://storage.cloud.google.com/cerebrexiagallery/images/bgmain.mp4" type="video/mp4">
-                    </video>
-                    <div class="card-overlay"></div>
-                    <div class="card-content">
-                        <h3>Premier Medical Institute</h3>
-                        <p>Indira Gandhi Institute of Medical Sciences (IGIMS) Patna is a premier medical institute known for excellence in education, research, and healthcare services in Bihar and beyond.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-        <section id="sponsors" class="content-section" data-aos="fade-up">
+       <section id="sponsors" class="content-section" data-aos="fade-up">
+            <div class="sponsor-bg-animated"></div>
             <h2>Our Esteemed Sponsors & Partners</h2>
             <div class="sponsor-tier-container">
                 <h3 style="color:#00bfff;" data-aos="fade-up" data-aos-duration="1500">Power Sponsor</h3>
                 <div class="sponsor-tier">
                     <a href="http://statehealthsocietybihar.org/" target="_blank" rel="noopener noreferrer" aria-label="Swasthya Vibhag Bihar" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/SHS.png" alt="State Health Society" loading="lazy" onerror="this.src='https://placehold.co/150x80/00bfff/ffffff?text=SHS&font=exo'; this.alt='Image Placeholder';" />
+                        <img src="https://storage.googleapis.com/cerebrexia/SHS.png" alt="State Health Society" loading="lazy" onerror="this.src='https://placehold.co/150x80/00bfff/ffffff?text=SHS&font=exo'; this.alt='Image Placeholder';" />
                     </a>
                     <a href="http://www.bmsicl.gov.in/" target="_blank" rel="noopener noreferrer" aria-label="BMSICL" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/bmsicl.png" alt="BMSICL" loading="lazy" onerror="this.src='https://placehold.co/150x80/00bfff/ffffff?text=BMSICL&font=exo'; this.alt='Image Placeholder';" />
+                        <img src="https://storage.googleapis.com/cerebrexia/bmsicl.png" alt="BMSICL" loading="lazy" onerror="this.src='https://placehold.co/150x80/00bfff/ffffff?text=BMSICL&font=exo'; this.alt='Image Placeholder';" />
                     </a>
                 </div>
             </div>
@@ -1331,13 +1496,13 @@ section h2 {
                 <h3 style="color:#ffd700;" data-aos="fade-up" data-aos-duration="1500">Co-Sponsor</h3>
                 <div class="sponsor-tier">
                     <a href="https://www.jeevandanhealth.org/" target="_blank" rel="noopener noreferrer" aria-label="Jeevandan Health" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/JEEVANDAN.webp" alt="Jeevandan Health" loading="lazy" onerror="this.src='https://placehold.co/120x70/ffd700/000000?text=Jeevandan&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/JEEVANDAN.webp" alt="Jeevandan Health" loading="lazy" onerror="this.src='https://placehold.co/120x70/ffd700/000000?text=Jeevandan&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                     <a href="https://gailonline.com/" target="_blank" rel="noopener noreferrer" aria-label="GAIL" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/GAIL.svg.png" alt="GAIL" loading="lazy" onerror="this.src='https://placehold.co/120x70/ffd700/000000?text=GAIL&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/GAIL.svg.png" alt="GAIL" loading="lazy" onerror="this.src='https://placehold.co/120x70/ffd700/000000?text=GAIL&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                     <a href="https://www.sudha.coop/" target="_blank" rel="noopener noreferrer" aria-label="Sudha Dairy" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/comfed.webp" alt="Sudha Dairy" loading="lazy" onerror="this.src='https://placehold.co/120x70/ffd700/000000?text=Sudha&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/comfed.webp" alt="Sudha Dairy" loading="lazy" onerror="this.src='https://placehold.co/120x70/ffd700/000000?text=Sudha&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                 </div>
             </div>
@@ -1345,16 +1510,16 @@ section h2 {
                 <h3 style="color:#ff00ff;" data-aos="fade-up" data-aos-duration="1500">Associate Sponsor</h3>
                 <div class="associate-tier sponsor-tier">
                     <a href="https://www.ktplindia.com/" target="_blank" rel="noopener noreferrer" aria-label="KTPL" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/KTPL.webp" alt="KTPL" loading="lazy" onerror="this.src='https://placehold.co/100x60/ff00ff/ffffff?text=KTPL&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/KTPL.webp" alt="KTPL" loading="lazy" onerror="this.src='https://placehold.co/100x60/ff00ff/ffffff?text=KTPL&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                     <a href="https://www.ntpc.co.in/" target="_blank" rel="noopener noreferrer" aria-label="NTPC" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/National_Thermal_Power_logo.svg" alt="NTPC" loading="lazy" onerror="this.src='https://placehold.co/100x60/ff00ff/ffffff?text=NTPC&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/National_Thermal_Power_logo.svg" alt="NTPC" loading="lazy" onerror="this.src='https://placehold.co/100x60/ff00ff/ffffff?text=NTPC&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                     <a href="https://www.indiaculture.nic.in/" target="_blank" rel="noopener noreferrer" aria-label="Ministry of Culture" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/ART%20CULTURE.jpg" alt="Ministry of Culture" loading="lazy" onerror="this.src='https://placehold.co/100x60/ff00ff/ffffff?text=Culture&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/ART%20CULTURE.jpg" alt="Ministry of Culture" loading="lazy" onerror="this.src='https://placehold.co/100x60/ff00ff/ffffff?text=Culture&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                     <a href="https://www.prepladder.com/" target="_blank" rel="noopener noreferrer" aria-label="PrepLadder" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/PREP.webp" alt="PrepLadder" loading="lazy" onerror="this.src='https://placehold.co/100x60/ff00ff/ffffff?text=PrepLadder&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/PREP.webp" alt="PrepLadder" loading="lazy" onerror="this.src='https://placehold.co/100x60/ff00ff/ffffff?text=PrepLadder&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                 </div>
             </div>
@@ -1362,7 +1527,7 @@ section h2 {
                 <h3 style="color:#22b14c;" data-aos="fade-up" data-aos-duration="1500">Fitness Partner</h3>
                 <div class="partner-tier sponsor-tier">
                     <a href="https://iron-turf.com/" target="_blank" rel="noopener noreferrer" aria-label="Iron Turf" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/iron%20turf.png" alt="Iron Turf" loading="lazy" onerror="this.src='https://placehold.co/100x50/22b14c/ffffff?text=Iron+Turf&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/iron%20turf.png" alt="Iron Turf" loading="lazy" onerror="this.src='https://placehold.co/100x50/22b14c/ffffff?text=Iron+Turf&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                 </div>
             </div>
@@ -1386,7 +1551,7 @@ section h2 {
                 <h3 style="color:#ff6600;" data-aos="fade-up" data-aos-duration="1500">Social Media Partner</h3>
                 <div class="partner-tier sponsor-tier">
                     <a href="https://www.gardapatna.com/" target="_blank" rel="noopener noreferrer" aria-label="Garda Patna" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/garda-patna-hajiganj-patna-advertising-agencies-n0cywabnhc.avif" alt="Garda Patna" loading="lazy" onerror="this.src='https://placehold.co/100x50/ff6600/ffffff?text=Garda+Patna&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/garda-patna-hajiganj-patna-advertising-agencies-n0cywabnhc.avif" alt="Garda Patna" loading="lazy" onerror="this.src='https://placehold.co/100x50/ff6600/ffffff?text=Garda+Patna&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                 </div>
             </div>
@@ -1394,7 +1559,7 @@ section h2 {
                 <h3 style="color:#003399;" data-aos="fade-up" data-aos-duration="1500">Banking Partner</h3>
                 <div class="partner-tier sponsor-tier">
                     <a href="https://www.indianbank.in/" target="_blank" rel="noopener noreferrer" aria-label="Indian Bank" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/Indian_Bank_logo.svg.png" alt="Indian Bank" loading="lazy" onerror="this.src='https://placehold.co/100x50/003399/ffffff?text=Indian+Bank&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/Indian_Bank_logo.svg.png" alt="Indian Bank" loading="lazy" onerror="this.src='https://placehold.co/100x50/003399/ffffff?text=Indian+Bank&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                 </div>
             </div>
@@ -1402,7 +1567,7 @@ section h2 {
                 <h3 style="color:#8b008b;" data-aos="fade-up" data-aos-duration="1500">Insurance Partner</h3>
                 <div class="partner-tier sponsor-tier">
                     <a href="https://licindia.in/" target="_blank" rel="noopener noreferrer" aria-label="LIC" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/Life_Insurance_Corporation_of_India_(logo).svg.png" alt="LIC" loading="lazy" onerror="this.src='https://placehold.co/100x50/8b008b/ffffff?text=LIC&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/Life_Insurance_Corporation_of_India_(logo).svg.png" alt="LIC" loading="lazy" onerror="this.src='https://placehold.co/100x50/8b008b/ffffff?text=LIC&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                 </div>
             </div>
@@ -1410,7 +1575,7 @@ section h2 {
                 <h3 style="color:#e63900;" data-aos="fade-up" data-aos-duration="1500">Food Partner</h3>
                 <div class="partner-tier sponsor-tier">
                     <a href="https://shantilals.co.in/" target="_blank" rel="noopener noreferrer" aria-label="Shantilal's" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/shantilal.png" alt="Shantilal's" loading="lazy" onerror="this.src='https://placehold.co/100x50/e63900/ffffff?text=Shantilals&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/shantilal.png" alt="Shantilal's" loading="lazy" onerror="this.src='https://placehold.co/100x50/e63900/ffffff?text=Shantilals&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                 </div>
             </div>
@@ -1418,7 +1583,7 @@ section h2 {
                 <h3 style="color:#d72660;" data-aos="fade-up" data-aos-duration="1500">Beauty and Make-up Partner</h3>
                 <div class="partner-tier sponsor-tier">
                     <a href="https://lakmeindia.com/pages/lakme-academy" target="_blank" rel="noopener noreferrer" aria-label="Lakmé Academy" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/lakme.png" alt="Lakme Academy" loading="lazy" onerror="this.src='https://placehold.co/100x50/d72660/ffffff?text=Lakme&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/lakme.png" alt="Lakme Academy" loading="lazy" onerror="this.src='https://placehold.co/100x50/d72660/ffffff?text=Lakme&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                 </div>
             </div>
@@ -1426,7 +1591,7 @@ section h2 {
                 <h3 style="color:#22b14c;" data-aos="fade-up" data-aos-duration="1500">Hospitality Partner</h3>
                 <div class="partner-tier sponsor-tier">
                     <a href="https://hotelamalfigrand.com/" target="_blank" rel="noopener noreferrer" aria-label="Hotel Amalfi Grand" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/amalfi.png" alt="Hotel Amalfi Grand" loading="lazy" onerror="this.src='https://placehold.co/100x50/22b14c/ffffff?text=Amalfi+Grand&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/amalfi.png" alt="Hotel Amalfi Grand" loading="lazy" onerror="this.src='https://placehold.co/100x50/22b14c/ffffff?text=Amalfi+Grand&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                 </div>
             </div>
@@ -1434,7 +1599,7 @@ section h2 {
                 <h3 style="color:#ffb300;" data-aos="fade-up" data-aos-duration="1500">Fashion Show Partner</h3>
                 <div class="partner-tier sponsor-tier">
                     <a href="https://www.instagram.com/priyankas_fashionvilla_/?hl=en/" target="_blank" rel="noopener noreferrer" aria-label="Rajnish Creations" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/priyanka.jpg" alt="Priyanka's Fashionvilla" loading="lazy" onerror="this.src='https://placehold.co/100x50/ffb300/000000?text=Priyankas&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/priyanka.jpg" alt="Priyanka's Fashionvilla" loading="lazy" onerror="this.src='https://placehold.co/100x50/ffb300/000000?text=Priyankas&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                 </div>
             </div>
@@ -1442,7 +1607,7 @@ section h2 {
                 <h3 style="color:#c62828;" data-aos="fade-up" data-aos-duration="1500">Health Partner</h3>
                 <div class="partner-tier sponsor-tier">
                     <a href="https://rubanpatliputrahospital.com/" target="_blank" rel="noopener noreferrer" aria-label="Ruban Health" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/Ruban@logo-with-NABH.png" alt="Ruban Hospital" loading="lazy" onerror="this.src='https://placehold.co/100x50/c62828/ffffff?text=Ruban&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/Ruban@logo-with-NABH.png" alt="Ruban Hospital" loading="lazy" onerror="this.src='https://placehold.co/100x50/c62828/ffffff?text=Ruban&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                 </div>
             </div>
@@ -1450,167 +1615,188 @@ section h2 {
                 <h3 style="color:greenyellow;" data-aos="fade-up" data-aos-duration="1500">Awareness Partner</h3>
                 <div class="partner-tier sponsor-tier">
                     <a href="http://122.252.249.61/BSACS/(S(jmzoogyxvrkjnrim03ovxzkc))/Directory.aspx/" target="_blank" rel="noopener noreferrer" aria-label="BSACS" data-aos="fade-up" data-aos-duration="1500">
-                        <img src="https://storage.cloud.google.com/cerebrexiagallery/images/BSACS.jpg" alt="BSACS" loading="lazy" onerror="this.src='https://placehold.co/100x50/adff2f/000000?text=BSACS&font=exo'; this.alt='Image Placeholder';"/>
+                        <img src="https://storage.googleapis.com/cerebrexia/BSACS.jpg" alt="BSACS" loading="lazy" onerror="this.src='https://placehold.co/100x50/adff2f/000000?text=BSACS&font=exo'; this.alt='Image Placeholder';"/>
                     </a>
                 </div>
             </div>
         </section>
-
-               <section id="major-events" class="content-section" data-aos="fade-up" data-aos-duration="1800">
-                    <h2>Glimpse of Major Events</h2>
-                    <div class="horizontal-scroll-container">
-                        <div class="horizontal-scroll-wrapper">
-                            <a href="events.html" class="event-card-link">
-                                <div class="event-card" data-tilt><img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" alt="Battle of Bands" loading="lazy"><div class="event-title">Battle of Bands</div><div class="view-details">View Details</div></div>
-                            </a>
-                            <a href="events.html" class="event-card-link">
-                                <div class="event-card" data-tilt><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80" alt="Fashion Show" loading="lazy"><div class="event-title">Fashion Show</div><div class="view-details">View Details</div></div>
-                            </a>
-                            <a href="events.html" class="event-card-link">
-                                <div class="event-card" data-tilt><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=fit&crop&w=400&q=80" alt="Group Dance" loading="lazy"><div class="event-title">Group Dance</div><div class="view-details">View Details</div></div>
-                            </a>
-                            <a href="events.html" class="event-card-link">
-                                <div class="event-card" data-tilt><img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Quiz Mania" loading="lazy"><div class="event-title">Quiz Mania</div><div class="view-details">View Details</div></div>
-                            </a>
-                            <a href="events.html" class="event-card-link">
-                                <div class="event-card" data-tilt><img src="https://images.unsplash.com/photo-1468071174046-657d9d351a40?auto=format&fit=crop&w=400&q=80" alt="Solo Singing" loading="lazy"><div class="event-title">Solo Singing</div><div class="view-details">View Details</div></div>
-                            </a>
-                            <a href="events.html" class="event-card-link">
-                                <div class="event-card" data-tilt><img src="https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=crop&w=400&q=80" alt="Stand-up Comedy" loading="lazy"><div class="event-title">Stand-up Comedy</div><div class="view-details">View Details</div></div>
-                            </a>
-                        </div>
-                    </div>
-                </section>
-
-               <section id="pronites" class="content-section" data-aos="fade-up" data-aos-duration="1800">
-                    <h2>Starlit Pronites Await!</h2>
-                    <div class="horizontal-scroll-container">
-                        <div class="horizontal-scroll-wrapper">
-                            <div class="pronite-card" data-tilt><img src="https://i.imgur.com/3GvwNBf.jpg" alt="DJ Night" loading="lazy"><div class="pronite-title">Electrifying DJ Night</div></div>
-                            <div class="pronite-card" data-tilt><img src="https://i.imgur.com/0Z8Y0pM.jpg" alt="Star Night" loading="lazy"><div class="pronite-title">Dazzling Star Night</div></div>
-                            <div class="pronite-card" data-tilt><img src="https://i.imgur.com/3jLPB46.jpg" alt="Celebrity Night" loading="lazy"><div class="pronite-title">Unforgettable Celebrity Night</div></div>
-                            <div class="pronite-card" data-tilt><img src="https://i.imgur.com/3GvwNBf.jpg" alt="Comedy Night" loading="lazy"><div class="pronite-title">Hilarious Comedy Night</div></div>
-                        </div>
-                    </div>
-                </section>
-
-
-        <section id="gallery" class="content-section" data-aos="fade-up">
-            <h2>Event Flashback</h2>
-            <div class="swiper mySwiper">	
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="https://storage.cloud.google.com/cerebrexiagallery/images/Cerebrexia+2020+Event+1.jpg" alt="Cerebrexia Event 1" loading="lazy" onerror="this.src='https://placehold.co/400x220/0d001f/ffffff?text=Gallery+1&font=exo'; this.alt='Image Placeholder';"/></div>
-                    <div class="swiper-slide"><img src="https://storage.cloud.google.com/cerebrexiagallery/images/Ev3RZxgVkAAhV5y.jpg" alt="Cerebrexia Event 2" loading="lazy" onerror="this.src='https://placehold.co/400x220/0d001f/ffffff?text=Gallery+2&font=exo'; this.alt='Image Placeholder';"/></div>
-                    <div class="swiper-slide"><img src="https://storage.cloud.google.com/cerebrexiagallery/images/2523038-cerebrexia-1.jpg" alt="Cerebrexia Event 3" loading="lazy" onerror="this.src='https://placehold.co/400x220/0d001f/ffffff?text=Gallery+3&font=exo'; this.alt='Image Placeholder';"/></div>
-                    <div class="swiper-slide"><img src="https://storage.cloud.google.com/cerebrexiagallery/images/Cerebrexia-IGIMS-Patna.jpg" alt="Cerebrexia Event 4" loading="lazy" onerror="this.src='https://placehold.co/400x220/0d001f/ffffff?text=Gallery+4&font=exo'; this.alt='Image Placeholder';"/></div>
-                    <div class="swiper-slide"><img src="https://storage.cloud.google.com/cerebrexiagallery/images/Cerebrexia+2020+Event+2.jpg" alt="Cerebrexia Event 5" loading="lazy" onerror="this.src='https://placehold.co/400x220/0d001f/ffffff?text=Gallery+5&font=exo'; this.alt='Image Placeholder';"/></div>
-                    <div class="swiper-slide"><img src="https://storage.cloud.google.com/cerebrexiagallery/images/Ev3RZxgVkAAhV5y.jpg" alt="Cerebrexia Event 6" loading="lazy" onerror="this.src='https://placehold.co/400x220/0d001f/ffffff?text=Gallery+6&font=exo'; this.alt='Image Placeholder';"/></div>
-                </div>
-                <div class="swiper-pagination"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div>
-            </div>
-        </section>
-
-        <section id="faqs" class="content-section" data-aos="fade-up">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item"><button class="faq-question" aria-expanded="false">When is CEREBREXIA'25?</button><div class="faq-answer">The fest will be held from 15th to 17th December 2025.</div></div>
-            <div class="faq-item"><button class="faq-question" aria-expanded="false">How can I register?</button><div class="faq-answer">Registration is open online via our official website. Stay tuned for the registration link!</div></div>
-            <div class="faq-item"><button class="faq-question" aria-expanded="false">Is there any participation fee?</button><div class="faq-answer">Most events are free to participate in, but some workshops may have a nominal fee.</div></div>
-            <div class="faq-item"><button class="faq-question" aria-expanded="false">Can I participate in multiple events?</button><div class="faq-answer">Yes, participants can register for multiple events as per their interest.</div></div>
-            <div class="faq-item"><button class="faq-question" aria-expanded="false">Are there any age restrictions?</button><div class="faq-answer">The fest is open to all students currently enrolled in colleges or universities.</div></div>
-            <div class="faq-item"><button class="faq-question" aria-expanded="false">Will certificates be provided?</button><div class="faq-answer">Yes, certificates will be awarded to participants and winners in various categories.</div></div>
-            <div class="faq-item"><button class="faq-question" aria-expanded="false">Is accommodation provided?</button><div class="faq-answer">Accommodation details will be shared closer to the event dates for outstation participants.</div></div>
-        </section>
-		</div> 
-</div> 
-<footer class="site-footer">
-    <div class="footer-diagram-feature" data-aos="fade-up">
-        <div class="footer-diagram-title-wrapper">
-            <div class="footer-diagram-title">
-                <h3>CEREBREXIA VERSE</h3>	
-            </div>
-        </div>
-        <div class="footer-diagram-area">
-            <svg id="footer-tech-diagram-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <defs>
-                    <symbol id="icon-stethoscope" viewBox="0 0 24 24"><path d="M18 3H6c-1.1 0-2 .9-2 2v1H2.5C2.22 6 2 6.22 2 6.5S2.22 7 2.5 7H4v1c0 2.56 1.67 4.72 4 5.66V17H6.5c-.28 0-.5.22-.5.5s.22.5.5.5H8v1.5c0 .28.22.5.5.5s.5-.22.5-.5V18h1v-1.5c0-.98.46-1.85 1.2-2.42.4-.31.87-.58 1.4-.76.4-.14.78-.31 1.13-.51.4-.22.75-.48 1.06-.78.47-.47.81-1.04.99-1.65.04-.15.06-.3.06-.45V6c0-1.1-.9-2-2-2zm-2 3v.09c0 .43-.17.84-.47 1.15-.3.3-.7.46-1.12.46H9.59c-.42 0-.82-.16-1.12-.46-.3-.3-.47-.72-.47-1.15V6h8zm-3.5 10.5c-.28 0-.5.22-.5.5s.22.5.5.5h1.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5h-1.5zM6 9.22C5.07 8.7 4.42 7.77 4.16 6.69 4.06 6.28 4 5.87 4 5.46V5h12v.46c0 .41-.06.82-.16 1.23-.26 1.08-.91 2.01-1.84 2.53-.47.26-.88.6-1.21.99L12 11l-.79-.78c-.33-.39-.74-.73-1.21-.99z"/></symbol>
-                    <symbol id="icon-heart-pulse" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35zM7.5 5C5.52 5 4 6.52 4 8.5c0 2.72 2.65 5.2 6.55 8.58L12 18.17l1.45-1.09C17.35 13.7 20 11.22 20 8.5c0-1.98-1.52-3.5-3.5-3.5-1.74 0-3.41.81-4.5 2.09C10.91 5.81 9.24 5 7.5 5zm13.21-1.21L19.5 5l-1.71 1.71-1.21-1.21-1.21 1.21L14.17 5l-1.21 1.21-1.21-1.21-1.21 1.21-1.21-1.21L6.5 5 4.79 3.79 3.58 5l1.21 1.21 1.21-1.21L7.17 5l1.21 1.21 1.21-1.21 1.21 1.21 1.21-1.21L13.5 5l1.71 1.71 1.21-1.21 1.21 1.21 1.71-1.71z"/></symbol>
-                    <symbol id="icon-dna-helix" viewBox="0 0 24 24"><path d="M14.5 4c1.08 0 1.96.92 1.96 2.05 0 .2-.04.39-.09.58l-1.4 5.37h.01c.7-.62 1.12-1.51 1.12-2.5 0-1.77-1.31-3.22-3-3.46V4m-5 0v2.04c-1.69.24-3 1.69-3 3.46 0 .99.42 1.88 1.12 2.5h.01L6.63 6.63c-.05-.19-.09-.38-.09-.58C6.54 4.92 7.42 4 8.5 4M12 9c.83 0 1.5.67 1.5 1.5S12.83 12 12 12s-1.5-.67-1.5-1.5S11.17 9 12 9m2.5 6c-1.08 0-1.96-.92-1.96-2.05 0-.2.04-.39.09-.58l1.4-5.37h-.01c-.7.62-1.12 1.51-1.12 2.5 0 1.77 1.31 3.22 3 3.46V15m-5 0v-2.04c1.69-.24 3-1.69 3-3.46 0-.99-.42-1.88-1.12-2.5h-.01l1.41 5.37c.05.19.09.38.09.58 0 1.13-.88 2.05-1.96 2.05M12 17c-.83 0-1.5-.67-1.5-1.5S11.17 14 12 14s1.5.67 1.5 1.5S12.83 17 12 17m0-10c.28 0 .5.22.5.5V9h-.02c-.93-.24-1.9-.24-2.96 0H9V7.5c0-.28.22-.5.5-.5h.58c.95 0 1.85-.14 2.67-.37l.08-.02c.05-.01.1-.01.16-.01zm0 8c-.28 0-.5-.22-.5-.5V15h.02c.93.24 1.9.24 2.96 0H15v1.5c0 .28-.22.5-.5.5h-.58c-.95 0-1.85.14-2.67.37l-.08.02c-.05.01-.1.01-.16-.01z"/></symbol>
-                    <symbol id="icon-microscope" viewBox="0 0 24 24"><path d="M16.5 6c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05H10V3H8v3H6.5c-1.13 0-2.05.92-2.05 2.05V10H3v2h1.45V10c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6H8v2h1V8.05c0-.64.29-1.21.76-1.6.47-.39 1.05-.6 1.69-.6h1.05v1.95H13v-2h1.5c.64 0 1.22.21 1.69.6.47.39.76.96.76 1.6V12h1.45v-2H16.5V8.05A2.5 2.5 0 0014.5 6h-2c-1.08 0-2 .92-2 2.05V10h-1V8.05c0-1.13-.92-2.05-2-2.05S6.5 6.92 6.5 8.05V10H3v2h1.45V10A2.5 2.5 0 016.5 7.5H8v2h1V7.5A2.5 2.5 0 0111.5 5h1A2.5 2.5 0 0115 7.5V10h1.45v-2H16.5V8.05A2.5 2.5 0 0014.5 6M12 13c-1.93 0-3.5 1.57-3.5 3.5V21h7v-4.5c0-1.93-1.57-3.5-3.5-3.5zm0 1c1.38 0 2.5 1.12 2.5 2.5V20h-5v-3.5c0-1.38 1.12-2.5 2.5-2.5z"/></symbol>
-                    <symbol id="icon-rod-of-asclepius" viewBox="0 0 24 24"><path d="M13.82 5.32c-.93-.89-2.18-1.32-3.48-1.32s-2.55.43-3.48 1.32C6 6.21 5.61 7.42 5.61 8.77c0 1.35.39 2.56 1.28 3.45.93.89 2.18 1.32 3.48 1.32s2.55-.43 3.48-1.32c.89-.89 1.28-2.1 1.28-3.45 0-1.35-.39-2.56-1.28-3.45M10.34 12c-1.31 0-2.4-.48-3.17-1.29-.77-.81-1.17-1.85-1.17-3.04 0-1.19.4-2.23 1.17-3.04.77-.81 1.86-1.29 3.17-1.29 1.31 0 2.4.48 3.17 1.29.77.81 1.17 1.85 1.17 3.04 0 1.19-.4 2.23-1.17 3.04-.77.81-1.86 1.29-3.17 1.29m.16 1.5c.34 0 .67.03.99.08v.02c.69.1 1.35.31 1.95.61l.01.01c.29.15.57.32.83.51l.01.01c.22.16.43.34.62.53l.01.01c.14.14.27.29.39.45l.01.01c.09.12.17.24.24.37.2.35.35.73.43 1.13l.01.06v.01c.04.22.06.44.06.67v2.09c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-1.88c0-.47-.15-.92-.43-1.28-.1-.13-.21-.25-.33-.36-.18-.17-.38-.32-.6-.45-.29-.18-.6-.33-.93-.45-.48-.18-1-.29-1.53-.33h-.01c-.18-.01-.36-.02-.54-.02s-.36.01-.54.02h-.01c-.53.04-1.05.15-1.53.33-.33.12-.64.27-.93.45-.22.13-.42.28-.6.45-.12.11-.23.23-.33.36-.28.36-.43.81-.43 1.28v1.88c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-2.09c0-.23.02-.45.06-.67v-.01l.01-.06c.08-.4.23-.78.43-1.13.07-.13.15-.25.24-.37l.01-.01c.12-.16.25-.31.39-.45l.01-.01c.19-.19.4-.37.62-.53l.01-.01c.26-.19.54-.36.83-.51l.01-.01c.6-.3 1.26-.51 1.95-.61v-.02c.32-.05.65-.08.99-.08z"/></symbol>
-                    <symbol id="icon-brain" viewBox="0 0 24 24"><path d="M12 2C9.46 2 7.24 3.22 6 5.06c-1.01 1.52-1.59 3.29-1.59 5.11S4.99 13.67 6 15.2c.47.6 1.02 1.12 1.63 1.56.04.03.09.06.13.09C8.32 17.27 9 17.58 9 18.22V19c0 .94.44 1.79 1.15 2.36.05.04.1.08.15.12.72.54 1.79.62 2.7.62.91 0 1.98-.08 2.7-.62.05-.04.1-.08.15-.12.71-.57 1.15-1.42 1.15-2.36v-.78c0-.64.68-.95 1.24-1.37.04-.03.09-.06.13-.09.61-.44 1.16-.96 1.63-1.56 1.01-1.52 1.59-3.29 1.59-5.11S19.01 6.58 18 5.06C16.76 3.22 14.54 2 12 2m4.1 13.6c-.3.35-.65.66-1.02.93-.05.04-.1.07-.15.1-.73.53-1.13 1.28-1.13 2.15v.72c0 .41-.17.78-.45 1.04-.03.02-.06.04-.09.06-.37.28-.9.4-1.36.4s-.99-.12-1.36-.4c-.03-.02-.06-.04-.09-.06-.28-.26-.45-.63-.45-1.04v-.72c0-.87-.4-1.62-1.13-2.15-.05-.03-.1-.06-.15-.1-.37-.26-.72-.58-1.02-.93C7.21 14.07 7 12.87 7 11.63c0-1.29.28-2.55.82-3.66.44-.92 1.07-1.72 1.86-2.37.6-.48 1.29-.8 2.03-.95.73-.15 1.48-.15 2.21 0 .75.15 1.43.47 2.03.95.79.65 1.42 1.45 1.86 2.37.54 1.11.82 2.37.82 3.66 0 1.24-.21 2.44-.6 3.47m-2.1-5.1c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16m-4 0c0-.83-.67-1.5-1.5-1.5S9 9.67 9 10.5c0 .46.21.88.55 1.16-.48.24-.8.75-.8 1.34 0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.59-.32-1.1-.8-1.34.34-.28.55-.7.55-1.16z"/></symbol>
-                    <symbol id="icon-medical-plus" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></symbol>
-                    <symbol id="icon-atom" viewBox="0 0 24 24"><path d="M12 2c-2.36 0-4.48.77-6.23 2.11l1.01 1.74C8.04 4.79 9.92 4 12 4s3.96.79 5.22 1.85l1.01-1.74C16.48 2.77 14.36 2 12 2m0 16c-2.08 0-3.96-.79-5.22-1.85l-1.01 1.74c1.75 1.34 3.87 2.11 6.23 2.11s4.48-.77 6.23-2.11l-1.01-1.74c-1.26 1.06-3.14 1.85-5.22 1.85M5.92 7.32C4.79 8.58 4 10.27 4 12s.79 3.42 1.92 4.68l1.74-1.01C6.79 14.4 6 13.29 6 12s.79-2.4 1.66-3.67l-1.74-1.01M18.08 7.32l-1.74 1.01C17.21 9.6 18 10.71 18 12s-.79 2.4-1.66 3.67l1.74 1.01C19.21 15.42 20 13.73 20 12s-.79-3.42-1.92-4.68M12 7a5 5 0 100 10 5 5 0 000-10m0 2a3 3 0 110 6 3 3 0 010-6z"/></symbol>
-                    <symbol id="icon-test-tube" viewBox="0 0 24 24"><path d="M7 2v11.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V6h2v9.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V2H7zm10 0v2h-2V2h2zm-2 4h2v2h-2V6zm2 4h-2v2h2v-2zM6 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm8-13.22L12.78 7H14v1h-2.22L10.56 9H12v1h-2.44L8.34 11H10v1H8v1h1.78l1.22 1H18V2h-4v3.78zM16 11h-1.11l-.89-1H16v1zm0-2h-2.22l-.89-1H16v1zm0-2h-3.33l-.89-1H16v1z"/></symbol>
-                    <symbol id="icon-sparkle" viewBox="0 0 24 24"><path d="M12 2l1.5 4.5h4.5l-3.5 3 1.5 5-4.5-3.5-4.5 3.5 1.5-5-3.5-3h4.5L12 2z"/></symbol>
-                    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                        <feMerge> <feMergeNode in="coloredBlur"/> <feMergeNode in="SourceGraphic"/> </feMerge>
-                    </filter>
-                </defs>
-                <line class="svg-line" x1="300" y1="200" x2="150" y2="80" /><line class="svg-line" x1="300" y1="200" x2="80" y2="200" /><line class="svg-line" x1="300" y1="200" x2="150" y2="320" /><line class="svg-line" x1="300" y1="200" x2="450" y2="80" /><line class="svg-line" x1="300" y1="200" x2="520" y2="200" /><line class="svg-line" x1="300" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="80" y2="200" /><line class="svg-line" x1="80" y1="200" x2="150" y2="320" /><line class="svg-line" x1="450" y1="80" x2="520" y2="200" /><line class="svg-line" x1="520" y1="200" x2="450" y2="320" /><line class="svg-line" x1="150" y1="80" x2="300" y2="50" /><line class="svg-line" x1="450" y1="80" x2="300" y2="50" /><line class="svg-line" x1="150" y1="320" x2="230" y2="360" /><line class="svg-line" x1="450" y1="320" x2="370" y2="360" />
-                <circle class="svg-circle-bg" cx="300" cy="200" r="70"/><circle class="svg-circle-border" cx="300" cy="200" r="70" filter="url(#glow)"/><text class="svg-text-main" x="300" y="190" font-size="14px">CONNECTING</text><text class="svg-text-main" x="300" y="210" font-size="14px">MEDICS</text><text class="svg-text-arrows" x="300" y="155">↑</text> <text class="svg-text-arrows" x="300" y="245">↓</text><text class="svg-text-arrows" x="255" y="200">←</text> <text class="svg-text-arrows" x="345" y="200">→</text><text class="svg-text-arrows" transform="translate(268 168) rotate(-45)" >↖</text><text class="svg-text-arrows" transform="translate(332 168) rotate(45)">↗</text><text class="svg-text-arrows" transform="translate(268 232) rotate(45)">↙</text><text class="svg-text-arrows" transform="translate(332 232) rotate(-45)">↘</text>
-                <g transform="translate(150, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-stethoscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
-                <g transform="translate(80, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-heart-pulse" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
-                <g transform="translate(150, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-dna-helix" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
-                <g transform="translate(450, 80)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-microscope" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
-                <g transform="translate(520, 200)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-rod-of-asclepius" width="38" height="38" x="-19" y="-19" class="svg-icon"/></g>
-                <g transform="translate(450, 320)"><circle class="svg-circle-bg" r="35"/><circle class="svg-circle-border" r="35" filter="url(#glow)"/><use xlink:href="#icon-brain" width="40" height="40" x="-20" y="-20" class="svg-icon"/></g>
-                <g transform="translate(300, 50)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-medical-plus" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
-                <g transform="translate(230, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-atom" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
-                <g transform="translate(370, 360)"><circle class="svg-circle-bg" r="25"/><circle class="svg-circle-border" r="25" filter="url(#glow)"/><use xlink:href="#icon-test-tube" width="30" height="30" x="-15" y="-15" class="svg-icon"/></g>
-                <g transform="translate(80, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
-                <g transform="translate(520, 120)"><circle class="svg-circle-bg" r="20"/><circle class="svg-circle-border" r="20" filter="url(#glow)"/><use xlink:href="#icon-sparkle" width="25" height="25" x="-12.5" y="-12.5" class="svg-icon"/></g>
-                <circle class="svg-node-dot" cx="300" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="150" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="80" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="200" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="450" cy="320" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="300" cy="50" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="230" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="370" cy="360" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="80" cy="120" r="3" filter="url(#glow)"/><circle class="svg-node-dot" cx="520" cy="120" r="3" filter="url(#glow)"/>
-            </svg>
-        </div>
-        <p class="footer-diagram-tagline">
-            Back again to make you guys vibe, Get stress free and enjoy the fest to its fullest
-        </p>
-        <a href="mailto:info@cerebrexia25.com" class="footer-diagram-contact-button">CONTACT ORGANIZERS</a>
     </div>
 
+    <!-- --- CHAIRMAN'S TESTIMONIAL SECTION --- -->
+    <section id="testimonial-section" class="content-section" data-aos="fade-up">
+        <div class="container">
+            <div class="testimonial-content">
+                <img src="https://picsum.photos/seed/chairman/200" alt="Chairman's Photo" class="testimonial-photo">
+                <div class="testimonial-text">
+                    <p>"Cerebrexia is more than just a fest; it's a vibrant platform where creativity meets intellect, and passion finds its stage. It embodies the spirit of our institution—striving for excellence while fostering a community of collaboration and innovation. I am immensely proud to witness our students orchestrate an event of this magnitude. My best wishes to the organizing committee and all participants."</p>
+                    <div class="testimonial-author">
+                        Dr. Ashutosh Biswas
+                        <span>Director, IGIMS Patna</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- JOURNEY OF CEREBREXIA (NEURAL NETWORK DESIGN) --- -->
+    <section id="journey-section" class="content-section">
+        <div class="container">
+            <h2>The Journey of CEREBREXIA</h2>
+            <div class="journey-constellation" data-aos="zoom-in">
+                <svg class="journey-constellation-bg" viewbox="0 0 1100 600" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="synapse-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#ff00ff;stop-opacity:0.8" />
+                            <stop offset="50%" style="stop-color:#f9c74f;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#00ffff;stop-opacity:0.8" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Line from 2017 to 2023 -->
+                    <line x1="22%" y1="15%" x2="35%" y2="65%" stroke="url(#synapse-gradient)" stroke-width="2" stroke-dasharray="5 5" />
+                    <!-- Line from 2023 to 2024 -->
+                    <line x1="35%" y1="65%" x2="75%" y2="25%" stroke="url(#synapse-gradient)" stroke-width="2" stroke-dasharray="5 5" />
+                     <!-- Line from 2024 to 2025 -->
+                    <line x1="75%" y1="25%" x2="80%" y2="70%" stroke="url(#synapse-gradient)" stroke-width="2" stroke-dasharray="5 5" />
+                </svg>
+
+                <div id="node-2017" class="journey-node" data-aos="zoom-in-up" data-aos-delay="100">
+                    <div class="journey-node-core">
+                        <div class="journey-node-year">2017</div>
+                        <i class="fas fa-seedling journey-node-icon"></i>
+                    </div>
+                    <div class="journey-node-content">
+                        <h3>The Genesis</h3>
+                        <p>The first edition was born from our seniors' vision, laying the foundation for a legacy of culture and talent.</p>
+                    </div>
+                </div>
+
+                <div id="node-2023" class="journey-node" data-aos="zoom-in-up" data-aos-delay="200">
+                    <div class="journey-node-core">
+                        <div class="journey-node-year">2023</div>
+                        <i class="fas fa-fire journey-node-icon"></i>
+                    </div>
+                    <div class="journey-node-content">
+                        <h3>The Revival</h3>
+                        <p>After a pandemic-induced hiatus, the 2020 batch resurrected Cerebrexia's spirit with immense effort.</p>
+                    </div>
+                </div>
+
+                <div id="node-2024" class="journey-node" data-aos="zoom-in-up" data-aos-delay="300">
+                    <div class="journey-node-core">
+                        <div class="journey-node-year">2024</div>
+                        <i class="fas fa-rocket journey-node-icon"></i>
+                    </div>
+                    <div class="journey-node-content">
+                        <h3>Raising the Bar</h3>
+                        <p>Our immediate seniors elevated the fest to new heights, setting a new benchmark for excellence.</p>
+                    </div>
+                </div>
+
+                <div id="node-2025" class="journey-node" data-aos="zoom-in-up" data-aos-delay="400">
+                    <div class="journey-node-core">
+                        <div class="journey-node-year">2025</div>
+                        <i class="fas fa-star journey-node-icon"></i>
+                    </div>
+                    <div class="journey-node-content">
+                        <h3>The Spectacle</h3>
+                        <p>This year, we are committed to creating the most spectacular edition yet, an experience like never before!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- STATS SECTION --- -->
+    <section id="stats-section" class="content-section">
+        <div class="container">
+            <h2>The Connection</h2>
+            <div class="stats-grid">
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-university stat-icon"></i>
+                    <div class="stat-number" data-target="50">0</div>
+                    <div class="stat-label">Colleges</div>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-calendar-alt stat-icon"></i>
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">Events</div>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-users stat-icon"></i>
+                    <div class="stat-number" data-target="10000">0</div>
+                    <div class="stat-label">Participants</div>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-shoe-prints stat-icon"></i>
+                    <div class="stat-number" data-target="50000">0</div>
+                    <div class="stat-label">Footfall</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- NEW FAQ SECTION --- -->
+    <section id="faqs-new" class="content-section" data-aos="fade-up">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-entry"><button class="faq-question" aria-expanded="false">When is CEREBREXIA'25? <i class="fas fa-plus faq-icon"></i></button><div class="faq-answer"><p>The fest will be held from 15th to 17th December 2025.</p></div></div>
+            <div class="faq-entry"><button class="faq-question" aria-expanded="false">How can I register? <i class="fas fa-plus faq-icon"></i></button><div class="faq-answer"><p>Registration is open online via our official website. Click on the "Register" button in the menu or the "Delegate Registration" button on the homepage.</p></div></div>
+            <div class="faq-entry"><button class="faq-question" aria-expanded="false">Is there any participation fee? <i class="fas fa-plus faq-icon"></i></button><div class="faq-answer"><p>Most events are free to participate in, but some workshops may have a nominal fee.</p></div></div>
+            <div class="faq-entry"><button class="faq-question" aria-expanded="false">Can I participate in multiple events? <i class="fas fa-plus faq-icon"></i></button><div class="faq-answer"><p>Yes, participants can register for multiple events as per their interest.</p></div></div>
+            <div class="faq-entry"><button class="faq-question" aria-expanded="false">Are there any age restrictions? <i class="fas fa-plus faq-icon"></i></button><div class="faq-answer"><p>The fest is open to all students currently enrolled in colleges or universities.</p></div></div>
+            <div class="faq-entry"><button class="faq-question" aria-expanded="false">Will certificates be provided? <i class="fas fa-plus faq-icon"></i></button><div class="faq-answer"><p>Yes, certificates will be awarded to participants and winners in various categories.</p></div></div>
+            <div class="faq-entry"><button class="faq-question" aria-expanded="false">Is accommodation provided? <i class="fas fa-plus faq-icon"></i></button><div class="faq-answer"><p>Accommodation details will be shared closer to the event dates for outstation participants.</p></div></div>
+        </div>
+    </section>
+</div>	
+
+<footer class="site-footer">
     <div class="footer-container-new">
-        <div class="footer-section-new">
-            <h3 class="footer-heading-new">Connect</h3>
-            <ul class="footer-social-icons-new"> <li><a href="https://www.instagram.com/igimsfest/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a></li>
-            <li><a href="https://whatsapp.com/channel/0029VbA0P20HbFV2ke5rlR2G" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Channel" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a></li>
+        <div class="footer-section-new footer-about">
+            <h3>About CEREBREXIA</h3>
+            <p>The electrifying annual fest of IGIMS Patna! A confluence of talent, culture, and unforgettable moments. Join us to celebrate creativity and innovation.</p>
+            <ul class="footer-social-icons-new">
+                <li><a href="https://www.instagram.com/igimsfest/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="https://whatsapp.com/channel/0029VbA0P20HbFV2ke5rlR2G" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Channel" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a></li>
+                <li><a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="Youtube Channel" title="Youtube Channel"><i class="fab fa-youtube"></i></a></li>
             </ul>
         </div>
-
         <div class="footer-section-new">
-            <h3 class="footer-heading-new">Quick Links</h3>
-            <ul class="footer-quick-links-list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="events.html">Events</a></li>
-            <li><a href="schedule.html">Schedule</a></li>
-            <li><a href="pronite.html">Pronites</a></li>
-            <li><a href="#" class="team-link">Team</a></li>	
-            <li><a href="accommodation.html">Accommodation</a></li>
-            <li><a href="register.html">Delegate Registration</a></li>
-            <li><a href="#" class="policy-link" data-policy="privacy">Privacy Policy</a></li>	
-            <li><a href="#" class="policy-link" data-policy="terms">Terms of Service</a></li>	
-            <li><a href="#" class="policy-link" data-policy="code">Code of Conduct</a></li>	
+            <h3>Useful Links</h3>
+            <ul class="footer-links-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="schedule.html">Schedule</a></li>
+                <li><a href="register.html">Basic Registration</a></li>
+                <li><a href="#" class="team-link">Meet The Team</a></li>	
             </ul>
         </div>
-
         <div class="footer-section-new">
-            <h3 class="footer-heading-new">Contact</h3>
+            <h3>Policies</h3>
+            <ul class="footer-links-list">
+                <li><a href="#" class="policy-link" data-policy="privacy">Privacy Policy</a></li>
+                <li><a href="#" class="policy-link" data-policy="terms">Terms & Conditions</a></li>
+                <li><a href="#" class="policy-link" data-policy="code">Code of Conduct</a></li>
+                <li><a href="#" class="policy-link" data-policy="refund">Refund Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-section-new">
+            <h3>Contact Info</h3>
             <div class="footer-contact-info">
-            <p>Email: <a href="mailto:info@cerebrexia25.com">info@cerebrexia25.com</a></p>
-            <p>PANKAJ : <a href="tel:+917541054474">+91 75410 54474</a></p>	
-            <p>DIVYAM: <a href="tel:+919123456789">+91 91234 56789</a></p>
-            <p style="margin-top:15px;">IGIMS Patna Campus,<br/>Sheikhpura, Patna, Bihar - 800014</p>
+                <p><i class="fas fa-map-marker-alt"></i>IGIMS Patna, Sheikhpura, Bihar</p>
+                <p><i class="fas fa-envelope"></i><a href="mailto:info@cerebrexia25.com">info@cerebrexia25.com</a></p>
+                <p><i class="fas fa-phone"></i><a href="tel:+911234567890">+91 12345 67890</a></p>	
             </div>
         </div>
     </div>
     <div class="footer-bottom-new">
-        <p>&copy; 2025 CEREBREXIA'25 - IGIMS Patna. All Rights Reserved.</p>
+        <p>© 2025 CEREBREXIA'25 - IGIMS Patna. All Rights Reserved.</p>
     </div>
 </footer>
 
 <div id="policyModal">
     <div class="modal-content">
-        <button class="modal-close-btn">&times;</button>
+        <button class="modal-close-btn">×</button>
         <h2 class="modal-title" id="modalTitle"></h2>
         <div class="modal-body" id="modalBody"></div>
     </div>
@@ -1618,456 +1804,330 @@ section h2 {
 
 <div id="teamModal">
     <div class="modal-content">
-        <button class="modal-close-btn" id="teamModalCloseBtn">&times;</button>
+        <button class="modal-close-btn" id="teamModalCloseBtn">×</button>
         <h2 class="modal-title">Meet Our Team</h2>
-        <div class="team-grid" id="teamGrid">
-            </div>
+        <div class="team-grid" id="teamGrid"></div>
     </div>
 </div>
 
+<button class="scroll-top-btn"><i class="fas fa-arrow-up"></i></button>
+
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-AOS.init({
-    duration: 1200,
-    once: false,
-    mirror: true
-});
+document.addEventListener('DOMContentLoaded', () => {
 
-VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-    max: 15,
-    speed: 400,
-    glare: true,
-    "max-glare": 0.5
-});
-
-document.querySelectorAll('.flip-card').forEach(card => {
-    card.addEventListener('click', (event) => {
-        if (event.target.closest('.card-back-button')) {
-            return;
-        }
-        card.classList.toggle('is-flipped');
+    AOS.init({
+        duration: 1000,	
+        once: true,	   
+        mirror: false
     });
-    const backButton = card.querySelector('.card-back-button');
-    if (backButton) {
-        backButton.addEventListener('click', (event) => {
-            event.stopPropagation();
-            card.classList.remove('is-flipped');
-        });
-    }
-});
 
-if (document.querySelector('#gallery .mySwiper')) {
-    const gallerySwiper = new Swiper('#gallery .mySwiper', {
-        slidesPerView: 3,
-        spaceBetween: 30,
-        loop: true,
-        pagination: {
-            el: '#gallery .swiper-pagination',
-            clickable: true,
-        },
-        navigation: {
-            nextEl: '#gallery .swiper-button-next',
-            prevEl: '#gallery .swiper-button-prev',
-        },
-        autoplay: {
-            delay: 3500,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 15
-            },
-            640: {
-                slidesPerView: 2,
-                spaceBetween: 20
-            },
-            960: {
-                slidesPerView: 3,
-                spaceBetween: 30
-            },
-        },
-    });
-}
-
-document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
-        const answer = button.nextElementSibling;
-        const isActive = button.classList.contains('active');
-        document.querySelectorAll('.faq-question.active').forEach(activeButton => {
-            if (activeButton !== button) {
-                activeButton.classList.remove('active');
-                activeButton.nextElementSibling.classList.remove('open');
-                activeButton.setAttribute('aria-expanded', 'false');
-            }
-        });
-        if (isActive) {
-            button.classList.remove('active');
-            answer.classList.remove('open');
-            button.setAttribute('aria-expanded', 'false');
-        } else {
-            button.classList.add('active');
-            answer.classList.add('open');
-            button.setAttribute('aria-expanded', 'true');
-        }
-    });
-});
-
-let lastScrollTop = 0;
-const header = document.querySelector('header');
-if (header) {
-    window.addEventListener('scroll', () => {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        if (scrollTop > lastScrollTop && scrollTop > header.offsetHeight) {
-            header.classList.add('hidden');
-            header.classList.remove('visible');
-        } else {
-            header.classList.remove('hidden');
-            header.classList.add('visible');
-        }
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-    });
-}
-
-const eventDate = new Date('2025-12-15T09:00:00');
-
-
-function updateMatrixCountdown() {
-    const now = new Date();
-    let diff = eventDate - now;
-    if (diff < 0) diff = 0;
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-    const cdDays = document.getElementById('cd-days');
-    const cdHours = document.getElementById('cd-hours');
-    const cdMinutes = document.getElementById('cd-minutes');
-    const cdSeconds = document.getElementById('cd-seconds');
-    if (cdDays) cdDays.textContent = String(days).padStart(2, '0');
-    if (cdHours) cdHours.textContent = String(hours).padStart(2, '0');
-    if (cdMinutes) cdMinutes.textContent = String(minutes).padStart(2, '0');
-    if (cdSeconds) cdSeconds.textContent = String(seconds).padStart(2, '0');
-}
-if (document.getElementById('cd-days')) {
-    setInterval(updateMatrixCountdown, 1000);
-    updateMatrixCountdown();
-}
-
-const newMenuToggleButton = document.getElementById('newMenuToggleButton');
-const fullScreenNav = document.getElementById('fullScreenNav');
-const mainBody = document.body;
-const navCloseButton = document.getElementById('navCloseButton');
-if (newMenuToggleButton && fullScreenNav && navCloseButton) {
-    newMenuToggleButton.addEventListener('click', () => {
-        const isExpanded = newMenuToggleButton.getAttribute('aria-expanded') === 'true' || false;
-        newMenuToggleButton.setAttribute('aria-expanded', String(!isExpanded));
-        newMenuToggleButton.classList.toggle('open');
-        fullScreenNav.classList.toggle('active');
-        mainBody.style.overflow = fullScreenNav.classList.contains('active') ? 'hidden' : '';
-    });
-    navCloseButton.addEventListener('click', () => {
-        newMenuToggleButton.setAttribute('aria-expanded', 'false');
-        newMenuToggleButton.classList.remove('open');
-        fullScreenNav.classList.remove('active');
-        mainBody.style.overflow = '';
-    });
-    fullScreenNav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            if (fullScreenNav.classList.contains('active')) {
-                if (link.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    newMenuToggleButton.click();
-                    setTimeout(() => {
-                        const targetElement = document.querySelector(link.getAttribute('href'));
-                        if (targetElement) {
-                            targetElement.scrollIntoView({
-                                behavior: 'smooth'
-                            });
-                        }
-                    }, 500);
+    document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+            const entry = button.parentElement;
+            const isActive = entry.classList.contains('active');
+            document.querySelectorAll('.faq-entry.active').forEach(activeEntry => {
+                if (activeEntry !== entry) {
+                    activeEntry.classList.remove('active');
+                    activeEntry.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
                 }
+            });
+            if (isActive) {
+                entry.classList.remove('active');
+                button.setAttribute('aria-expanded', 'false');
+            } else {
+                entry.classList.add('active');
+                button.setAttribute('aria-expanded', 'true');
             }
         });
     });
-}
 
-const scrollTopBtn = document.querySelector('.scroll-top-btn');
-if (scrollTopBtn) {
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > window.innerHeight / 2) {
-            scrollTopBtn.classList.add('show');
-        } else {
-            scrollTopBtn.classList.remove('show');
+    let lastScrollTop = 0;
+    const header = document.querySelector('header');
+    if (header) {
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            if (scrollTop > lastScrollTop && scrollTop > header.offsetHeight) {
+                header.classList.add('hidden');
+                header.classList.remove('visible');
+            } else {
+                header.classList.remove('hidden');
+                header.classList.add('visible');
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        }, { passive: true });
+    }
+
+    const eventDate = new Date('2024-12-20T09:00:00');
+    function updateMatrixCountdown() {
+        const now = new Date();
+        let diff = eventDate - now;
+        if (diff < 0) diff = 0;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+        const cdDays = document.getElementById('cd-days');
+        const cdHours = document.getElementById('cd-hours');
+        const cdMinutes = document.getElementById('cd-minutes');
+        const cdSeconds = document.getElementById('cd-seconds');
+        if (cdDays) cdDays.textContent = String(days).padStart(2, '0');
+        if (cdHours) cdHours.textContent = String(hours).padStart(2, '0');
+        if (cdMinutes) cdMinutes.textContent = String(minutes).padStart(2, '0');
+        if (cdSeconds) cdSeconds.textContent = String(seconds).padStart(2, '0');
+    }
+    if (document.getElementById('cd-days')) {
+        setInterval(updateMatrixCountdown, 1000);
+        updateMatrixCountdown();
+    }
+
+    const newMenuToggleButton = document.getElementById('newMenuToggleButton');
+    const fullScreenNav = document.getElementById('fullScreenNav');
+    const mainBody = document.body;
+    const navCloseButton = document.getElementById('navCloseButton');
+    if (newMenuToggleButton && fullScreenNav && navCloseButton) {
+        const toggleNav = () => {
+            const isExpanded = newMenuToggleButton.getAttribute('aria-expanded') === 'true';
+            newMenuToggleButton.setAttribute('aria-expanded', String(!isExpanded));
+            newMenuToggleButton.classList.toggle('open');
+            fullScreenNav.classList.toggle('active');
+            mainBody.style.overflow = fullScreenNav.classList.contains('active') ? 'hidden' : '';
+        };
+        newMenuToggleButton.addEventListener('click', toggleNav);
+        navCloseButton.addEventListener('click', toggleNav);
+        
+        fullScreenNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (fullScreenNav.classList.contains('active')) {
+                    const href = link.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        toggleNav();
+                        setTimeout(() => {
+                            const targetElement = document.querySelector(href);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        }, 500); 
+                    } else {
+                         toggleNav();
+                    }
+                }
+            });
+        });
+    }
+
+    const scrollTopBtn = document.querySelector('.scroll-top-btn');
+    if (scrollTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > window.innerHeight / 2) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        }, { passive: true });
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+    
+    // --- EVENT FILTERING LOGIC ---
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const eventCards = document.querySelectorAll('.event-card-new');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            const filter = button.getAttribute('data-filter');
+            eventCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                if (filter === 'all' || filter === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+    // --- STATS COUNTER ANIMATION ---
+    const statsSection = document.getElementById('stats-section');
+    const statNumbers = document.querySelectorAll('.stat-number');
+    
+    const startCounter = (el) => {
+        const target = +el.getAttribute('data-target');
+        const duration = 2000;
+        let current = 0;
+        const increment = target / (duration / 16);
+
+        const updateCount = () => {
+            current += increment;
+            if (current < target) {
+                el.innerText = Math.ceil(current).toLocaleString();
+                requestAnimationFrame(updateCount);
+            } else {
+                el.innerText = target.toLocaleString() + '+';
+            }
+        };
+        updateCount();
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                statNumbers.forEach(startCounter);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+
+
+    // Modal Logic (Policy and Team)
+    const policyModal = document.getElementById('policyModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const policyModalCloseBtn = policyModal.querySelector('.modal-close-btn');
+
+    const policyContent = {
+        privacy: {
+            title: "Privacy Policy",
+            body: `<h3>Welcome to CEREBREXIA'25 Privacy Policy!</h3><p>At CEREBREXIA'25, we are committed to protecting your privacy. This policy explains how we collect, use, and safeguard your personal information during your interaction with our fest website and participation in our events.</p><h3>Information We Collect</h3><ul><li><strong>Registration Data:</strong> When you register for events, we collect information such as your name, email address, phone number, college/university, and course.</li><li><strong>Participation Data:</strong> Information related to your event participation, such as event choices, attendance, and performance results.</li><li><strong>Voluntary Information:</strong> Any other information you choose to provide, such as feedback, survey responses, or communication preferences.</li></ul><h3>How We Use Your Information</h3><p>Your information is used for:</p><ul><li>Processing your registrations and managing your participation in events.</li><li>Communicating with you regarding event schedules, updates, and results.</li><li>Improving the fest experience and website functionality.</li><li>Internal analytics and reporting to enhance future events.</li></ul><h3>Data Sharing and Security</h3><p>We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties. We implement various security measures to maintain the safety of your personal information when you enter, submit, or access your personal information.</p><h3>Your Consent</h3><p>By using our site and participating in our events, you consent to our privacy policy.</p><p>If you have any questions, please contact us at info@cerebrexia25.com.</p>`
+        },
+        terms: {
+            title: "Terms & Conditions",
+            body: `<h3>Welcome to CEREBREXIA'25 Terms & Conditions!</h3><p>These terms govern your use of the CEREBREXIA'25 website and your participation in any fest events. By accessing our website or registering for events, you agree to comply with these terms.</p><h3>Eligibility</h3><p>CEREBREXIA'25 is open to college and university students. Specific events may have additional eligibility criteria as specified in their descriptions.</p><h3>Registration and Participation</h3><ul><li>All participants must register through the official website.</li><li>Participants are responsible for providing accurate and complete information during registration.</li><li>Adherence to event-specific rules and guidelines is mandatory.</li><li>The organizing committee reserves the right to disqualify participants for misconduct or violation of rules.</li></ul><h3>Content and Conduct</h3><p>Participants are expected to maintain respectful and appropriate conduct throughout the fest. Any form of harassment, discrimination, or unlawful activity will not be tolerated and may lead to immediate disqualification and removal from the premises.</p><h3>Intellectual Property</h3><p>All content on this website, including logos, graphics, and text, are the property of CEREBREXIA'25 or its licensors. Unauthorized use is prohibited.</p><h3>Changes to Terms</h3><p>CEREBREXIA'25 reserves the right to modify these terms at any time. Updates will be posted on this page.</p><p>Your continued participation signifies your acceptance of any changes.</p>`
+        },
+        code: {
+            title: "Code of Conduct",
+            body: `<h3>CEREBREXIA'25 Code of Conduct</h3><p>CEREBREXIA'25 is dedicated to providing a safe, inclusive, and welcoming experience for everyone, regardless of gender, sexual orientation, disability, physical appearance, body size, race, or religion. We do not tolerate harassment of participants in any form.</p><h3>Expected Behavior</h3><ul><li>Be respectful and considerate to all participants, volunteers, staff, and artists.</li><li>Communicate openly and constructively.</li><li>Be mindful of your surroundings and of your fellow participants. Notify fest organizers if you notice a dangerous situation or someone in distress.</li><li>Respect the property of IGIMS Patna and all venues used for the fest.</li></ul><h3>Unacceptable Behavior</h3><ul><li>Harassment, intimidation, or discrimination in any form.</li><li>Physical or verbal abuse of any participant, staff, or guest.</li><li>Disruption of events or other activities.</li><li>Possession or consumption of illegal substances.</li><li>Any activity that violates local laws or university policies.</li></ul><h3>Consequences of Unacceptable Behavior</h3><p>Participants asked to stop any harassing behavior are expected to comply immediately. If a participant engages in unacceptable behavior, the fest organizers may take any action they deem appropriate, including warning the offender, expulsion from the fest with no refund, and reporting to relevant authorities.</p><h3>Reporting an Incident</h3><p>If you are subject to or witness unacceptable behavior, or have any other concerns, please notify a fest organizer immediately. You can reach out to any staff member, or contact us directly at info@cerebrexia25.com or via the contact numbers provided on our website.</p><p>Thank you for helping to make CEREBREXIA'25 a welcoming and inspiring event for all!</p>`
+        },
+        refund: {
+            title: "Refund Policy",
+            body: `<h3>CEREBREXIA'25 Refund Policy</h3><p>We strive to provide a transparent and fair policy regarding refunds for any paid events, workshops, or merchandise associated with CEREBREXIA'25.</p><h3>General Policy</h3><ul><li><strong>Delegate/Registration Fees:</strong> Registration fees for the fest are generally non-refundable. This fee covers administrative costs and access to a wide range of non-ticketed events.</li><li><strong>Workshop/Paid Event Fees:</strong> Fees for specific workshops or ticketed events are non-refundable, except in the case of event cancellation by the organizers.</li><li><strong>Merchandise:</strong> All sales of official CEREBREXIA'25 merchandise are final and non-refundable. Exchanges may be permitted for defective items, subject to availability.</li></ul><h3>Event Cancellation</h3><p>In the unlikely event that a specific paid workshop or event is cancelled by the CEREBREXIA'25 organizing committee, registered participants will receive a full refund for that specific event's fee. Information regarding the refund process will be communicated via email to the registered participants.</p><h3>No-Show Policy</h3><p>Participants who register for a paid event but do not attend (no-show) will not be eligible for a refund.</p><h3>Contact</h3><p>For any questions regarding this refund policy, please contact our finance team at info@cerebrexia25.com with the subject line "Refund Policy Question".</p>`
         }
-    });
-    scrollTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-}
+    };
 
-const policyModal = document.getElementById('policyModal');
-const modalTitle = document.getElementById('modalTitle');
-const modalBody = document.getElementById('modalBody');
-const modalCloseBtn = policyModal.querySelector('.modal-close-btn');
+    function openPolicyModal(policyType) {
+        const content = policyContent[policyType];
+        if (content) {
+            modalTitle.innerHTML = content.title;
+            modalBody.innerHTML = content.body;
+            policyModal.classList.add('active');
+            mainBody.style.overflow = 'hidden';
+        }
+    }
 
-const policyContent = {
-    privacy: {
-        title: "Privacy Policy",
-        body: `<h3>Welcome to CEREBREXIA'25 Privacy Policy!</h3><p>At CEREBREXIA'25, we are committed to protecting your privacy. This policy explains how we collect, use, and safeguard your personal information during your interaction with our fest website and participation in our events.</p><h3>Information We Collect</h3><ul><li><strong>Registration Data:</strong> When you register for events, we collect information such as your name, email address, phone number, college/university, and course.</li><li><strong>Participation Data:</strong> Information related to your event participation, such as event choices, attendance, and performance results.</li><li><strong>Voluntary Information:</strong> Any other information you choose to provide, such as feedback, survey responses, or communication preferences.</li></ul><h3>How We Use Your Information</h3><p>Your information is used for:</p><ul><li>Processing your registrations and managing your participation in events.</li><li>Communicating with you regarding event schedules, updates, and results.</li><li>Improving the fest experience and website functionality.</li><li>Internal analytics and reporting to enhance future events.</li></ul><h3>Data Sharing and Security</h3><p>We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties. We implement various security measures to maintain the safety of your personal information when you enter, submit, or access your personal information.</p><h3>Your Consent</h3><p>By using our site and participating in our events, you consent to our privacy policy.</p><p>If you have any questions, please contact us at info@cerebrexia25.com.</p>`
-    },
-    terms: {
-        title: "Terms of Service",
-        body: `<h3>Welcome to CEREBREXIA'25 Terms of Service!</h3><p>These terms govern your use of the CEREBREXIA'25 website and your participation in any fest events. By accessing our website or registering for events, you agree to comply with these terms.</p><h3>Eligibility</h3><p>CEREBREXIA'25 is open to college and university students. Specific events may have additional eligibility criteria as specified in their descriptions.</p><h3>Registration and Participation</h3><ul><li>All participants must register through the official website.</li><li>Participants are responsible for providing accurate and complete information during registration.</li><li>Adherence to event-specific rules and guidelines is mandatory.</li><li>The organizing committee reserves the right to disqualify participants for misconduct or violation of rules.</li></ul><h3>Content and Conduct</h3><p>Participants are expected to maintain respectful and appropriate conduct throughout the fest. Any form of harassment, discrimination, or unlawful activity will not be tolerated and may lead to immediate disqualification and removal from the premises.</p><h3>Intellectual Property</h3><p>All content on this website, including logos, graphics, and text, are the property of CEREBREXIA'25 or its licensors. Unauthorized use is prohibited.</p><h3>Changes to Terms</h3><p>CEREBREXIA'25 reserves the right to modify these terms at any time. Updates will be posted on this page.</p><p>Your continued participation signifies your acceptance of any changes.</p>`
-    },
-    code: {
-        title: "Code of Conduct",
-        body: `<h3>CEREBREXIA'25 Code of Conduct</h3><p>CEREBREXIA'25 is dedicated to providing a safe, inclusive, and welcoming experience for everyone, regardless of gender, sexual orientation, disability, physical appearance, body size, race, or religion. We do not tolerate harassment of participants in any form.</p><h3>Expected Behavior</h3><ul><li>Be respectful and considerate to all participants, volunteers, staff, and artists.</li><li>Communicate openly and constructively.</li><li>Be mindful of your surroundings and of your fellow participants. Notify fest organizers if you notice a dangerous situation or someone in distress.</li><li>Respect the property of IGIMS Patna and all venues used for the fest.</li></ul><h3>Unacceptable Behavior</h3><ul><li>Harassment, intimidation, or discrimination in any form.</li><li>Physical or verbal abuse of any participant, staff, or guest.</li><li>Disruption of events or other activities.</li><li>Possession or consumption of illegal substances.</li><li>Any activity that violates local laws or university policies.</li></ul><h3>Consequences of Unacceptable Behavior</h3><p>Participants asked to stop any harassing behavior are expected to comply immediately. If a participant engages in unacceptable behavior, the fest organizers may take any action they deem appropriate, including warning the offender, expulsion from the fest with no refund, and reporting to relevant authorities.</p><h3>Reporting an Incident</h3><p>If you are subject to or witness unacceptable behavior, or have any other concerns, please notify a fest organizer immediately. You can reach out to any staff member, or contact us directly at info@cerebrexia25.com or via the contact numbers provided on our website.</p><p>Thank you for helping to make CEREBREXIA'25 a welcoming and inspiring event for all!</p>`
-    }
-};
-
-function openPolicyModal(policyType) {
-    const content = policyContent[policyType];
-    if (content) {
-        modalTitle.innerHTML = content.title;
-        modalBody.innerHTML = content.body;
-        policyModal.classList.add('active');
-        mainBody.style.overflow = 'hidden';
-    }
-}
-
-function closePolicyModal() {
-    policyModal.classList.remove('active');
-    mainBody.style.overflow = '';
-}
-
-document.querySelectorAll('.policy-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const policyType = link.getAttribute('data-policy');
-        openPolicyModal(policyType);
-    });
-});
-
-if (modalCloseBtn) {
-    modalCloseBtn.addEventListener('click', closePolicyModal);
-}
-
-const teamModal = document.getElementById('teamModal');
-const teamModalCloseBtn = document.getElementById('teamModalCloseBtn');
-const teamLink = document.querySelector('.team-link');
-const teamGrid = document.getElementById('teamGrid');
-
-const teamMembers = [{
-    name: "Dr. Anjali Singh",
-    role: "Faculty Coordinator",
-    photo: "https://randomuser.me/api/portraits/women/70.jpg",
-    social: {
-        instagram: "https://instagram.com/anjalisingh_igims",
-        linkedin: "https://linkedin.com/in/anjalisingh"
-    }
-}, {
-    name: "Abhishek Raj",
-    role: "President, Organising Committee",
-    photo: "https://randomuser.me/api/portraits/men/80.jpg",
-    social: {
-        instagram: "https://instagram.com/rishav.singh",
-        linkedin: "https://linkedin.com/in/rishavsingh"
-    }
-}, {
-    name: "Divyyam",
-    role: "Vice President, Core Team",
-    photo: "https://randomuser.me/api/portraits/men/81.jpg",
-    social: {
-        instagram: "https://instagram.com/ramkrishna_official",
-        linkedin: "https://linkedin.com/in/ramkrishna"
-    }
-}, {
-    name: "Priya Sharma",
-    role: "Head of Cultural Events",
-    photo: "https://randomuser.me/api/portraits/women/71.jpg",
-    social: {
-        instagram: "https://instagram.com/priyasharma.cult",
-        linkedin: ""
-    }
-}, {
-    name: "Amit Kumar",
-    role: "Sports Lead",
-    photo: "https://randomuser.me/api/portraits/men/82.jpg",
-    social: {
-        instagram: "https://instagram.com/amitkumar_sports",
-        linkedin: ""
-    }
-}, {
-    name: "Divya Singh",
-    role: "Marketing Head",
-    photo: "https://randomuser.me/api/portraits/women/72.jpg",
-    social: {
-        instagram: "https://instagram.com/divyasingh_marketing",
-        linkedin: "https://linkedin.com/in/divyasingh"
-    }
-}, {
-    name: "Rahul Gupta",
-    role: "Technical Coordinator",
-    photo: "https://randomuser.me/api/portraits/men/83.jpg",
-    social: {
-        instagram: "",
-        linkedin: "https://linkedin.com/in/rahulgupta_tech"
-    }
-}, {
-    name: "Sana Khan",
-    role: "Finance Manager",
-    photo: "https://randomuser.me/api/portraits/women/73.jpg",
-    social: {
-        instagram: "",
-        linkedin: "https://linkedin.com/in/sanakhan_finance"
-    }
-}];
-
-function renderTeamMembers() {
-    if (teamGrid) {
-        teamGrid.innerHTML = '';
-        teamMembers.forEach(member => {
-            const memberCard = document.createElement('div');
-            memberCard.classList.add('team-member-card');
-            memberCard.innerHTML = `
-                <img class="team-member-photo" src="${member.photo}" alt="${member.name}" loading="lazy" onerror="this.src='https://placehold.co/100x100/00ffff/000000?text=${member.name.split(' ').map(n => n[0]).join('')}&font=exo'; this.alt='Image Placeholder';">
-                <h3 class="team-member-name">${member.name}</h3>
-                <p class="team-member-role">${member.role}</p>
-                <div class="team-member-social">
-                    ${member.social.instagram ? `<a href="${member.social.instagram}" target="_blank" aria-label="${member.name} Instagram"><i class="fab fa-instagram"></i></a>` : ''}
-                    ${member.social.linkedin ? `<a href="${member.social.linkedin}" target="_blank" aria-label="${member.name} LinkedIn"><i class="fab fa-linkedin-in"></i></a>` : ''}
-                </div>
-            `;
-            teamGrid.appendChild(memberCard);
-        });
-    }
-}
-
-function openTeamModal() {
-    if (teamModal) {
-        renderTeamMembers();
-        teamModal.classList.add('active');
-        mainBody.style.overflow = 'hidden';
-    }
-}
-
-function closeTeamModal() {
-    if (teamModal) {
-        teamModal.classList.remove('active');
+    function closePolicyModal() {
+        policyModal.classList.remove('active');
         mainBody.style.overflow = '';
     }
-}
 
-if (teamLink) {
-    teamLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        closePolicyModal();
-        openTeamModal();
+    document.querySelectorAll('.policy-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const policyType = link.getAttribute('data-policy');
+            openPolicyModal(policyType);
+        });
     });
-}
 
-if (teamModalCloseBtn) {
-    teamModalCloseBtn.addEventListener('click', closeTeamModal);
-}
+    if (policyModalCloseBtn) {
+        policyModalCloseBtn.addEventListener('click', closePolicyModal);
+    }
 
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        if (policyModal.classList.contains('active')) {
-            closePolicyModal();
+    const teamModal = document.getElementById('teamModal');
+    const teamModalCloseBtn = document.getElementById('teamModalCloseBtn');
+    const teamLink = document.querySelector('.team-link');
+    const teamGrid = document.getElementById('teamGrid');
+
+    const teamMembers = [{
+        name: "Dr. Anjali Singh", role: "Faculty Coordinator", photo: "https://randomuser.me/api/portraits/women/70.jpg", social: { instagram: "#", linkedin: "#" }
+    }, {
+        name: "Abhishek Raj", role: "President, Organising Committee", photo: "https://randomuser.me/api/portraits/men/80.jpg", social: { instagram: "#", linkedin: "#" }
+    }, {
+        name: "Divyyam", role: "Vice President, Core Team", photo: "https://randomuser.me/api/portraits/men/81.jpg", social: { instagram: "#", linkedin: "#" }
+    }, {
+        name: "Priya Sharma", role: "Head of Cultural Events", photo: "https://randomuser.me/api/portraits/women/71.jpg", social: { instagram: "#", linkedin: "" }
+    }, {
+        name: "Amit Kumar", role: "Sports Lead", photo: "https://randomuser.me/api/portraits/men/82.jpg", social: { instagram: "#", linkedin: "" }
+    }, {
+        name: "Divya Singh", role: "Marketing Head", photo: "https://randomuser.me/api/portraits/women/72.jpg", social: { instagram: "#", linkedin: "#" }
+    }, {
+        name: "Rahul Gupta", role: "Technical Coordinator", photo: "https://randomuser.me/api/portraits/men/83.jpg", social: { instagram: "", linkedin: "#" }
+    }, {
+        name: "Sana Khan", role: "Finance Manager", photo: "https://randomuser.me/api/portraits/women/73.jpg", social: { instagram: "", linkedin: "#" }
+    }];
+
+    function renderTeamMembers() {
+        if (teamGrid) {
+            teamGrid.innerHTML = '';
+            teamMembers.forEach(member => {
+                const memberCard = document.createElement('div');
+                memberCard.classList.add('team-member-card');
+                memberCard.innerHTML = `
+                    <img class="team-member-photo" src="${member.photo}" alt="${member.name}" loading="lazy" onerror="this.src='https://placehold.co/100x100/00ffff/000000?text=${member.name.split(' ').map(n => n[0]).join('')}&font=exo'; this.alt='Image Placeholder';">
+                    <h3 class="team-member-name">${member.name}</h3>
+                    <p class="team-member-role">${member.role}</p>
+                    <div class="team-member-social">
+                        ${member.social.instagram ? `<a href="${member.social.instagram}" target="_blank" aria-label="${member.name} Instagram"><i class="fab fa-instagram"></i></a>` : ''}
+                        ${member.social.linkedin ? `<a href="${member.social.linkedin}" target="_blank" aria-label="${member.name} LinkedIn"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                    </div>
+                `;
+                teamGrid.appendChild(memberCard);
+            });
         }
-        if (teamModal.classList.contains('active')) {
-            closeTeamModal();
+    }
+
+    function openTeamModal() {
+        if (teamModal) {
+            renderTeamMembers();
+            teamModal.classList.add('active');
+            mainBody.style.overflow = 'hidden';
         }
-        if (fullScreenNav.classList.contains('active')) {
-            newMenuToggleButton.setAttribute('aria-expanded', 'false');
-            newMenuToggleButton.classList.remove('open');
-            fullScreenNav.classList.remove('active');
+    }
+
+    function closeTeamModal() {
+        if (teamModal) {
+            teamModal.classList.remove('active');
             mainBody.style.overflow = '';
         }
     }
+
+    if (teamLink) {
+        teamLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            closePolicyModal();
+            openTeamModal();
+        });
+    }
+
+    if (teamModalCloseBtn) {
+        teamModalCloseBtn.addEventListener('click', closeTeamModal);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (policyModal.classList.contains('active')) closePolicyModal();
+            if (teamModal.classList.contains('active')) closeTeamModal();
+            if (fullScreenNav.classList.contains('active')) {
+                 newMenuToggleButton.click();
+            }
+        }
+    });
+
 });
-
-/**
- * NEW FEATURE: 3D Galaxy Background Effect
- * This script uses the three.js library to create a dynamic, interactive starfield on the #galaxy-bg canvas.
- */
-if (typeof THREE !== 'undefined') {
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({
-        canvas: document.querySelector('#galaxy-bg'),
-        alpha: true // Make canvas transparent
-    });
-
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    camera.position.z = 5;
-    
-    // Create stars
-    const starGeometry = new THREE.BufferGeometry();
-    const starCount = 20000;
-    const positions = new Float32Array(starCount * 3);
-
-    for (let i = 0; i < starCount * 3; i++) {
-        positions[i] = (Math.random() - 0.5) * 100;
-    }
-
-    starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    const starMaterial = new THREE.PointsMaterial({
-        color: 0xffffff,
-        size: 0.03,
-        transparent: true,
-        blending: THREE.AdditiveBlending
-    });
-
-    const stars = new THREE.Points(starGeometry, starMaterial);
-    scene.add(stars);
-
-    // Mouse interaction
-    let mouseX = 0;
-    let mouseY = 0;
-    document.addEventListener('mousemove', (event) => {
-        mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-        mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-    });
-
-    // Animation loop
-    function animate() {
-        requestAnimationFrame(animate);
-
-        // Star rotation
-        stars.rotation.x += 0.0001;
-        stars.rotation.y += 0.0002;
-        
-        // Camera parallax effect
-        camera.position.x += (mouseX * 0.1 - camera.position.x) * 0.02;
-        camera.position.y += (mouseY * 0.1 - camera.position.y) * 0.02;
-        camera.lookAt(scene.position);
-
-        renderer.render(scene, camera);
-    }
-    
-    animate();
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    });
-}
-
 </script>
-
+		
 </body>
+	
 </html>
+
