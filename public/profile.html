@@ -114,8 +114,8 @@
         }
         .dashboard-card:hover { transform: translateY(-5px); box-shadow: 0 5px 25px rgba(255,0,255,0.2); }
         
-        .profile-card { grid-column: span 12 / span 12; md:grid-column: span 5 / span 5; }
-        .fest-pass-card { grid-column: span 12 / span 12; md:grid-column: span 7 / span 7; }
+        .profile-card { grid-column: span 12 / span 12; }
+        .fest-pass-card { grid-column: span 12 / span 12; }
         .events-card { grid-column: span 12 / span 12; }
         .teams-card { grid-column: span 12 / span 12; }
 
@@ -162,7 +162,7 @@
 
         .team-members-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 15px; }
         .team-member-card { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 15px; text-align: center; border: 1px solid rgba(0, 255, 255, 0.2); }
-        .team-member-card img { width: 120px; height: 120px; margin: 0 auto 10px; border: 3px solid white; border-radius: 8px; background: white; }
+        .team-member-card img { width: 120px; height: 120px; margin: 0 auto 10px; border: 3px solid white; border-radius: 8px; background: white; object-fit: cover; }
         .team-member-card h5 { margin: 5px 0; font-size: 1.1rem; color: #fff; font-family: 'Exo', sans-serif; }
         .team-member-card p { font-family: 'Share Tech Mono', monospace; color: var(--primary-glow-color); font-size: 0.9rem; }
 
@@ -170,6 +170,7 @@
             position: absolute; top: 100px; right: 30px;
             background: rgba(255, 0, 0, 0.2); border: 1px solid #ff4d4d; color: #ff4d4d;
             padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: all 0.3s ease;
+            z-index: 999; /* Ensure it's above other elements */
         }
         .logout-btn:hover { background: #ff4d4d; color: #fff; }
         .hidden { display: none !important; }
@@ -209,6 +210,35 @@
         .modal-title { font-family: 'Exo', sans-serif; font-size: 2rem; color: var(--secondary-glow-color); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(255, 153, 255, 0.3); }
         .modal-content { line-height: 1.7; color: #e0e0e0; }
 
+        /* --- Loading Overlay --- */
+        #loading-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); z-index: 2000;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.5rem;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        #loading-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-right: 15px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (min-width: 768px) {
+            .profile-card { grid-column: span 5 / span 5; }
+            .fest-pass-card { grid-column: span 7 / span 7; }
+        }
         @media (max-width: 768px) { 
             h1.page-title { font-size: 2.5rem; } 
             .dashboard-grid { grid-template-columns: 1fr; }
@@ -289,7 +319,7 @@
         <button id="logout-btn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
         <div class="dashboard-grid">
             
-            <div class="profile-card dashboard-card md:col-span-5">
+            <div class="profile-card dashboard-card">
                 <div class="user-info">
                     <img id="user-avatar" src="https://placehold.co/80x80/0d001f/ffffff?text=User" alt="User Avatar" class="user-avatar">
                     <div class="user-details">
@@ -307,25 +337,25 @@
                 </div>
             </div>
 
-            <div class="fest-pass-card dashboard-card md:col-span-7">
+            <div class="fest-pass-card dashboard-card">
                 <h2 class="section-title" style="margin-top: 0;">Fest Pass</h2>
                 <div id="fest-pass-content" class="fest-pass-content">
                     </div>
             </div>
 
-            <div class="events-card dashboard-card col-span-12">
+            <div class="events-card dashboard-card">
                 <h2 class="section-title" style="margin-top: 0;">My Registered Events</h2>
                 <ul id="registered-events-list" class="registered-events-list">
                     </ul>
-                 <a href="events.html" class="action-btn explore-events-btn mt-4">
-                     <i class="fas fa-plus-circle"></i> Explore & Register for More Events
-                 </a>
+                   <a href="events.html" class="action-btn explore-events-btn mt-4">
+                        <i class="fas fa-plus-circle"></i> Explore & Register for More Events
+                   </a>
             </div>
             
-            <div id="teams-card" class="teams-card dashboard-card col-span-12 hidden">
-                 <h2 class="section-title" style="margin-top: 0;">My Team Registrations</h2>
-                 <div id="team-members-container" class="team-members-grid">
-                      </div>
+            <div id="teams-card" class="teams-card dashboard-card hidden">
+                    <h2 class="section-title" style="margin-top: 0;">My Team Registrations</h2>
+                    <div id="team-members-container" class="team-members-grid">
+                        </div>
             </div>
         </div>
     </div>
@@ -380,31 +410,45 @@
     </div>
 </div>
 
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="hidden">
+    <div class="spinner"></div>
+    <span>Loading...</span>
+</div>
+
 <div id="toast-notification" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #1f2937; color: white; padding: 10px 20px; border-radius: 8px; z-index: 9999; opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s;"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script type="module">
-    // --- FIREBASE SDK IMPORTS & INITIALIZATION ---
+    // --- FIREBASE SDK IMPORTS ---
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs, orderBy as firestoreOrderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
     
-    // --- YOUR FIREBASE CONFIGURATION ---
-    const firebaseConfig = {
-        apiKey: "AIzaSyBOWumY95hdMt2uOvmJEk5WG0GhdqUHUNc",
-        authDomain: "cerebrexia-ee068.firebaseapp.com",
-        projectId: "cerebrexia-ee068",
-        storageBucket: "cerebrexia-ee068.appspot.com",
-        messagingSenderId: "328864114758",
-        appId: "1:328864114758:web:108968f6576b6967f14247",
-        measurementId: "G-6Z6EP1ZTEJ"
+    // --- GLOBAL VARIABLES (Provided by Canvas Environment) ---
+    // __app_id: The current app ID for Firestore paths.
+    // __firebase_config: Firebase configuration object.
+    // __initial_auth_token: Custom Firebase auth token for initial sign-in.
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+    const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+        // Fallback config - replace with your actual Firebase project config if __firebase_config is not available
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID",
+        measurementId: "YOUR_MEASUREMENT_ID"
     };
-    
+    const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
     // --- Initialize Firebase ---
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
     
+    let currentUserId = null; // To store the authenticated user's ID
+
     // --- AOS and Header Scroll Logic ---
     AOS.init({ once: true, mirror: false });
     let lastScrollTop = 0;
@@ -446,6 +490,16 @@
         }, 3000);
     }
 
+    // --- Loading Overlay Functions ---
+    const loadingOverlay = document.getElementById('loading-overlay');
+    function showLoading(message = 'Loading...') {
+        loadingOverlay.querySelector('span').textContent = message;
+        loadingOverlay.classList.add('active');
+    }
+    function hideLoading() {
+        loadingOverlay.classList.remove('active');
+    }
+
     // --- DOM Elements ---
     const loginView = document.getElementById('login-view');
     const profileFormView = document.getElementById('profile-form-view');
@@ -456,49 +510,100 @@
     
     // --- FIREBASE AUTH & FIRESTORE LOGIC ---
     
-    onAuthStateChanged(auth, user => {
+    // Listen for Firebase Auth state changes
+    onAuthStateChanged(auth, async user => {
         if (user) {
-            fetchUserProfile(user);
+            currentUserId = user.uid;
+            console.log("User authenticated:", user.uid);
+            showLoading('Fetching profile...');
+            await fetchUserProfile(user);
+            hideLoading();
         } else {
-            showView('login');
+            currentUserId = null;
+            console.log("No user authenticated. Attempting anonymous sign-in or custom token sign-in.");
+            showLoading('Connecting...');
+            try {
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                    console.log("Signed in with custom token.");
+                } else {
+                    await signInAnonymously(auth);
+                    console.log("Signed in anonymously.");
+                }
+            } catch (error) {
+                console.error("Error during initial sign-in:", error);
+                showToast("Failed to connect. Please try again.");
+                showView('login'); // Show login if even anonymous fails
+            } finally {
+                hideLoading();
+            }
         }
     });
 
+    /**
+     * Fetches the user's profile from Firestore.
+     * If profile exists, populates dashboard. If not, shows profile form.
+     * @param {firebase.User} user - The authenticated Firebase user object.
+     */
     async function fetchUserProfile(user) {
-        const profileDocRef = doc(db, 'profiles', user.uid);
+        // Construct the correct Firestore path for user profile
+        const profileDocRef = doc(db, 'artifacts', appId, 'users', user.uid, 'profiles', user.uid);
         try {
             const profileDocSnap = await getDoc(profileDocRef);
             if (profileDocSnap.exists()) {
+                console.log("User profile found.");
                 showView('dashboard');
                 populateDashboard(user.uid, profileDocSnap.data());
             } else {
+                console.log("User profile not found. Showing profile form.");
                 showView('form');
+                // Pre-fill email if available from Google login
+                if (user.email) {
+                    document.getElementById('user-email-form-field').value = user.email;
+                }
             }
         } catch (error) {
             console.error("Error fetching user profile:", error);
             showToast("Could not fetch your profile. Please refresh.");
+            showView('login'); // Fallback to login if fetching profile fails
         }
     }
 
+    /**
+     * Handles Google Sign-In.
+     */
     async function handleSignIn() {
         const provider = new GoogleAuthProvider();
+        showLoading('Signing in with Google...');
         try {
             await signInWithPopup(auth, provider);
+            // onAuthStateChanged listener will handle the rest
         } catch (error) {
             console.error('Error signing in with Google:', error);
             showToast(`Login failed: ${error.message}`);
+        } finally {
+            hideLoading();
         }
     }
 
+    /**
+     * Handles user sign-out.
+     */
     async function handleSignOut() {
+        showLoading('Logging out...');
         try {
             await signOut(auth);
             showToast('Logged out successfully.');
+            // onAuthStateChanged listener will handle showing the login view
         } catch (error) {
             console.error('Error signing out:', error);
+            showToast('Could not sign out. Please try again.');
+        } finally {
+            hideLoading();
         }
     }
 
+    // Event listener for profile form submission
     profileForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const user = auth.currentUser;
@@ -507,6 +612,9 @@
             return;
         }
 
+        showLoading('Saving profile...');
+
+        // Generate a unique Cerebrexia ID
         const uniquePart = user.uid.substring(0, 6).toUpperCase();
         const cerebreiaId = `CRB25-${uniquePart}`;
 
@@ -516,27 +624,36 @@
             full_name: profileForm.fullName.value,
             phone: profileForm.phone.value,
             college: profileForm.college.value,
-            avatar_url: user.photoURL,
+            avatar_url: user.photoURL || `https://placehold.co/80x80/0d001f/ffffff?text=${user.email ? user.email.charAt(0).toUpperCase() : 'U'}`, // Placeholder if no photoURL
             cerebreia_id: cerebreiaId,
-            created_at: new Date()
+            created_at: Timestamp.now() // Use Firestore Timestamp
         };
 
+        // Construct the correct Firestore path for user profile
+        const profileDocRef = doc(db, 'artifacts', appId, 'users', user.uid, 'profiles', user.uid);
         try {
-            await setDoc(doc(db, 'profiles', user.uid), profileData);
+            await setDoc(profileDocRef, profileData);
             showToast('Profile created successfully!');
-            fetchUserProfile(user);
+            await fetchUserProfile(user); // Re-fetch to populate dashboard
         } catch (error) {
             console.error('Error saving profile:', error);
             showToast('Could not save your profile. Please try again.');
+        } finally {
+            hideLoading();
         }
     });
 
+    /**
+     * Populates the dashboard with user data, fest pass status, registered events, and team info.
+     * @param {string} userId - The current user's UID.
+     * @param {object} profile - The user's profile data.
+     */
     async function populateDashboard(userId, profile) {
         document.getElementById('user-avatar').src = profile.avatar_url || 'https://placehold.co/80x80/0d001f/ffffff?text=U';
         document.getElementById('user-name').textContent = profile.full_name;
         document.getElementById('user-email').textContent = profile.email;
         document.getElementById('cerebreia-id').textContent = profile.cerebreia_id;
-
+        
         try {
             await Promise.all([
                 renderFestPassStatus(userId, profile.cerebreia_id, profile.full_name),
@@ -544,81 +661,178 @@
                 renderTeamRegistrations(userId)
             ]);
         } catch (error) {
-            console.error("Error populating dashboard:", error);
-            showToast("Error loading dashboard data.");
+            console.error("Error populating dashboard sections:", error);
+            showToast("Error loading some dashboard data.");
         }
     }
 
+    /**
+     * Renders the fest pass status based on user's registration.
+     * @param {string} userId - The current user's UID.
+     * @param {string} cerebreiaId - The user's Cerebrexia ID.
+     * @param {string} fullName - The user's full name.
+     */
     async function renderFestPassStatus(userId, cerebreiaId, fullName) {
         const festPassContainer = document.getElementById('fest-pass-content');
-        // ✅ FIXED: Changed 'user_id' to 'userId' to match the server's database field.
-        const festRegQuery = query(collection(db, "fest_registrations"), where("userId", "==", userId), limit(1));
-        const festRegSnapshot = await getDocs(festRegQuery);
+        // Corrected Firestore path for fest registrations
+        const festRegCollectionRef = collection(db, 'artifacts', appId, 'users', userId, 'fest_registrations');
+        const festRegQuery = query(festRegCollectionRef, where("userId", "==", userId)); // No limit(1) as there could be multiple but we only care about first valid one
+        
+        try {
+            const festRegSnapshot = await getDocs(festRegQuery);
 
-        if (!festRegSnapshot.empty) {
-            const festReg = festRegSnapshot.docs[0].data();
-            const qrData = `ID: ${cerebreiaId}\nName: ${fullName}`;
-            festPassContainer.innerHTML = `
-                <div class="qr-container">
-                    <p class="text-lg text-green-400 font-bold">Your Fest Pass is Active!</p>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(qrData)}" alt="Fest Pass QR Code">
-                    <div class="payment-details">
-                        <p><strong>Transaction ID:</strong> ${festReg.razorpay_payment_id || 'N/A'}</p>
-                        <p><strong>Status:</strong> <span class="font-bold text-green-400 uppercase">${festReg.paymentStatus}</span></p>
+            if (!festRegSnapshot.empty) {
+                const festReg = festRegSnapshot.docs[0].data(); // Assuming one primary fest registration
+                const qrData = `ID: ${cerebreiaId}\nName: ${fullName}\nStatus: ${festReg.paymentStatus}`;
+                festPassContainer.innerHTML = `
+                    <div class="qr-container">
+                        <p class="text-lg text-green-400 font-bold">Your Fest Pass is Active!</p>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(qrData)}" alt="Fest Pass QR Code">
+                        <div class="payment-details">
+                            <p><strong>Transaction ID:</strong> ${festReg.razorpay_payment_id || 'N/A'}</p>
+                            <p><strong>Status:</strong> <span class="font-bold text-green-400 uppercase">${festReg.paymentStatus}</span></p>
+                        </div>
                     </div>
-                </div>
-            `;
-        } else {
-            festPassContainer.innerHTML = `
-                <p class="mb-4 text-lg">You have not completed your basic registration.</p>
-                <a href="register.html" class="action-btn register-fest-btn">
-                    <i class="fas fa-ticket-alt"></i> Register for CEREBREXIA'25
-                </a>
-            `;
+                `;
+            } else {
+                festPassContainer.innerHTML = `
+                    <p class="mb-4 text-lg">You have not completed your basic registration.</p>
+                    <a href="register.html" class="action-btn register-fest-btn">
+                        <i class="fas fa-ticket-alt"></i> Register for CEREBREXIA'25
+                    </a>
+                `;
+            }
+        } catch (error) {
+            console.error("Error rendering fest pass status:", error);
+            festPassContainer.innerHTML = `<p class="text-red-400">Error loading fest pass status.</p>`;
         }
     }
 
+    /**
+     * Renders the list of events the user has registered for.
+     * @param {string} userId - The current user's UID.
+     */
     async function renderRegisteredEvents(userId) {
         const eventsList = document.getElementById('registered-events-list');
         const iconMap = {
             'Technical': 'fas fa-cogs', 'Cultural': 'fas fa-paint-brush',
             'Gaming': 'fas fa-gamepad', 'Workshop': 'fas fa-chalkboard-teacher',
-            'Literary': 'fas fa-book-open', 'Pronite': 'fas fa-music'
+            'Literary': 'fas fa-book-open', 'Pronite': 'fas fa-music',
+            'General': 'fas fa-star' // Default icon
         };
         
+        // Corrected Firestore path for event registrations
+        const eventRegCollectionRef = collection(db, 'artifacts', appId, 'users', userId, 'event_registrations');
         // Querying event registrations to find events the user is part of.
-        const eventsQuery = query(collection(db, "event_registrations"), where("userId", "==", userId), firestoreOrderBy("registeredAt", "desc"));
-        const eventsSnapshot = await getDocs(eventsQuery);
+        // Removed orderBy to avoid index issues; sorting will be done client-side.
+        const eventsQuery = query(eventRegCollectionRef, where("userId", "==", userId)); 
 
-        if (!eventsSnapshot.empty) {
-            eventsList.innerHTML = eventsSnapshot.docs.map(doc => {
-                const event = doc.data();
-                const statusColor = event.paymentStatus.toLowerCase().includes('pending') ? '#f9c74f' : '#50fa7b';
-                return `
-                <li class="event-item">
-                    <span class="icon"><i class="${iconMap[event.event_category] || 'fas fa-star'}"></i></span>
-                    <div class="event-info">
-                        <h4>${event.eventName}</h4>
-                        <p style="color: ${statusColor}; text-transform: uppercase;">${event.paymentStatus}</p>
-                    </div>
-                </li>`;
-            }).join('');
-        } else {
-            eventsList.innerHTML = `<p class="text-gray-400 col-span-full text-center">You haven't registered for any individual events yet.</p>`;
+        try {
+            const eventsSnapshot = await getDocs(eventsQuery);
+
+            if (!eventsSnapshot.empty) {
+                // Convert Firestore Timestamps to Date objects for sorting
+                const events = eventsSnapshot.docs.map(doc => {
+                    const data = doc.data();
+                    return {
+                        ...data,
+                        registeredAt: data.registeredAt instanceof Timestamp ? data.registeredAt.toDate() : new Date(0) // Handle cases where it might not be a Timestamp
+                    };
+                });
+
+                // Sort events by registeredAt in descending order (most recent first)
+                events.sort((a, b) => b.registeredAt.getTime() - a.registeredAt.getTime());
+
+                eventsList.innerHTML = events.map(event => {
+                    const statusColor = event.paymentStatus.toLowerCase().includes('pending') ? '#f9c74f' : '#50fa7b';
+                    return `
+                    <li class="event-item">
+                        <span class="icon"><i class="${iconMap[event.event_category] || iconMap['General']}"></i></span>
+                        <div class="event-info">
+                            <h4>${event.eventName}</h4>
+                            <p style="color: ${statusColor}; text-transform: uppercase;">${event.paymentStatus}</p>
+                        </div>
+                    </li>`;
+                }).join('');
+            } else {
+                eventsList.innerHTML = `<p class="text-gray-400 col-span-full text-center">You haven't registered for any individual events yet.</p>`;
+            }
+        } catch (error) {
+            console.error("Error rendering registered events:", error);
+            eventsList.innerHTML = `<p class="text-red-400 col-span-full text-center">Error loading your registered events.</p>`;
         }
     }
 
+    /**
+     * Renders the user's team registrations.
+     * Assumes 'teams' collection has documents with 'members' array (containing user UIDs)
+     * and 'teamName', 'eventName', 'leaderName', 'leaderAvatar' fields.
+     * @param {string} userId - The current user's UID.
+     */
     async function renderTeamRegistrations(userId) {
-        // This function would need to be implemented based on your team data structure
-        // For now, it remains as a placeholder.
+        const teamsCard = document.getElementById('teams-card');
+        const teamMembersContainer = document.getElementById('team-members-container');
+
+        // Corrected Firestore path for team registrations
+        const teamCollectionRef = collection(db, 'artifacts', appId, 'users', userId, 'teams');
+        // Query teams where the current user's ID is in the 'members' array
+        const teamQuery = query(teamCollectionRef, where("members", "array-contains", userId)); 
+        
+        try {
+            const teamSnapshot = await getDocs(teamQuery);
+
+            if (!teamSnapshot.empty) {
+                teamsCard.classList.remove('hidden'); // Show the teams card
+                teamMembersContainer.innerHTML = teamSnapshot.docs.map(doc => {
+                    const team = doc.data();
+                    // Provide sensible defaults for missing data
+                    const teamName = team.teamName || 'Unnamed Team';
+                    const eventName = team.eventName || 'N/A';
+                    const leaderName = team.leaderName || 'N/A';
+                    const leaderAvatar = team.leaderAvatar || 'https://placehold.co/120x120/0d001f/ffffff?text=Team';
+
+                    return `
+                        <div class="team-member-card">
+                            <img src="${leaderAvatar}" alt="Team Leader Avatar">
+                            <h5>${teamName}</h5>
+                            <p>Event: ${eventName}</p>
+                            <p>Leader: ${leaderName}</p>
+                            <p>Members: ${team.members ? team.members.length : 0}</p>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                teamsCard.classList.add('hidden'); // Hide the teams card if no teams
+                teamMembersContainer.innerHTML = ''; // Clear content
+            }
+        } catch (error) {
+            console.error("Error rendering team registrations:", error);
+            teamsCard.classList.add('hidden'); // Hide on error
+            teamMembersContainer.innerHTML = `<p class="text-red-400 col-span-full text-center">Error loading your team registrations.</p>`;
+        }
     }
 
+    // Event listener for copying Cerebrexia ID
     document.getElementById('copy-id-btn').addEventListener('click', () => {
-        const id = document.getElementById('cerebreia-id').textContent;
-        navigator.clipboard.writeText(id).then(() => showToast('CEREBREIA ID Copied!'))
-        .catch(err => showToast('Failed to copy.'));
+        const idElement = document.getElementById('cerebreia-id');
+        const range = document.createRange();
+        range.selectNode(idElement);
+        window.getSelection().removeAllRanges(); // Clear current selection
+        window.getSelection().addRange(range); // Select the text
+        try {
+            document.execCommand('copy'); // Use document.execCommand for better iframe compatibility
+            showToast('CEREBREIA ID Copied!');
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+            showToast('Failed to copy ID. Please copy manually.');
+        }
+        window.getSelection().removeAllRanges(); // Deselect the text
     });
 
+    /**
+     * Controls which main view is visible.
+     * @param {string} viewName - 'login', 'form', or 'dashboard'.
+     */
     function showView(viewName) {
         loginView.classList.add('hidden');
         profileFormView.classList.add('hidden');
@@ -628,14 +842,38 @@
         else if (viewName === 'dashboard') dashboardView.classList.remove('hidden');
     }
 
-    // --- Modal Logic ---
+    // --- Modal Logic for Policies ---
     const modalOverlay = document.getElementById('policy-modal');
     const modalTitle = document.getElementById('modal-title');
     const modalContent = document.getElementById('modal-content');
     const modalCloseButton = document.getElementById('modal-close-button');
     const policyContents = {
-        'privacy-policy': { title: 'Privacy Policy', content: `<h3>Information We Collect</h3> <p>We collect information you provide directly to us... Your data is used solely for the purposes of organizing and managing CEREBREXIA'25.</p>` },
-        'terms-conditions': { title: 'Terms & Conditions', content: `<h3>User Conduct</h3> <p>By registering for CEREBREXIA'25, you agree to conduct yourself in a respectful and responsible manner...</p>` }
+        'privacy-policy': { 
+            title: 'Privacy Policy', 
+            content: `
+                <h3>Information We Collect</h3> 
+                <p>We collect information you provide directly to us when you register for CEREBREXIA'25, including your name, email address, contact number, and college name. We also collect basic profile information (like avatar URL) from your Google account if you sign in using Google.</p>
+                <h3>How We Use Your Information</h3>
+                <p>Your data is used solely for the purposes of organizing and managing CEREBREXIA'25, including event registrations, fest pass generation, team management, and communication related to the fest. We do not share your personal information with third parties for marketing purposes.</p>
+                <h3>Data Security</h3>
+                <p>We implement a variety of security measures to maintain the safety of your personal information when you enter, submit, or access your personal information.</p>
+                <h3>Your Rights</h3>
+                <p>You have the right to access, update, or delete your personal information. Please contact us if you wish to exercise these rights.</p>
+            ` 
+        },
+        'terms-conditions': { 
+            title: 'Terms & Conditions', 
+            content: `
+                <h3>User Conduct</h3> 
+                <p>By registering for CEREBREXIA'25, you agree to conduct yourself in a respectful and responsible manner. Any form of misconduct, harassment, or violation of event rules will lead to immediate disqualification and potential removal from the premises without refund.</p>
+                <h3>Registration and Payments</h3>
+                <p>All registrations are subject to availability and successful payment. Registration fees are non-refundable unless otherwise specified for a particular event. CEREBREXIA'25 reserves the right to change event schedules or cancel events due to unforeseen circumstances.</p>
+                <h3>Intellectual Property</h3>
+                <p>All content, logos, and materials related to CEREBREXIA'25 are the intellectual property of the organizing committee. Unauthorized use, reproduction, or distribution is strictly prohibited.</p>
+                <h3>Disclaimer</h3>
+                <p>CEREBREXIA'25 and IGIMS Patna are not responsible for any loss, damage, or injury incurred during the fest. Participants are advised to take necessary precautions and are responsible for their own belongings.</p>
+            ` 
+        }
     };
     function openModal(policyType) {
         const policy = policyContents[policyType];
@@ -643,18 +881,21 @@
         modalTitle.textContent = policy.title;
         modalContent.innerHTML = policy.content;
         modalOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden'; // Prevent scrolling background
     }
     function closeModal() {
         modalOverlay.classList.remove('active');
-        document.body.style.overflow = '';
+        document.body.style.overflow = ''; // Restore scrolling
     }
     document.getElementById('privacy-policy-link').addEventListener('click', () => openModal('privacy-policy'));
     document.getElementById('terms-conditions-link').addEventListener('click', () => openModal('terms-conditions'));
     modalCloseButton.addEventListener('click', closeModal);
-    modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+    modalOverlay.addEventListener('click', (e) => { 
+        // Close modal if clicked outside content
+        if (e.target === modalOverlay) closeModal(); 
+    });
 
-    // --- Event Listeners ---
+    // --- Event Listeners for Main Actions ---
     googleSignInBtn.addEventListener('click', handleSignIn);
     logoutBtn.addEventListener('click', handleSignOut);
 </script>
