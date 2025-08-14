@@ -101,6 +101,7 @@
         .category-badge { background-color: var(--secondary-bg); color: var(--text-secondary); padding: 4px 10px; border-radius: 12px; font-size: 0.85rem; font-weight: 500; }
         .search-bar { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 5px; margin-bottom: 20px; font-size: 1rem; }
         .list-item { display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid var(--border-color); }
+        .receipt-links-container { display: flex; flex-wrap: wrap; gap: 5px; }
         
         table.hide-category .col-category { display: none; }
         table.hide-person .col-person { display: none; }
@@ -297,7 +298,7 @@
                             <select id="expense-subcategory" style="display: none;"></select>
                             <select id="expense-person" required><option value="" disabled selected>Person Paying</option></select>
                             <input type="number" step="0.01" id="expense-amount" placeholder="Amount" required>
-                            <input type="file" id="receipt-upload" accept="image/*,application/pdf">
+                            <input type="file" id="receipt-upload" accept="image/*,application/pdf" multiple>
                             <button type="submit" style="background-color: var(--danger-color);">Add Expense</button>
                         </form>
                     </div>
@@ -313,7 +314,8 @@
                             <button type="submit" style="background-color: var(--info-color);">Transfer Funds</button>
                         </form>
                     </div>
-                    </div>
+                    
+                </div>
                 <div class="section-box" style="margin-top: 30px;">
                     <h3 class="section-subtitle">Manage Income Entries</h3>
                     <input type="text" id="search-income" class="search-bar" placeholder="Search income entries...">
@@ -387,14 +389,14 @@
         
         // 1. FIREBASE CONFIGURATION (RESTORED AS PER YOUR REQUEST)
        const firebaseConfig = {
-     apiKey: "AIzaSyD1ZKsLTqnAfD_SSU3iQ36pU3aG71DZKGk",
-     authDomain: "expensetrackerpro-f5964.firebaseapp.com",
-     projectId: "expensetrackerpro-f5964",
-     storageBucket: "expensetrackerpro-f5964.firebasestorage.app",
-     messagingSenderId: "409195239506",
-     appId: "1:409195239506:web:717208fd6d28687604a78b",
-     measurementId: "G-0HTGG3S8EM"
-    };
+         apiKey: "AIzaSyD1ZKsLTqnAfD_SSU3iQ36pU3aG71DZKGk",
+         authDomain: "expensetrackerpro-f5964.firebaseapp.com",
+         projectId: "expensetrackerpro-f5964",
+         storageBucket: "expensetrackerpro-f5964.appspot.com",
+         messagingSenderId: "409195239506",
+         appId: "1:409195239506:web:717208fd6d28687604a78b",
+         measurementId: "G-0HTGG3S8EM"
+        };
 
         // 2. GOOGLE SHEET CONFIGURATION (RESTORED)
         const GOOGLE_API_KEY = 'AIzaSyBsf5q3I_HUMnuNC_Xel_cc6C29UYcO-Xs';
@@ -580,26 +582,27 @@
         }
 
         function renderDashboard(data) {
-            const income = data.filter(t => t.type === 'Income').reduce((s, t) => s + t.amount, 0);
-            const expenses = data.filter(t => t.type === 'Expense').reduce((s, t) => s + t.amount, 0);
+            const income = data.filter(t => t.type === 'Income' && t.category !== 'Internal Transfer').reduce((s, t) => s + t.amount, 0);
+            const expenses = data.filter(t => t.type === 'Expense' && t.category !== 'Internal Transfer').reduce((s, t) => s + t.amount, 0);
             document.getElementById('total-income').textContent = formatCurrency(income);
             document.getElementById('total-expenses').textContent = formatCurrency(expenses);
             document.getElementById('net-remaining').textContent = formatCurrency(income - expenses);
             
             const thisMonthTxns = data.filter(t => dayjs(t.date).isSame(dayjs(), 'month'));
-            const monthlyIncome = thisMonthTxns.filter(t => t.type === 'Income').reduce((s, t) => s + t.amount, 0);
-            const monthlyExpense = thisMonthTxns.filter(t => t.type === 'Expense').reduce((s, t) => s + t.amount, 0);
+            const monthlyIncome = thisMonthTxns.filter(t => t.type === 'Income' && t.category !== 'Internal Transfer').reduce((s, t) => s + t.amount, 0);
+            const monthlyExpense = thisMonthTxns.filter(t => t.type === 'Expense' && t.category !== 'Internal Transfer').reduce((s, t) => s + t.amount, 0);
             document.getElementById('monthly-cashflow').textContent = formatCurrency(monthlyIncome - monthlyExpense);
             document.getElementById('monthly-cashflow-details').textContent = `+${formatCurrency(monthlyIncome)} / ${formatCurrency(monthlyExpense)}`;
 
             const last30DaysExpenses = data
-                .filter(t => t.type === 'Expense' && dayjs(t.date).isAfter(dayjs().subtract(30, 'day')))
+                .filter(t => t.type === 'Expense' && t.category !== 'Internal Transfer' && dayjs(t.date).isAfter(dayjs().subtract(30, 'day')))
                 .reduce((s, t) => s + t.amount, 0);
             const avgDailyExpense = last30DaysExpenses > 0 ? last30DaysExpenses / 30 : 0;
             document.getElementById('avg-daily-expense').textContent = formatCurrency(avgDailyExpense);
 
-            const runwayDays = avgDailyExpense > 0 ? Math.floor((income - expenses) / avgDailyExpense) : Infinity;
-            document.getElementById('runway-days').textContent = isFinite(runwayDays) ? `${runwayDays} Days` : '∞ Days';
+            const netBalance = (income - expenses);
+            const runwayDays = avgDailyExpense > 0 ? Math.floor(netBalance / avgDailyExpense) : Infinity;
+            document.getElementById('runway-days').textContent = (isFinite(runwayDays) && runwayDays >= 0) ? `${runwayDays} Days` : '∞ Days';
 
             renderPersonBalances(data);
             
@@ -693,7 +696,7 @@
                     const groupBySub = chartType === 'expense-subcat';
 
                     const groupedData = allTransactions
-                        .filter(t => t.type === type && (groupBySub ? t.subcategory : true))
+                        .filter(t => t.type === type && t.category !== 'Internal Transfer' && (groupBySub ? t.subcategory : true))
                         .reduce((acc, t) => {
                             const key = groupBySub ? t.subcategory : t.category;
                             if (key) {
@@ -750,8 +753,8 @@
             const prevPeriodTxns = transactions.filter(t => dayjs(t.date).isBetween(pStart, pEnd, null, '[]'));
             
             const calculateMetrics = (txns) => ({
-                income: txns.filter(t => t.type === 'Income').reduce((s, t) => s + t.amount, 0),
-                expense: txns.filter(t => t.type === 'Expense').reduce((s, t) => s + t.amount, 0),
+                income: txns.filter(t => t.type === 'Income' && t.category !== 'Internal Transfer').reduce((s, t) => s + t.amount, 0),
+                expense: txns.filter(t => t.type === 'Expense' && t.category !== 'Internal Transfer').reduce((s, t) => s + t.amount, 0),
             });
 
             const currentMetrics = calculateMetrics(currentPeriodTxns); currentMetrics.net = currentMetrics.income - currentMetrics.expense;
@@ -777,7 +780,7 @@
             const table = document.getElementById('category-breakdown-table');
             const getCategoryTotals = (txns) => txns.reduce((acc, t) => {
                 const catName = t.category; 
-                if (!catName) return acc;
+                if (!catName || catName === 'Internal Transfer') return acc;
                 if (!acc[catName]) acc[catName] = { income: 0, expense: 0 };
                 acc[catName][t.type.toLowerCase()] += t.amount;
                 return acc;
@@ -868,7 +871,7 @@
                 button.onclick = (e) => deleteBudget(e.currentTarget.dataset.category);
             });
 
-            const allExpenses = transactions.filter(t => t.type === 'Expense');
+            const allExpenses = transactions.filter(t => t.type === 'Expense' && t.category !== 'Internal Transfer');
             
             const spendingByCategory = allExpenses.reduce((acc, t) => {
                 if (t.category) {
@@ -911,7 +914,15 @@
             });
 
             tableBody.innerHTML = reversedData.map(item => {
-                const receiptCell = item.isSheet ? 'From Google Sheet' : (item.receiptUrl ? `<a href="${item.receiptUrl}" target="_blank" class="action-btn" style="background-color:var(--info-color);"><i class="fas fa-receipt"></i> View</a>` : 'N/A');
+                let receiptCell = 'N/A';
+                if (item.isSheet) {
+                    receiptCell = 'From Google Sheet';
+                } else if (item.receiptUrls && item.receiptUrls.length > 0) {
+                    receiptCell = `<div class="receipt-links-container">${item.receiptUrls.map((url, index) => 
+                        `<a href="${url}" target="_blank" class="action-btn" style="background-color:var(--info-color);"><i class="fas fa-receipt"></i> ${index + 1}</a>`
+                    ).join('')}</div>`;
+                }
+
                 const categoryDisplay = item.subcategory ? `${item.category} &rarr; ${item.subcategory}` : item.category;
                 
                 return `
@@ -950,22 +961,31 @@
                         </tr>`;
             }).join('');
 
-            expenseTableBody.innerHTML = expenses.map(item => `
-                <tr>
+            expenseTableBody.innerHTML = expenses.map(item => {
+                let receiptActions = '';
+                if (item.receiptUrls && item.receiptUrls.length > 0) {
+                    receiptActions = `<div class="receipt-links-container">${item.receiptUrls.map((url, index) => 
+                        `<a href="${url}" target="_blank" class="action-btn" style="background-color:var(--info-color);" title="View Receipt ${index + 1}"><i class="fas fa-receipt"></i></a>`
+                    ).join('')}</div>`;
+                }
+
+                return `<tr>
                     <td>${item.date}</td>
                     <td>${item.description}</td>
                     <td>${formatCurrency(item.amount)}</td>
                     <td>
-                        ${item.receiptUrl ? `<a href="${item.receiptUrl}" target="_blank" class="action-btn" style="background-color:var(--info-color);" title="View Receipt"><i class="fas fa-receipt"></i></a>` : ''}
-                        <button class="action-btn" data-id="${item.id}" data-type="Expense" data-action="edit" title="Edit Entry"><i class="fas fa-edit"></i></button>
-                        <button class="action-btn" data-id="${item.id}" data-type="Expense" data-action="delete" style="background-color:var(--danger-color);" title="Delete Entry"><i class="fas fa-trash-alt"></i></button>
+                        <div style="display: flex; align-items: center; gap: 5px;">
+                            ${receiptActions}
+                            <button class="action-btn" data-id="${item.id}" data-type="Expense" data-action="edit" title="Edit Entry"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn" data-id="${item.id}" data-type="Expense" data-action="delete" style="background-color:var(--danger-color);" title="Delete Entry"><i class="fas fa-trash-alt"></i></button>
+                        </div>
                     </td>
                 </tr>`
-            ).join('');
+            }).join('');
 
             document.querySelectorAll('#manage-income-table button, #manage-expense-table button').forEach(button => {
                 button.onclick = (e) => {
-                    const { id, type, action } = e.currentTarget.dataset;
+                    const { id, type, action } = e.currentTarget.closest('button').dataset;
                     if (action === 'edit') openEditModal(id, type);
                     else if (action === 'delete') deleteEntry(id, type);
                     else if (action === 'assign-person') openAssignPersonModal();
@@ -1042,15 +1062,11 @@
             populateSelectWithOptions(document.getElementById('budget-category'), expenseCategories, { placeholder: 'Select Expense Category' });
             populateSelectWithOptions(document.getElementById('parent-category-select'), state.categories.filter(c=>!c.parent), { placeholder: 'Select Parent Category' });
 
-            // START: Modified Passbook Filter Population
-            // Populate the main category filter with ONLY parent categories
             const parentCategoriesForFilter = state.categories.filter(c => !c.parent);
             populateSelectWithOptions(document.getElementById('category-filter'), parentCategoriesForFilter, { placeholder: 'All Parent Categories' });
 
-            // Populate the subcategory filter with ONLY subcategories
             const subCategoriesForFilter = state.categories.filter(c => c.parent);
             populateSelectWithOptions(document.getElementById('subcategory-filter'), subCategoriesForFilter, { placeholder: 'All Subcategories' });
-            // END: Modified Passbook Filter Population
         }
 
         function handleCategoryChange(categorySelectId, subcategorySelectId) {
@@ -1105,11 +1121,13 @@
         async function submitTransaction(formType, payload) {
             setLoading(true, `Adding ${payload.type}...`);
             try {
-                let receiptUrl = '';
-                if (payload.receiptFile) {
-                    const storageRef = ref(storage, `receipts/${Date.now()}_${payload.receiptFile.name}`);
-                    const snapshot = await uploadBytes(storageRef, payload.receiptFile);
-                    receiptUrl = await getDownloadURL(snapshot.ref);
+                let receiptUrls = [];
+                if (payload.receiptFiles && payload.receiptFiles.length > 0) {
+                    const uploadPromises = Array.from(payload.receiptFiles).map(file => {
+                        const storageRef = ref(storage, `receipts/${Date.now()}_${file.name}`);
+                        return uploadBytes(storageRef, file).then(snapshot => getDownloadURL(snapshot.ref));
+                    });
+                    receiptUrls = await Promise.all(uploadPromises);
                 }
 
                 await addDoc(collection(db, "transactions"), {
@@ -1120,7 +1138,7 @@
                     subcategory: payload.subcategory || null,
                     person: payload.person,
                     amount: payload.amount,
-                    receiptUrl: receiptUrl,
+                    receiptUrls: receiptUrls, // Use receiptUrls (plural)
                     createdAt: serverTimestamp()
                 });
 
@@ -1145,7 +1163,8 @@
                 category: document.getElementById('income-category').value,
                 subcategory: document.getElementById('income-subcategory').value,
                 person: document.getElementById('income-person').value,
-                amount: parseFloat(document.getElementById('income-amount').value)
+                amount: parseFloat(document.getElementById('income-amount').value),
+                receiptFiles: [] // No files for income
             });
         });
 
@@ -1159,11 +1178,10 @@
                 subcategory: document.getElementById('expense-subcategory').value,
                 person: document.getElementById('expense-person').value,
                 amount: parseFloat(document.getElementById('expense-amount').value),
-                receiptFile: document.getElementById('receipt-upload').files[0]
+                receiptFiles: document.getElementById('receipt-upload').files
             });
         });
 
-        // START: New Listener for Inter-Account Transfer
         document.getElementById('transfer-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const fromPerson = document.getElementById('transfer-from-person').value;
@@ -1191,7 +1209,7 @@
                 subcategory: null,
                 person: fromPerson,
                 amount: amount,
-                receiptUrl: '',
+                receiptUrls: [],
                 createdAt: serverTimestamp()
             };
 
@@ -1203,12 +1221,11 @@
                 subcategory: null,
                 person: toPerson,
                 amount: amount,
-                receiptUrl: '',
+                receiptUrls: [],
                 createdAt: serverTimestamp()
             };
 
             try {
-                // Add both transactions
                 await Promise.all([
                     addDoc(collection(db, "transactions"), expenseTransaction),
                     addDoc(collection(db, "transactions"), incomeTransaction)
@@ -1224,7 +1241,6 @@
                 setLoading(false);
             }
         });
-        // END: New Listener for Inter-Account Transfer
 
         document.getElementById('expected-form').addEventListener('submit', async (e) => {
             e.preventDefault(); setLoading(true);
@@ -1325,6 +1341,11 @@
 
             const categories = state.categories.filter(c => c.type === type && !c.parent);
             const subcategories = item.category ? state.categories.filter(c => c.parent === item.category) : [];
+            const currentReceiptsHTML = (item.receiptUrls && item.receiptUrls.length > 0) 
+                ? `<p>Current Receipts:</p><div class="receipt-links-container">${item.receiptUrls.map((url, index) => 
+                   `<a href="${url}" target="_blank" class="action-btn" style="background-color:var(--info-color);"><i class="fas fa-receipt"></i> ${index + 1}</a>`
+                  ).join('')}</div>` 
+                : '<p>No current receipts.</p>';
 
             const contentHTML = `
                 <form id="edit-form" class="form">
@@ -1334,22 +1355,24 @@
                     <select id="edit-category" required>${categories.map(cat => `<option value="${cat.name}" ${item.category === cat.name ? 'selected' : ''}>${cat.name}</option>`).join('')}</select>
                     <select id="edit-subcategory">${subcategories.map(sub => `<option value="${sub.name}" ${item.subcategory === sub.name ? 'selected' : ''}>${sub.name}</option>`).join('')}</select>
                     <input type="number" step="0.01" id="edit-amount" placeholder="Amount" value="${item.amount}" required>
-                    ${item.receiptUrl ? `<p>Current: <a href="${item.receiptUrl}" target="_blank">View Receipt</a></p>` : ''}
-                    <label>Upload New Receipt (optional):</label><input type="file" id="edit-receipt" accept="image/*,application/pdf">
+                    ${type === 'Expense' ? `${currentReceiptsHTML}<label>Upload New Receipt(s):</label><input type="file" id="edit-receipt" accept="image/*,application/pdf" multiple>` : ''}
                     ${createFormActionsHTML()}
                 </form>`;
             openModal(`Edit ${type} Entry`, contentHTML);
 
             document.getElementById('edit-form').addEventListener('submit', async (e) => {
-                e.preventDefault(); setLoading(true);
+                e.preventDefault(); setLoading(true, 'Updating...');
                 try {
-                    const newReceiptFile = document.getElementById('edit-receipt').files[0];
-                    let receiptUrlToUpdate = item.receiptUrl;
+                    let finalReceiptUrls = item.receiptUrls || [];
+                    const newReceiptFiles = document.getElementById('edit-receipt')?.files;
 
-                    if (newReceiptFile) {
-                        const storageRef = ref(storage, `receipts/${Date.now()}_${newReceiptFile.name}`);
-                        const snapshot = await uploadBytes(storageRef, newReceiptFile);
-                        receiptUrlToUpdate = await getDownloadURL(snapshot.ref);
+                    if (newReceiptFiles && newReceiptFiles.length > 0) {
+                        const uploadPromises = Array.from(newReceiptFiles).map(file => {
+                            const storageRef = ref(storage, `receipts/${Date.now()}_${file.name}`);
+                            return uploadBytes(storageRef, file).then(snapshot => getDownloadURL(snapshot.ref));
+                        });
+                        const newUrls = await Promise.all(uploadPromises);
+                        finalReceiptUrls = [...finalReceiptUrls, ...newUrls];
                     }
 
                     await updateDoc(doc(db, "transactions", id), {
@@ -1359,7 +1382,7 @@
                         subcategory: document.getElementById('edit-subcategory').value || null,
                         person: document.getElementById('edit-person').value,
                         amount: parseFloat(document.getElementById('edit-amount').value),
-                        receiptUrl: receiptUrlToUpdate,
+                        receiptUrls: finalReceiptUrls,
                         updatedAt: serverTimestamp()
                     });
                     showToast('Entry updated!', 'success');
@@ -1422,7 +1445,7 @@
                     
                     await updateDoc(doc(db, "expectedPayments", id), { 
                         receivedAmount: newTotalReceived,
-                        updatedAt: serverTimestamp() // Add timestamp on receive
+                        updatedAt: serverTimestamp()
                     });
                     await addDoc(collection(db, "transactions"), {
                         date: Timestamp.fromDate(new Date(document.getElementById('receive-date').value)),
@@ -1431,7 +1454,7 @@
                         category: 'Sponsorship',
                         person: document.getElementById('receive-person').value,
                         amount: receiveAmount,
-                        receiptUrl: '',
+                        receiptUrls: [],
                         createdAt: serverTimestamp()
                     });
                     showToast('Funds received!', 'success');
@@ -1515,15 +1538,18 @@
         async function deleteEntry(id, type) {
             const confirmed = await showConfirmModal(`Are you sure you want to delete this ${type} entry?`);
             if (confirmed) {
-                setLoading(true);
+                setLoading(true, 'Deleting entry...');
                 try {
                     const docRef = doc(db, "transactions", id);
                     const docSnap = await getDoc(docRef);
-                    if (docSnap.exists() && docSnap.data().receiptUrl) {
-                        const receiptRef = ref(storage, docSnap.data().receiptUrl);
-                        await deleteObject(receiptRef).catch(err => {
-                             if (err.code !== 'storage/object-not-found') throw err;
+                    if (docSnap.exists() && docSnap.data().receiptUrls && docSnap.data().receiptUrls.length > 0) {
+                        const deletePromises = docSnap.data().receiptUrls.map(url => {
+                            const receiptRef = ref(storage, url);
+                            return deleteObject(receiptRef).catch(err => {
+                                if (err.code !== 'storage/object-not-found') throw err;
+                            });
                         });
+                        await Promise.all(deletePromises);
                     }
                     await deleteDoc(docRef);
                     showToast('Entry deleted successfully!', 'success');
