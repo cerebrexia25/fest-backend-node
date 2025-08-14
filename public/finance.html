@@ -155,16 +155,16 @@
                     </div>
                     <div id="charts-interactive-area" style="display: none;">
                          <div class="filter-controls" style="padding-bottom: 20px;">
-                            <label for="chart-type-select">Chart Type:</label>
-                            <select id="chart-type-select">
-                                <option value="balance">Balance Over Time</option>
-                                <option value="income-cat">Income by Category</option>
-                                <option value="expense-cat">Expense by Category</option>
-                                <option value="expense-subcat">Expense by Subcategory</option>
-                            </select>
+                             <label for="chart-type-select">Chart Type:</label>
+                             <select id="chart-type-select">
+                                 <option value="balance">Balance Over Time</option>
+                                 <option value="income-cat">Income by Category</option>
+                                 <option value="expense-cat">Expense by Category</option>
+                                 <option value="expense-subcat">Expense by Subcategory</option>
+                             </select>
                          </div>
                          <div style="height: 400px;">
-                            <canvas id="dashboard-main-chart"></canvas>
+                             <canvas id="dashboard-main-chart"></canvas>
                          </div>
                     </div>
                 </div>
@@ -255,7 +255,8 @@
                     <div class="filter-controls">
                         <input type="date" id="start-date-filter">
                         <input type="date" id="end-date-filter">
-                        <select id="category-filter"><option value="">All Categories</option></select>
+                        <select id="category-filter"><option value="">All Parent Categories</option></select>
+                        <select id="subcategory-filter"><option value="">All Subcategories</option></select>
                         <select id="type-filter"><option value="">All Types</option><option value="Income">Income</option><option value="Expense">Expense</option></select>
                         <select id="person-filter"><option value="">All People</option></select>
                         <button id="filter-btn" class="action-btn">Filter</button>
@@ -274,7 +275,7 @@
             </div>
             <div id="page-manage_data" class="page">
                 <h2 class="section-title">Add & Manage Manual Entries</h2>
-                <div class="form-grid">
+                <div class="form-grid" style="grid-template-columns: 1fr 1fr 1fr; align-items: flex-start;">
                     <div class="section-box">
                         <h3><i class="fas fa-plus-circle" style="color:var(--success-color)"></i> Add Income</h3>
                         <form id="income-form" class="form">
@@ -300,7 +301,19 @@
                             <button type="submit" style="background-color: var(--danger-color);">Add Expense</button>
                         </form>
                     </div>
-                </div>
+
+                    <div class="section-box">
+                        <h3><i class="fas fa-exchange-alt" style="color:var(--info-color)"></i> Inter-Account Transfer</h3>
+                        <form id="transfer-form" class="form">
+                            <input type="date" id="transfer-date" required>
+                            <input type="text" id="transfer-desc" placeholder="Description (e.g., Loan Repay)" required>
+                            <select id="transfer-from-person" required><option value="" disabled selected>Transfer From</option></select>
+                            <select id="transfer-to-person" required><option value="" disabled selected>Transfer To</option></select>
+                            <input type="number" step="0.01" id="transfer-amount" placeholder="Amount" required>
+                            <button type="submit" style="background-color: var(--info-color);">Transfer Funds</button>
+                        </form>
+                    </div>
+                    </div>
                 <div class="section-box" style="margin-top: 30px;">
                     <h3 class="section-subtitle">Manage Income Entries</h3>
                     <input type="text" id="search-income" class="search-bar" placeholder="Search income entries...">
@@ -373,15 +386,15 @@
         // ===================================================================================
         
         // 1. FIREBASE CONFIGURATION (RESTORED AS PER YOUR REQUEST)
-     const firebaseConfig = {
-  apiKey: "AIzaSyD1ZKsLTqnAfD_SSU3iQ36pU3aG71DZKGk",
-  authDomain: "expensetrackerpro-f5964.firebaseapp.com",
-  projectId: "expensetrackerpro-f5964",
-  storageBucket: "expensetrackerpro-f5964.firebasestorage.app",
-  messagingSenderId: "409195239506",
-  appId: "1:409195239506:web:717208fd6d28687604a78b",
-  measurementId: "G-0HTGG3S8EM"
-};
+       const firebaseConfig = {
+     apiKey: "AIzaSyD1ZKsLTqnAfD_SSU3iQ36pU3aG71DZKGk",
+     authDomain: "expensetrackerpro-f5964.firebaseapp.com",
+     projectId: "expensetrackerpro-f5964",
+     storageBucket: "expensetrackerpro-f5964.firebasestorage.app",
+     messagingSenderId: "409195239506",
+     appId: "1:409195239506:web:717208fd6d28687604a78b",
+     measurementId: "G-0HTGG3S8EM"
+    };
 
         // 2. GOOGLE SHEET CONFIGURATION (RESTORED)
         const GOOGLE_API_KEY = 'AIzaSyBsf5q3I_HUMnuNC_Xel_cc6C29UYcO-Xs';
@@ -629,8 +642,8 @@
                 container.appendChild(card);
             }
              if (Object.keys(balances).length === 0) {
-                container.innerHTML = '<p>No people added yet. Go to Settings to add a person.</p>';
-            }
+                 container.innerHTML = '<p>No people added yet. Go to Settings to add a person.</p>';
+             }
         }
         
         function updateDashboardChart() {
@@ -1018,6 +1031,8 @@
             populateSelectWithOptions(document.getElementById('income-person'), state.people, { ...peopleOptions, placeholder: 'Person Receiving' });
             populateSelectWithOptions(document.getElementById('expense-person'), state.people, { ...peopleOptions, placeholder: 'Person Paying' });
             populateSelectWithOptions(document.getElementById('person-filter'), state.people, { placeholder: 'All People' });
+            populateSelectWithOptions(document.getElementById('transfer-from-person'), state.people, { placeholder: 'Transfer From' });
+            populateSelectWithOptions(document.getElementById('transfer-to-person'), state.people, { placeholder: 'Transfer To' });
 
             const incomeCategories = state.categories.filter(c => c.type === 'Income' && !c.parent);
             const expenseCategories = state.categories.filter(c => c.type === 'Expense' && !c.parent);
@@ -1027,7 +1042,15 @@
             populateSelectWithOptions(document.getElementById('budget-category'), expenseCategories, { placeholder: 'Select Expense Category' });
             populateSelectWithOptions(document.getElementById('parent-category-select'), state.categories.filter(c=>!c.parent), { placeholder: 'Select Parent Category' });
 
-            populateSelectWithOptions(document.getElementById('category-filter'), state.categories, { placeholder: 'All Categories' });
+            // START: Modified Passbook Filter Population
+            // Populate the main category filter with ONLY parent categories
+            const parentCategoriesForFilter = state.categories.filter(c => !c.parent);
+            populateSelectWithOptions(document.getElementById('category-filter'), parentCategoriesForFilter, { placeholder: 'All Parent Categories' });
+
+            // Populate the subcategory filter with ONLY subcategories
+            const subCategoriesForFilter = state.categories.filter(c => c.parent);
+            populateSelectWithOptions(document.getElementById('subcategory-filter'), subCategoriesForFilter, { placeholder: 'All Subcategories' });
+            // END: Modified Passbook Filter Population
         }
 
         function handleCategoryChange(categorySelectId, subcategorySelectId) {
@@ -1052,6 +1075,7 @@
             
             document.getElementById('income-date').value = todayISO();
             document.getElementById('expense-date').value = todayISO();
+            document.getElementById('transfer-date').value = todayISO();
 
             document.getElementById('income-category').addEventListener('change', () => handleCategoryChange('income-category', 'income-subcategory'));
             document.getElementById('expense-category').addEventListener('change', () => handleCategoryChange('expense-category', 'expense-subcategory'));
@@ -1138,6 +1162,69 @@
                 receiptFile: document.getElementById('receipt-upload').files[0]
             });
         });
+
+        // START: New Listener for Inter-Account Transfer
+        document.getElementById('transfer-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const fromPerson = document.getElementById('transfer-from-person').value;
+            const toPerson = document.getElementById('transfer-to-person').value;
+            const amount = parseFloat(document.getElementById('transfer-amount').value);
+            const date = document.getElementById('transfer-date').value;
+            const description = document.getElementById('transfer-desc').value;
+
+            if (fromPerson === toPerson) {
+                showToast('Cannot transfer funds to the same person.', 'error');
+                return;
+            }
+            if (isNaN(amount) || amount <= 0) {
+                showToast('Please enter a valid positive amount to transfer.', 'error');
+                return;
+            }
+
+            setLoading(true, 'Processing Transfer...');
+
+            const expenseTransaction = {
+                date: Timestamp.fromDate(new Date(date)),
+                type: 'Expense',
+                description: `Transfer to ${toPerson}: ${description}`,
+                category: 'Internal Transfer',
+                subcategory: null,
+                person: fromPerson,
+                amount: amount,
+                receiptUrl: '',
+                createdAt: serverTimestamp()
+            };
+
+            const incomeTransaction = {
+                date: Timestamp.fromDate(new Date(date)),
+                type: 'Income',
+                description: `Transfer from ${fromPerson}: ${description}`,
+                category: 'Internal Transfer',
+                subcategory: null,
+                person: toPerson,
+                amount: amount,
+                receiptUrl: '',
+                createdAt: serverTimestamp()
+            };
+
+            try {
+                // Add both transactions
+                await Promise.all([
+                    addDoc(collection(db, "transactions"), expenseTransaction),
+                    addDoc(collection(db, "transactions"), incomeTransaction)
+                ]);
+
+                showToast('Transfer completed successfully!', 'success');
+                document.getElementById('transfer-form').reset();
+                document.getElementById('transfer-date').value = todayISO();
+            } catch (error) {
+                console.error("Error processing transfer:", error);
+                showToast(`Error processing transfer: ${error.message}`, 'error');
+            } finally {
+                setLoading(false);
+            }
+        });
+        // END: New Listener for Inter-Account Transfer
 
         document.getElementById('expected-form').addEventListener('submit', async (e) => {
             e.preventDefault(); setLoading(true);
@@ -1471,28 +1558,34 @@
         });
         document.getElementById("summary-period-filter").addEventListener("change",function(){document.getElementById("summary-custom-range").style.display=this.value==="custom"?"flex":"none"});
         document.getElementById("summary-apply-filter").addEventListener("click",() => updateSummaryPage([...state.transactions, ...state.batchTransactions]));
+        
         document.getElementById("filter-btn").addEventListener("click",function(){
             const startDate=document.getElementById("start-date-filter").value;
             const endDate=document.getElementById("end-date-filter").value;
             const category=document.getElementById("category-filter").value;
+            const subcategory=document.getElementById("subcategory-filter").value;
             const type=document.getElementById("type-filter").value;
             const person=document.getElementById("person-filter").value;
             let filtered=[...state.transactions, ...state.batchTransactions];
             if(startDate)filtered=filtered.filter(t=>dayjs(t.date).isSameOrAfter(dayjs(startDate)));
             if(endDate)filtered=filtered.filter(t=>dayjs(t.date).isSameOrBefore(dayjs(endDate)));
-            if(category)filtered=filtered.filter(t=>t.category===category || t.subcategory === category);
+            if(category)filtered=filtered.filter(t=>t.category===category);
+            if(subcategory)filtered=filtered.filter(t=>t.subcategory===subcategory);
             if(type)filtered=filtered.filter(t=>t.type===type);
             if(person)filtered=filtered.filter(t=>t.person===person);
             renderPassbook(filtered)
         });
+
         document.getElementById("clear-filter-btn").addEventListener("click",()=>{
             document.getElementById("start-date-filter").value="";
             document.getElementById("end-date-filter").value="";
             document.getElementById("category-filter").value="";
+            document.getElementById("subcategory-filter").value="";
             document.getElementById("type-filter").value="";
             document.getElementById("person-filter").value="";
             renderPassbook([...state.transactions, ...state.batchTransactions])
         });
+
         document.getElementById("export-csv-btn").addEventListener("click",()=>{const table=document.getElementById("passbook-table");let csv=[[...table.querySelectorAll("thead th")].map(th=>`"${th.innerText}"`).join(",")];table.querySelectorAll("tbody tr").forEach(tr=>{let row=[...tr.querySelectorAll("td")].map(td=>`"${td.innerText.replace(/"/g,'""')}"`);csv.push(row.join(","))});const a=document.createElement("a");a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(csv.join("\n"));a.download="passbook_export.csv";a.click();showToast("Passbook exported!")});
         ["income","expense"].forEach(type=>{document.getElementById(`search-${type}`).addEventListener("input",function(){const searchTerm=this.value.toLowerCase();document.querySelectorAll(`#manage-${type}-table tbody tr`).forEach(row=>{row.style.display=row.cells[1].textContent.toLowerCase().includes(searchTerm)?"":"none"})})});
         
